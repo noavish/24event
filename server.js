@@ -7,17 +7,17 @@ var upload = multer({ dest: 'uploads/' })
 
 
 mongoose.connect(process.env.CONNECTION_STRING || 'mongodb://localhost/24eventDB');
-mongoose.connection.once('open',function () {
+mongoose.connection.once('open', function() {
     console.log("DB connection established!!!");
-}).on('error',function (error) {
-    console.log('CONNECTION ERROR:',error);
+}).on('error', function(error) {
+    console.log('CONNECTION ERROR:', error);
 });
 
 //Require Var
 
 var User = require('./modules/userModule');
 var Event = require('./modules/eventModule');
-var Places = require('./modules/placeModules');
+var Place = require('./modules/placeModules');
 
 
 var app = express();
@@ -28,7 +28,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 
 // get - getting all events
-app.get('/events', function (req, res) {
+app.get('/events', function(req, res) {
     Event.find(function(err, events) {
         if (err) {
             console.error(err);
@@ -90,9 +90,8 @@ app.get('/events', function (req, res) {
 // });
 
 //post - create new event - event section
-app.post('/events/newEvent', function (req, res) {
+app.post('/events/newEvent', function(req, res) {
     if (req.body) {
-        console.log(req.body);
         var place = new Place({
             placeName: req.body.placeName,
             eventCity: req.body.eventCity,
@@ -101,33 +100,31 @@ app.post('/events/newEvent', function (req, res) {
             picURL: req.body.picURL,
             review: req.body.review
         });
-        place.save(function (err, place) {
+
+        place.save(function(err, place) {
+            if (err) throw err
             var event = new Event({
                 userEmail: req.body.userEmail,
                 place: place._id,
                 eventDate: req.body.eventDate,
-                eventTime: req.body.eventTime,
+                // eventTime: req.body.eventTime,
                 eventName: req.body.eventName,
                 eventDesc: req.body.eventDesc,
                 maxParticipants: req.body.maxParticipants,
                 attendees: []
             });
-            event.save(function(err , event){
-                if (err) {
-                    throw err;
-                }
-                console.log(event);
-
+            event.save(function(err, event) {
+                if (err) throw err
                 res.send(event);
             });
-
         });
-    } else{
-        res.send({status: "nok", message: "Nothing received."});
+
+    } else {
+        res.send({ status: "nok", message: "Nothing received." });
     }
+
+
 });
-
-
 //get - get event from DB
 
 //put - add participant to event
@@ -162,6 +159,6 @@ app.post('/events/:eventID/user/:userEmail', function(req, res) {
 
 
 
-app.listen(process.env.PORT || '8080', function () {
+app.listen(process.env.PORT || '8080', function() {
     console.log('connection established on port 8080!');
 });
