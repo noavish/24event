@@ -7,6 +7,11 @@ var upload = multer({ dest: 'uploads/' })
 
 
 mongoose.connect(process.env.CONNECTION_STRING || 'mongodb://localhost/24eventDB');
+mongoose.connection.once('open',function () {
+    console.log("DB connection established!!!");
+}).on('error',function (error) {
+    console.log('CONNECTION ERROR:',error);
+});
 
 //Require Var
 
@@ -42,4 +47,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 
 
-app.listen(process.env.PORT || '8080');
+app.listen(process.env.PORT || '8080', function () {
+    console.log('connection established on port 8080!');
+});
