@@ -10,9 +10,9 @@ mongoose.connect(process.env.CONNECTION_STRING || 'mongodb://localhost/24eventDB
 
 //Require Var
 
-var User = require('./modules/userModel');
-var Event = require('./modules/eventModel');
-var Places = require('./modules/placeModel');
+var User = require('./modules/userModule');
+var Event = require('./modules/eventModule');
+var Places = require('./modules/placeModules');
 
 
 var app = express();
