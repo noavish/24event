@@ -94,7 +94,7 @@ app.post('/events/newEvent/event', function (req, res) {
     if (req.body) {
         console.log(req.body);
         var event = new Event({
-            eventCreator: req.body.currentUserID,
+            eventCreator: req.body.userEmail,
             attendees: [],
             eventDate: req.body.Date,
             maxParticipants: req.body.maxParticipants,
