@@ -2,11 +2,14 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var eventSchema = new mongoose.Schema({
-    eventCreator: {type: Schema.Types.ObjectId, ref: 'user'},
-    attendees: [{type: Schema.Types.ObjectId, ref: 'user'}],
+    userEmail: String,
+    place: {type: Schema.Types.ObjectId, ref: 'place'},
     eventDate: Date,
+    eventTime: Time,
+    eventName: String,
+    eventDesc: String,
     maxParticipants: Number,
-    eventPlace: {type: Schema.Types.ObjectId, ref: 'place'}
+    attendees: [{type: Schema.Types.ObjectId, ref: 'user'}],
 });
 // , { usePushEach: true });
 

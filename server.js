@@ -65,49 +65,62 @@ app.get('/events', function (req, res) {
 // });
 
 //post - create new event - place section
-app.post('/events/newEvent/newPlace', function (req, res) {
+// app.post('/events/newEvent/newPlace', function (req, res) {
+//     if (req.body) {
+//         console.log(req.body);
+//
+//         var place = new Place({
+//             placeName: req.body.placeName,
+//             address: req.body.address,
+//             phone: req.body.phone,
+//             picURL: req.body.picURL,
+//             review: req.body.review
+//         });
+//
+//         place.save(function(err , place){
+//             if (err) {
+//                 throw err;
+//             }
+//             console.log(place);
+//             res.send(place);
+//         });
+//     } else{
+//         res.send({status: "nok", message: "Nothing received."});
+//     }
+// });
+
+//post - create new event - event section
+app.post('/events/newEvent', function (req, res) {
     if (req.body) {
         console.log(req.body);
-
         var place = new Place({
             placeName: req.body.placeName,
+            eventCity: req.body.eventCity,
             address: req.body.address,
             phone: req.body.phone,
             picURL: req.body.picURL,
             review: req.body.review
         });
+        place.save(function (err, place) {
+            var event = new Event({
+                userEmail: req.body.userEmail,
+                place: place._id,
+                eventDate: req.body.eventDate,
+                eventTime: req.body.eventTime,
+                eventName: req.body.eventName,
+                eventDesc: req.body.eventDesc,
+                maxParticipants: req.body.maxParticipants,
+                attendees: []
+            });
+            event.save(function(err , event){
+                if (err) {
+                    throw err;
+                }
+                console.log(event);
 
-        place.save(function(err , place){
-            if (err) {
-                throw err;
-            }
-            console.log(place);
-            res.send(place);
-        });
-    } else{
-        res.send({status: "nok", message: "Nothing received."});
-    }
-});
+                res.send(event);
+            });
 
-//post - create new event - event section
-app.post('/events/newEvent/event', function (req, res) {
-    if (req.body) {
-        console.log(req.body);
-        var event = new Event({
-            eventCreator: req.body.userEmail,
-            attendees: [],
-            eventDate: req.body.Date,
-            maxParticipants: req.body.maxParticipants,
-            eventPlace: req.body.place
-        });
-        event.attendees.push(req.body.currentUserID);
-
-        event.save(function(err , event){
-            if (err) {
-                throw err;
-            }
-            console.log(event);
-            res.send(event);
         });
     } else{
         res.send({status: "nok", message: "Nothing received."});
@@ -118,6 +131,15 @@ app.post('/events/newEvent/event', function (req, res) {
 //get - get event from DB
 
 //put - add participant to event
+app.post('/events/:eventID/user/:userEmail', function(req, res) {
+    var eventID = req.param.eventID;
+    var userEmail = req.param.userEmail;
+    Event.findByIdAndUpdate(eventID, { $push: { attendees: userEmail } }, { new: true }, function(err, specificEvent) {
+        if (err) throw err;
+        console.log(specificEvent);
+        res.send(specificEvent);
+    })
+});
 
 //delete - remove event from DB
 
