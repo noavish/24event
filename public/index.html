@@ -28,6 +28,15 @@
         </div>
     </div>
     <div class="container">
+<div class="row">
+    <div class="[ col-xs-12 col-sm-offset-2 col-sm-10 ]">
+        <ul class="event-list">
+
+        </ul>
+    </div>
+</div>
+
+
 
         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -96,10 +105,60 @@
             </div>
         </div>
     </div>
+    <script id="event-template" type="text/x-handlebars-template">
+        
+        <li class="event">
+         #each
+                    <img alt="Disney Junior Live On Tour!" src="http://via.placeholder.com/200" />
+                    <div class="info">
+                        <div>
+                        <h2 class="title">eventName</h2>
+                        <h3>Data : eventDate </h3>
+                        <p class="desc"> eventDesc </p>
+                        <p>Venue :place </p>
+                        <p>Event Creater :userEmail</p>
+                        <button class="btn btn-info" id="join-event">Join Event</button>
+                        <button class="btn btn-danger" id="delete-event"><i class="fa fa-trash"></i></button>
+    
+                        </div>
+                        <ul>
+                            <li style="width:33%;">attendees
+                                <span class="fa fa-male"></span>
+                            </li>
+                            <li style="width:34%;">maxParticipants
+                                <span class="fa fa-child"></span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="social">
+                        <ul>
+                            <li class="facebook" style="width:33%;">
+                                <a href="#facebook">
+                                    <span class="fa fa-facebook"></span>
+                                </a>
+                            </li>
+                            <li class="twitter" style="width:34%;">
+                                <a href="#twitter">
+                                    <span class="fa fa-twitter"></span>
+                                </a>
+                            </li>
+                            <li class="google-plus" style="width:33%;">
+                                <a href="#google-plus">
+                                    <span class="fa fa-google-plus"></span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                   
+                </li>
+        
+   
+    </script>
     <script src="jquery/dist/jquery.js"></script>
     <script src="bootstrap/dist/js/bootstrap.js"></script>
     <script src="handlebars/dist/handlebars.js"></script>
     <script src="main.js"></script>
+    <script src="handlebartest.js"></script>
 </body>
 
 </html>
