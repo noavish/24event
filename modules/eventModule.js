@@ -10,6 +10,6 @@ var eventSchema = new mongoose.Schema({
 });
 // , { usePushEach: true });
 
-var User = mongoose.model('user', userSchema);
+var Event = mongoose.model('event', eventSchema);
 
-module.exports = User;
+module.exports = Event;
