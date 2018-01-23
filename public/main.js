@@ -17,8 +17,8 @@ var event24App = function() {
     fetch();
     var _renderEvents = function() {
         $(".event-list").empty();
-        let source = $("#event-template").html();
-        let template = Handlebars.compile(source);
+        var source = $("#event-template").html();
+        var template = Handlebars.compile(source);
         for (var i = 0; i < events.length; i++) {
             var newHTML = template(events[i]);
             $(".event-list").append(newHTML);
@@ -32,11 +32,16 @@ var event24App = function() {
             type: "POST",
             url: '/events/newEvent',
             data: newEvent,
+            processData: false,
+            contentType: false,
+            cache: false,
             success: function(data) {
-
                 events.push(data);
                 console.log(events)
                 _renderEvents();
+            },
+            error : function (xhr,text,err) {
+                console.log(err);
             }
         });
     };
@@ -58,7 +63,40 @@ var event24App = function() {
 
 var app = event24App();
 
-$('.save-event').on('click', function() {
+// $('.save-event').on('click', function() {
+//     var userEmail = $('#event-creator').val();
+//     var eventCity = $('.event-cities').val();
+//     var eventDate = $('#event-date').val();
+//     var eventTime = $('#event-time').val();
+//     var eventName = $('#event-name').val();
+//     var eventDesc = $('#event-desc').val();
+//     var placeName = $('#event-venue').val();
+//     var address = $('#event-address').val();
+//     var maxParticipants = $('#max-num').val();
+//     var newEvent = {
+//         userEmail: userEmail,
+//         eventCity: eventCity,
+//         eventDate: eventDate,
+//         eventTime: eventTime,
+//         eventName: eventName,
+//         eventDesc: eventDesc,
+//         placeName: placeName,
+//         address: address,
+//         maxParticipants: maxParticipants
+//     };
+//     app.addEvent(newEvent);
+//     $(this).parents('form')[0].reset();
+// });
+
+
+$('.cancel-event').on('click', function() {
+    $(this).parents('form')[0].reset();
+});
+
+
+$('#event-form').submit(function (event) {
+    alert("form sumbited ")
+    event.preventDefault();
     var userEmail = $('#event-creator').val();
     var eventCity = $('.event-cities').val();
     var eventDate = $('#event-date').val();
@@ -68,24 +106,24 @@ $('.save-event').on('click', function() {
     var placeName = $('#event-venue').val();
     var address = $('#event-address').val();
     var maxParticipants = $('#max-num').val();
-    var newEvent = {
-        userEmail: userEmail,
-        eventCity: eventCity,
-        eventDate: eventDate,
-        eventTime: eventTime,
-        eventName: eventName,
-        eventDesc: eventDesc,
-        placeName: placeName,
-        address: address,
-        maxParticipants: maxParticipants
-    };
-    app.addEvent(newEvent);
-    $(this).parents('form')[0].reset();
-});
+    var myFile = $('#image').prop('files');
+    debugger;
 
-
-$('.cancel-event').on('click', function() {
-    $(this).parents('form')[0].reset();
+    var formData = new FormData(this);
+    formData.append('userEmail', userEmail);
+    formData.append('eventCity', eventCity);
+    formData.append('eventDate', eventDate);
+    formData.append('eventTime', eventTime);
+    formData.append('eventName', eventName);
+    formData.append('eventDesc', eventDesc);
+    formData.append('placeName', placeName);
+    formData.append('address', address);
+    formData.append('maxParticipants', maxParticipants);
+    formData.append('placeImage', myFile);
+    debugger;
+    //app.addPost(formData);
+    app.addEvent(formData);
+    $(this)[0].reset();
 });
 
 
