@@ -4,7 +4,8 @@
   "description": "",
   "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "author": "",
   "license": "ISC",
@@ -17,5 +18,13 @@
     "jquery": "^3.3.1",
     "mongoose": "^5.0.1",
     "multer": "^1.3.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/noavish/24event.git"
+  },
+  "bugs": {
+    "url": "https://github.com/noavish/24event/issues"
+  },
+  "homepage": "https://github.com/noavish/24event#readme"
 }
