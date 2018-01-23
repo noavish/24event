@@ -8,22 +8,27 @@
     <link rel="stylesheet" href="bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="font-awesome/css/font-awesome.css">
     <link rel="stylesheet" href="style.css">
-    <title>Document</title>
+    <title>2-4 Events</title>
 </head>
 
 <body>
     <div class="hero-img">
+        <h1 class="web-title">2-4 Events</h1>
+        <h5 class="welcome-message">See what's happening in your city</h5>
+        <br>
         <div class="input-group">
             <input type="text" class="form-control" id="city-input" placeholder="Enter City">
             <span class="input-group-btn">
-                <button class="btn btn-primary search-city" type="submit">Search</button>
+                <button class="btn btn-secondary search-city" type="submit">Search</button>
             </span>
         </div>
-    </div>
-    <div class="container">
+        <br>
         <div class="create-event-btn">
             <button type="button" class="btn btn-secondary create-event" data-toggle="modal" data-target="#myModal">Create Event</button>
         </div>
+    </div>
+    <div class="container">
+
         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -34,49 +39,52 @@
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <div class="form-group modal-body">
-                            <label for="event-creator">Username</label>
-                            <input type="text" class="form-control" id="event-creator" name="event-creator" placeholder="Event Creator">
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleFormControlSelect1">Event City</label>
-                            <select class="form-control event-cities">
-                                <option class="tel-aviv">Tel Aviv</option>
-                                <option class="london">London</option>
-                                <option class="new-york">New York</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="event-date">Date</label>
-                            <input type="date" id="event-date" name="event-date">
-                        </div>
-                        <div class="form-group">
-                            <label for="event-time">Time</label>
-                            <input type="time" class="event-time" id="event-time" name="event-time">
-                        </div>
-                        <div class="form-group">
-                            <label for="event-name">Event Name</label>
-                            <input type="text" class="form-control" id="event-name" name="event-name" placeholder="Event Name">
-                        </div>
-                        <div class="form-group">
-                            <label for="event-desc">Event Description</label>
-                            <textarea class="form-control" id="event-desc" name="event-desc" placeholder="Event Description" rows="3"></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label for="event-venue">Venue Name</label>
-                            <input type="text" class="form-control" id="event-venue" name="event-venue" placeholder="Event Location">
-                        </div>
-                        <div class="form-group">
-                            <label for="event-address">Venue Address</label>
-                            <input type="text" class="form-control" id="event-address" name="event-address" placeholder="Event Location">
-                        </div>
-                        <div class="form-group">
-                            <label for="event-num">Max Number of Participants</label>
-                            <input type="number" id="number event-num" name="event-num" placeholder="#" rows="1">
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-secondary save-event">Save Event</button>                            
+                        <div class="modal-body">
+                            <!-- Event creator assumed to be signed in -->
+                            <!-- <div class="form-group">
+                                <label for="event-creator">Username</label>
+                                <input type="text" class="form-control" id="event-creator" name="event-creator" placeholder="Event Creator">
+                            </div> -->
+                            <div class="form-group">
+                                <label for="exampleFormControlSelect1">Event City</label>
+                                <select class="form-control event-cities">
+                                    <option class="tel-aviv">Tel Aviv</option>
+                                    <option class="london">London</option>
+                                    <option class="new-york">New York</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="event-date">Date</label>
+                                <input type="date" id="event-date" name="event-date">
+                            </div>
+                            <div class="form-group">
+                                <label for="event-time">Time</label>
+                                <input type="time" class="event-time" id="event-time" name="event-time">
+                            </div>
+                            <div class="form-group">
+                                <label for="event-name">Event Name</label>
+                                <input type="text" class="form-control" id="event-name" name="event-name" placeholder="Event Name">
+                            </div>
+                            <div class="form-group">
+                                <label for="event-desc">Event Description</label>
+                                <textarea class="form-control" id="event-desc" name="event-desc" placeholder="Event Description" rows="3"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="event-venue">Venue Name</label>
+                                <input type="text" class="form-control" id="event-venue" name="event-venue" placeholder="Event Location">
+                            </div>
+                            <div class="form-group">
+                                <label for="event-address">Venue Address</label>
+                                <input type="text" class="form-control" id="event-address" name="event-address" placeholder="Event Location">
+                            </div>
+                            <div class="form-group">
+                                <label for="event-num">Max Number of Participants</label>
+                                <input type="number" id="number event-num" name="event-num" placeholder="#" rows="1">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-secondary save-event">Save Event</button>
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -84,7 +92,6 @@
         </div>
     </div>
     <script src="jquery/dist/jquery.js"></script>
-    <script src="/node_modules/popper.js/dist/popper.min.js"></script>
     <script src="bootstrap/dist/js/bootstrap.js"></script>
     <script src="handlebars/dist/handlebars.js"></script>
     <script src="main.js"></script>
