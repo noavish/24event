@@ -26,7 +26,94 @@ app.use(express.static('node_modules'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-//post - create new event
+
+// get - getting all events
+app.get('/events', function (req, res) {
+    Event.find(function(err, events) {
+        if (err) {
+            console.error(err);
+        } else {
+            res.json(events);
+        }
+    });
+});
+
+
+//post - create new event - user section
+// app.post('/events/newEvent/newUser', function (req, res) {
+//     if (req.body) {
+//         console.log(req.body);
+//         if (!(User.findOne({userName : req.body.userName}))){
+//             var user = new User ({
+//                 userName = req.body.userName,
+//                 userRating = req.body.userRating,
+//                 userBio = req.body.userBio,
+//                 participatedEvents = []
+//             });
+//             user.save(function(err , user) {
+//                 if (err) {
+//                     throw err;
+//                 }
+//                 res.send(user._id);
+//             });
+//         } else {
+//         res.send(User._id);
+//         }
+//     } else{
+//         res.send({status: "nok", message: "Nothing received."});
+//     }
+// });
+
+//post - create new event - place section
+app.post('/events/newEvent/newPlace', function (req, res) {
+    if (req.body) {
+        console.log(req.body);
+
+        var place = new Place({
+            placeName: req.body.placeName,
+            address: req.body.address,
+            phone: req.body.phone,
+            picURL: req.body.picURL,
+            review: req.body.review
+        });
+
+        place.save(function(err , place){
+            if (err) {
+                throw err;
+            }
+            console.log(place);
+            res.send(place);
+        });
+    } else{
+        res.send({status: "nok", message: "Nothing received."});
+    }
+});
+
+//post - create new event - event section
+app.post('/events/newEvent/event', function (req, res) {
+    if (req.body) {
+        console.log(req.body);
+        var event = new Event({
+            eventCreator: req.body.currentUserID,
+            attendees: [],
+            eventDate: req.body.Date,
+            maxParticipants: req.body.maxParticipants,
+            eventPlace: req.body.place
+        });
+        event.attendees.push(req.body.currentUserID);
+
+        event.save(function(err , event){
+            if (err) {
+                throw err;
+            }
+            console.log(event);
+            res.send(event);
+        });
+    } else{
+        res.send({status: "nok", message: "Nothing received."});
+    }
+});
+
 
 //get - get event from DB
 
