@@ -26,7 +26,13 @@ app.use(express.static('node_modules'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+//post - create new event
 
+//get - get event from DB
+
+//put - add participant to event
+
+//delete - remove event from DB
 
 //------tamplate route 
 
