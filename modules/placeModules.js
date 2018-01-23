@@ -3,6 +3,7 @@ var Schema = mongoose.Schema;
 
 var placeSchema = new mongoose.Schema({
     placeName: String,
+    eventCity: String,
     address: String,
     phone: Number,
     picURL: String,
