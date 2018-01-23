@@ -3,10 +3,7 @@ var Schema = mongoose.Schema;
 
 
 var userSchema = new mongoose.Schema({
-    userName: String,
-    userRating: Number,
-    userBio: String,
-    participatedEvents: [{type: Schema.Types.ObjectId, ref: 'event'}]
+    userEmail: String
 });
 
 var User = mongoose.model('user', userSchema);
