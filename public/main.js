@@ -1,3 +1,5 @@
-$('.create-event').on('click', function(){
-    $('.event-form').toggle();
-})
+//Show form on create event button click
+
+$('#myModal').on('shown.bs.modal', function () {
+    $('#myInput').trigger('show')
+  });

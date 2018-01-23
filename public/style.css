@@ -1,6 +1,7 @@
-.event-form {
-	display: none;
+.hero-img {
+  background-image: url('hero-img.jpeg');
 }
+
 
 
 [type="date"] {
