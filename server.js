@@ -29,12 +29,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 // get - getting all events
 app.get('/events', function(req, res) {
-    Event.find(function(err, events) {
-        if (err) {
-            console.error(err);
-        } else {
-            res.json(events);
-        }
+    Event.find().populate('place').exec(function(err, events) {
+        if (err) throw err;
+        res.send(events)
     });
 });
 
@@ -105,7 +102,7 @@ app.post('/events/newEvent', function(req, res) {
             if (err) throw err
             var event = new Event({
                 userEmail: req.body.userEmail,
-                place: place._id,
+                place: place,
                 eventDate: req.body.eventDate,
                 // eventTime: req.body.eventTime,
                 eventName: req.body.eventName,
@@ -115,7 +112,12 @@ app.post('/events/newEvent', function(req, res) {
             });
             event.save(function(err, event) {
                 if (err) throw err
-                res.send(event);
+                Event.findOne({ _id: event._id }).populate('place').exec(function(err, eventwithPlace) {
+                    if (err) throw err
+                    console.log("XXXXXXXXXXXXXXXXXXXXXXXXXXXX ")
+                    console.log(eventwithPlace)
+                    res.json(eventwithPlace);
+                });
             });
         });
 
@@ -133,10 +135,24 @@ app.post('/events/:eventID/user/:userEmail', function(req, res) {
     var userEmail = req.param.userEmail;
     Event.findByIdAndUpdate(eventID, { $push: { attendees: userEmail } }, { new: true }, function(err, specificEvent) {
         if (err) throw err;
-        console.log(specificEvent);
         res.send(specificEvent);
     })
 });
+
+//404
+app.use(function(err, req, res, next) {
+    console.error(err.stack)
+    throw ("error");
+    res.status(404).sendFile(__dirname + '/public/404.html') //we need to create 404 page
+
+})
+
+//500
+app.use(function(err, req, res, next) {
+    console.error(err.stack)
+    res.status(500).send("500 Server Error");
+
+})
 
 //delete - remove event from DB
 

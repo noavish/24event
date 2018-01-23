@@ -3,13 +3,13 @@ var Schema = mongoose.Schema;
 
 var eventSchema = new mongoose.Schema({
     userEmail: String,
-    place: {type: Schema.Types.ObjectId, ref: 'place'},
+    place: { type: Schema.Types.ObjectId, ref: 'place' },
     eventDate: Date,
-    eventTime: Time,
+    // eventTime: Number,
     eventName: String,
     eventDesc: String,
     maxParticipants: Number,
-    attendees: [{type: Schema.Types.ObjectId, ref: 'user'}],
+    attendees: [{ type: Schema.Types.ObjectId, ref: 'user' }],
 });
 // , { usePushEach: true });
 

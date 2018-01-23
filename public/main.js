@@ -1,29 +1,41 @@
 var event24App = function() {
-
-    var fetch = function () {
+    var events = [];
+    var fetch = function() {
         $.ajax({
             method: "GET",
             url: '/events',
             datatype: "json",
-            success: function (data) {
-                console.log(data);
+            success: function(data) {
                 events = data;
                 _renderEvents();
-            }, error: function (jqXHR, testStatus) {
+            },
+            error: function(jqXHR, testStatus) {
                 console.log(testStatus);
             }
         });
     };
-
     fetch();
+    var _renderEvents = function() {
+        $(".event-list").empty();
+        let source = $("#event-template").html();
+        let template = Handlebars.compile(source);
+        for (var i = 0; i < events.length; i++) {
+            var newHTML = template(events[i]);
+            $(".event-list").append(newHTML);
 
-    var addEvent = function (newEvent) {
+        }
+
+    }
+
+    var addEvent = function(newEvent) {
         $.ajax({
             type: "POST",
             url: '/events/newEvent',
             data: newEvent,
-            success: function (data) {
-                console.log(data.eventPlace);
+            success: function(data) {
+
+                events.push(data);
+                console.log(events)
                 _renderEvents();
             }
         });
@@ -33,21 +45,20 @@ var event24App = function() {
         $.ajax({
             type: "POST",
             url: '/events' + eventID + '/user/' + userEmail,
-            success: function(specificEvent) {
-                console.log(specificEvent)
-            },
+            success: function(specificEvent) {},
         });
     };
 
     return {
         addEvent: addEvent,
-        joinEvent: joinEvent
+        joinEvent: joinEvent,
+        _renderEvents: _renderEvents
     };
 };
 
 var app = event24App();
 
-$('.save-event').on('click', function () {
+$('.save-event').on('click', function() {
     var userEmail = $('#event-creator').val();
     var eventCity = $('.event-cities').val();
     var eventDate = $('#event-date').val();
@@ -57,7 +68,8 @@ $('.save-event').on('click', function () {
     var placeName = $('#event-venue').val();
     var address = $('#event-address').val();
     var maxParticipants = $('#max-num').val();
-    var newEvent = {userEmail: userEmail,
+    var newEvent = {
+        userEmail: userEmail,
         eventCity: eventCity,
         eventDate: eventDate,
         eventTime: eventTime,
@@ -65,9 +77,18 @@ $('.save-event').on('click', function () {
         eventDesc: eventDesc,
         placeName: placeName,
         address: address,
-        maxParticipants: maxParticipants};
+        maxParticipants: maxParticipants
+    };
     app.addEvent(newEvent);
+    $(this).parents('form')[0].reset();
 });
+
+
+$('.cancel-event').on('click', function() {
+    $(this).parents('form')[0].reset();
+});
+
+
 
 $('div').on('click', '.join-event', function() {
     var userEmail = $('div').val();
@@ -75,8 +96,9 @@ $('div').on('click', '.join-event', function() {
     joinEvent(userEmail, eventID);
 });
 
-//Show form on create event button click
+$('.btn')
+    //Show form on create event button click
 
-$('#myModal').on('shown.bs.modal', function () {
+$('#myModal').on('shown.bs.modal', function() {
     $('#myInput').trigger('show')
-  });
+});
