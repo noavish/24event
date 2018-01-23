@@ -1,6 +1,5 @@
 var event24App = function() {
 
-
     var fetch = function () {
         $.ajax({
             method: "GET",
@@ -36,11 +35,8 @@ var event24App = function() {
             url: '/events' + eventID + '/user/' + userEmail,
             success: function(specificEvent) {
                 console.log(specificEvent)
-
             },
-
         });
-
     };
 
     return {
@@ -78,3 +74,9 @@ $('div').on('click', '.join-event', function() {
     var eventID = $(this).data().id();
     joinEvent(userEmail, eventID);
 });
+
+//Show form on create event button click
+
+$('#myModal').on('shown.bs.modal', function () {
+    $('#myInput').trigger('show')
+  });

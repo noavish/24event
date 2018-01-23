@@ -7,64 +7,158 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="font-awesome/css/font-awesome.css">
-    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <title>2-4 Events</title>
 </head>
 
 <body>
     <div class="hero-img">
+        <h1 class="web-title">2-4 Events</h1>
+        <h5 class="welcome-message">See what's happening in your city</h5>
+        <br>
         <div class="input-group">
             <input type="text" class="form-control" id="city-input" placeholder="Enter City">
             <span class="input-group-btn">
-                <button class="btn btn-primary search-city" type="submit">Search</button>
+                <button class="btn btn-secondary search-city" type="submit">Search</button>
             </span>
         </div>
+        <br>
+        <div class="create-event-btn">
+            <button type="button" class="btn btn-secondary create-event" data-toggle="modal" data-target="#myModal">Create Event</button>
+        </div>
     </div>
-    <div class="create-event-btn">
-        <button type="button" class="btn btn-secondary create-event">Create Event</button>
+    <div class="container">
+<div class="row">
+    <div class="[ col-xs-12 col-sm-offset-2 col-sm-10 ]">
+        <ul class="event-list">
+
+        </ul>
     </div>
-    <div class="event-form">
-        <form>
-            <div class="form-group dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Event City
-                </button>
-                <div class="dropdown-menu event-cities" aria-labelledby="dropdownMenu2">
-                    <button class="dropdown-item tel-aviv" type="button">Tel Aviv</button>
-                    <button class="dropdown-item london" type="button">London</button>
-                    <button class="dropdown-item new-york" type="button">New York</button>
+</div>
+
+
+
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <form class="create-event-form">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Event Details</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="event-creator">Email Address</label>
+                                <input type="email" class="form-control" id="event-creator" name="event-creator" placeholder="Enter a contact email">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleFormControlSelect1">Event City</label>
+                                <select class="form-control event-cities">
+                                    <option selected>Choose...</option>
+                                    <option class="tel-aviv">Tel Aviv</option>
+                                    <option class="london">London</option>
+                                    <option class="new-york">New York</option>
+                                </select>
+                            </div>
+                            <div class="row date-time">
+                                <div class="form-group col-4">
+                                    <label for="event-date">Date</label>
+                                    <input type="date" id="event-date" name="event-date">
+                                </div>
+                                <div class="form-group col-2">
+                                    <label for="event-time">Time</label>
+                                    <input type="time" id="event-time" name="event-time">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="event-name">Event Name</label>
+                                <input type="text" class="form-control" id="event-name" name="event-name" placeholder="Give your event a name">
+                            </div>
+                            <div class="form-group">
+                                <label for="event-desc">Event Description</label>
+                                <textarea class="form-control" id="event-desc" name="event-desc" placeholder="Describe your event so people will want to attend"
+                                    rows="3"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="event-venue">Venue Name</label>
+                                <input type="text" class="form-control" id="event-venue" name="event-venue" placeholder="Name of venue where event will be held">
+                            </div>
+                            <div class="form-group">
+                                <label for="event-address">Venue Address</label>
+                                <input type="text" class="form-control" id="event-address" name="event-address" placeholder="Street address of venue">
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-4">
+                                    <label for="max-num">Max. Attendees</label>
+                                    <input type="number" id="max-num" name="max-num" placeholder="#">
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-secondary save-event">Save Event</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
-            <div class="form-group">
-                <label for="event-venue">Venue</label>
-                <input type="text" class="form-control" id="event-venue" placeholder="Event Location">
-            </div>
-            <div class="form-group">
-                <label for="dateofbirth">Date</label>
-                <input type="date" name="dateofbirth" id="dateofbirth">
-            </div>
-            <div class="form-group">
-                <label for="event-time">Time</label>
-                <input class="event-time" id="time" type="time">
-            </div>
-            <div class="form-group">
-                <label for="event-name">Event Name</label>
-                <input type="text" class="form-control" id="event-name" placeholder="Event Name">
-            </div>
-            <div class="form-group">
-                <label for="event-desc">Event Description</label>
-                <input type="text" class="form-control" id="event-desc" placeholder="Event Description">
-            </div>
-            <div class="form-group">
-                <label for="event-creator">Username</label>
-                <input type="text" class="form-control" id="event-creator" placeholder="Event Creator">
-            </div>
-            <button type="button" class="btn btn-secondary save-event">Save Event</button>
-        </form>
+        </div>
     </div>
+    <script id="event-template" type="text/x-handlebars-template">
+        
+        <li class="event">
+         #each
+                    <img alt="Disney Junior Live On Tour!" src="http://via.placeholder.com/200" />
+                    <div class="info">
+                        <div>
+                        <h2 class="title">eventName</h2>
+                        <h3>Data : eventDate </h3>
+                        <p class="desc"> eventDesc </p>
+                        <p>Venue :place </p>
+                        <p>Event Creater :userEmail</p>
+                        <button class="btn btn-info" id="join-event">Join Event</button>
+                        <button class="btn btn-danger" id="delete-event"><i class="fa fa-trash"></i></button>
+    
+                        </div>
+                        <ul>
+                            <li style="width:33%;">attendees
+                                <span class="fa fa-male"></span>
+                            </li>
+                            <li style="width:34%;">maxParticipants
+                                <span class="fa fa-child"></span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="social">
+                        <ul>
+                            <li class="facebook" style="width:33%;">
+                                <a href="#facebook">
+                                    <span class="fa fa-facebook"></span>
+                                </a>
+                            </li>
+                            <li class="twitter" style="width:34%;">
+                                <a href="#twitter">
+                                    <span class="fa fa-twitter"></span>
+                                </a>
+                            </li>
+                            <li class="google-plus" style="width:33%;">
+                                <a href="#google-plus">
+                                    <span class="fa fa-google-plus"></span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                   
+                </li>
+        
+   
+    </script>
     <script src="jquery/dist/jquery.js"></script>
     <script src="bootstrap/dist/js/bootstrap.js"></script>
     <script src="handlebars/dist/handlebars.js"></script>
     <script src="main.js"></script>
+    <script src="handlebartest.js"></script>
 </body>
 
 </html>
