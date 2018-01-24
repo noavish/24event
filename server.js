@@ -21,10 +21,29 @@ var Place = require('./modules/placeModules');
 
 
 var app = express();
+var upload = multer();
 app.use(express.static('public'));
+app.use(express.static('uploads'));
 app.use(express.static('node_modules'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+
+//multer storage object 
+var storage = multer.diskStorage({
+    destination: function (request, file, callback) {
+        callback(null, "./uploads");
+    },
+    filename: function (request, file, callback) {
+        callback(null, file.fieldname + "_" + Date.now() + "_" + file.originalname);
+    }
+});
+
+var upload = multer({ storage: storage }).single('placeImage');
+
+//multer router setting 
+app.get('/', function (req, res) {
+    res.sendFile(__dirname + "/public/index.html");
+});
 
 
 // get - getting all events
@@ -87,14 +106,21 @@ app.get('/events', function(req, res) {
 // });
 
 //post - create new event - event section
-app.post('/events/newEvent', function(req, res) {
+app.post('/events/newEvent', function(req, res,next) {
+
+    console.log(req.body);
+    console.log(req.file);
     if (req.body) {
+        upload(req, res, function (err) {
+            if (err) {
+                return next(err);
+            }
         var place = new Place({
             placeName: req.body.placeName,
             eventCity: req.body.eventCity,
             address: req.body.address,
             phone: req.body.phone,
-            picURL: req.body.picURL,
+            picURL: req.file.filename,
             review: req.body.review
         });
 
@@ -120,7 +146,7 @@ app.post('/events/newEvent', function(req, res) {
                 });
             });
         });
-
+    });
     } else {
         res.send({ status: "nok", message: "Nothing received." });
     }
