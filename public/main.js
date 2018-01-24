@@ -103,7 +103,7 @@ var event24App = function() {
                 var source = $("#placeDetails-template").html();
                 var template = Handlebars.compile(source);
                 var newHTML = template(currVenueDetails);
-                $(".venueDetails").append(newHTML);
+                $(".venueDetails").html(newHTML);
             },
             error: function(jqXHR, testStatus) {
                 console.log(testStatus);
@@ -226,9 +226,15 @@ $('#myModal').on('shown.bs.modal', function() {
 
 $('.carousel').carousel();
 
-$('#event-venue').on('keyup', function(event) {
-    var venueName = $(this).val();
+$('.search-venue').on('click', function() {
+    var venueName = $('#event-venue').val();
     // var venueCity = $(this).siblings('.event-cities').val();
     app.venueDetailsFill(venueName);
+});
+
+$('.clear-venue').on('click', function () {
+    $('#event-venue').val('');
+    $('#event-address').val('');
+    $('.venueDetails').html('');
 });
 

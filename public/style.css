@@ -281,3 +281,11 @@ input {
         margin: 60px 0;
     }
 }
+
+#event-venue {
+    width: 80%;
+}
+
+.venue-name-btn {
+    background-color: #e9e4f0;
+}

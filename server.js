@@ -145,10 +145,12 @@ app.post('/events/newEvent', function(req, res, next) {
                 eventCity: req.body.eventCity,
                 address: req.body.address,
                 phone: req.body.phone,
-                picURL: req.file.filename,
+                picURL: req.body.picURL,
                 rating: req.body.rating,
                 price: req.body.price
-            });
+              // picURL: req.file.filename,
+
+          });
 
             place.save(function(err, place) {
                 if (err) throw err
