@@ -88,8 +88,6 @@ $('.cancel-event').on('click', function() {
     $(this).parents('form')[0].reset();
 });
 
-
-
 $('div').on('click', '.join-event', function() {
     var userEmail = $('div').val();
     var eventID = $(this).data().id();
@@ -101,4 +99,7 @@ $('.btn')
 
 $('#myModal').on('shown.bs.modal', function() {
     $('#myInput').trigger('show')
-});
+ });
+
+$('.carousel').carousel();
+  
