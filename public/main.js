@@ -1,6 +1,7 @@
 var event24App = function() {
     var events = [];
     var currVenueDetails = {};
+    //comment!
 
     var fetch = function() {
         $.ajax({
