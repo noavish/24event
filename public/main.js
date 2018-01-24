@@ -107,7 +107,6 @@ $('#event-form').submit(function (event) {
     var address = $('#event-address').val();
     var maxParticipants = $('#max-num').val();
     var myFile = $('#image').prop('files');
-    debugger;
 
     var formData = new FormData(this);
     formData.append('userEmail', userEmail);
@@ -126,17 +125,19 @@ $('#event-form').submit(function (event) {
     $('#myInput').trigger('show');
 });
 
-
-
 $('div').on('click', '.join-event', function() {
     var userEmail = $('div').val();
     var eventID = $(this).data().id();
     joinEvent(userEmail, eventID);
 });
 
-$('.btn')
+// $('.btn')
     //Show form on create event button click
 
 $('#myModal').on('shown.bs.modal', function() {
     $('#myInput').trigger('show')
+
 });
+
+$('.carousel').carousel();
+  
