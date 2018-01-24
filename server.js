@@ -30,10 +30,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 //multer storage object 
 var storage = multer.diskStorage({
-    destination: function (request, file, callback) {
+    destination: function(request, file, callback) {
         callback(null, "./uploads");
     },
-    filename: function (request, file, callback) {
+    filename: function(request, file, callback) {
         callback(null, file.fieldname + "_" + Date.now() + "_" + file.originalname);
     }
 });
@@ -41,7 +41,7 @@ var storage = multer.diskStorage({
 var upload = multer({ storage: storage }).single('placeImage');
 
 //multer router setting 
-app.get('/', function (req, res) {
+app.get('/', function(req, res) {
     res.sendFile(__dirname + "/public/index.html");
 });
 
@@ -106,47 +106,46 @@ app.get('/events', function(req, res) {
 // });
 
 //post - create new event - event section
-app.post('/events/newEvent', function(req, res,next) {
+app.post('/events/newEvent', function(req, res, next) {
 
     console.log(req.body);
     console.log(req.file);
     if (req.body) {
-        upload(req, res, function (err) {
+        upload(req, res, function(err) {
             if (err) {
                 return next(err);
             }
-        var place = new Place({
-            placeName: req.body.placeName,
-            eventCity: req.body.eventCity,
-            address: req.body.address,
-            phone: req.body.phone,
-            picURL: req.file.filename,
-            review: req.body.review
-        });
-
-        place.save(function(err, place) {
-            if (err) throw err
-            var event = new Event({
-                userEmail: req.body.userEmail,
-                place: place,
-                eventDate: req.body.eventDate,
-                // eventTime: req.body.eventTime,
-                eventName: req.body.eventName,
-                eventDesc: req.body.eventDesc,
-                maxParticipants: req.body.maxParticipants,
-                attendees: []
+            var place = new Place({
+                placeName: req.body.placeName,
+                eventCity: req.body.eventCity,
+                address: req.body.address,
+                phone: req.body.phone,
+                picURL: req.file.filename,
+                review: req.body.review
             });
-            event.save(function(err, event) {
+
+            place.save(function(err, place) {
                 if (err) throw err
-                Event.findOne({ _id: event._id }).populate('place').exec(function(err, eventwithPlace) {
+                var event = new Event({
+                    userEmail: req.body.userEmail,
+                    place: place,
+                    eventDate: req.body.eventDate,
+                    // eventTime: req.body.eventTime,
+                    eventName: req.body.eventName,
+                    eventDesc: req.body.eventDesc,
+                    maxParticipants: req.body.maxParticipants,
+                    attendees: []
+                });
+                event.save(function(err, event) {
                     if (err) throw err
-                    console.log("XXXXXXXXXXXXXXXXXXXXXXXXXXXX ")
-                    console.log(eventwithPlace)
-                    res.json(eventwithPlace);
+                    Event.findOne({ _id: event._id }).populate('place').exec(function(err, eventwithPlace) {
+                        if (err) throw err
+                        console.log(eventwithPlace)
+                        res.json(eventwithPlace);
+                    });
                 });
             });
         });
-    });
     } else {
         res.send({ status: "nok", message: "Nothing received." });
     }
@@ -164,6 +163,17 @@ app.post('/events/:eventID/user/:userEmail', function(req, res) {
         res.send(specificEvent);
     })
 });
+//delete - remove event from DB
+app.delete('/events/:id', function(req, res) {
+    console.log(req.params.id);
+    Event.findByIdAndRemove(req.params.id, function(err, post) {
+        if (!err) {
+            console.log('succeeded');
+            res.status(200).send();
+        } else
+            console.log(err);
+    });
+});
 
 //404
 app.use(function(err, req, res, next) {
@@ -177,7 +187,6 @@ app.use(function(err, req, res, next) {
 app.use(function(err, req, res, next) {
     console.error(err.stack)
     res.status(500).send("500 Server Error");
-
 })
 
 //delete - remove event from DB
