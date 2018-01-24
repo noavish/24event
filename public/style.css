@@ -42,17 +42,6 @@
     /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
-
-/* .modal {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 600px;
-  max-width: 100%;
-  overflow: hidden;
-} */
-
 .event-details {
     text-align: center;
 }
@@ -89,7 +78,8 @@ input {
     width: 190px;
 }
 
-*/ .event-list {
+
+/* .event-list {
     list-style: none;
     font-family: 'Lato', sans-serif;
     margin: 0px;
@@ -106,7 +96,6 @@ input {
 }
 
 .event-list>li>img {
-    /* width: 100%; */
     height: 200px;
     width: 200px;
 }
@@ -170,7 +159,7 @@ input {
 .event-list>li>.social>ul>li:hover {
     color: rgb(30, 30, 30);
     background-color: rgb(200, 200, 200);
-}
+} */
 
 .facebook a,
 .twitter a,
@@ -214,7 +203,56 @@ input {
     right: 0px;
 }
 
-@media (min-width: 768px) {
+.event-div {
+    background: linear-gradient(to right, #d3cce3, #e9e4f0);
+    margin-top: 2%;
+    text-align: center;
+}
+
+/* Set uploaded image as thumbnail */
+
+.thumbnail {
+    position: relative;
+    width: 300px;
+    height: 300px;
+    overflow: hidden;
+}
+
+.thumbnail img {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    height: 100%;
+    width: auto;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.thumbnail img.event-img {
+    width: 100%;
+    height: auto;
+}
+
+
+/* Set uploaded image to profile picture */
+
+.profile-pic img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 20px;
+    object-fit: cover;
+    object-position: center right;
+}
+
+.title {
+    text-align: center;
+}
+
+
+/* @media (min-width: 768px) {
     .event-list>li {
         position: relative;
         display: block;
@@ -246,7 +284,6 @@ input {
         text-align: center;
         position: relative;
         height: 300px;
-        /* text-align: left; */
         padding-right: 40px;
     }
     .event-list>li>.info>.title,
@@ -258,7 +295,9 @@ input {
         left: 0px;
         bottom: 0px;
     }
-    .event-list>li>.social {
+
+    
+    /* .event-list>li>.social {
         position: absolute;
         top: 0px;
         right: 0px;
@@ -279,5 +318,19 @@ input {
     }
     .event {
         margin: 60px 0;
-    }
+    } */
+} 
+
+
+
+.attendee-count {
+    display: inline;
+}
+
+.attendees {
+    display: inline;
+}
+
+.profile {
+    display: inline;    
 }
