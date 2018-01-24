@@ -1,7 +1,7 @@
 var event24App = function() {
     var events = [];
     var currVenueDetails = {};
-    //comment!
+
 
     var fetch = function() {
         $.ajax({
@@ -10,7 +10,6 @@ var event24App = function() {
             datatype: "json",
             success: function(data) {
                 events = data;
-
                 _renderEvents();
             },
             error: function(jqXHR, testStatus) {
