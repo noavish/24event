@@ -15,8 +15,7 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand logo" href="#">2-4 Events</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-            aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
@@ -28,8 +27,7 @@
                     </a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
-                        aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Explore Events
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -110,7 +108,7 @@
     </div>
     <div class="container">
         <div class="row">
-            <div class="[ col-xs-12 col-sm-offset-2 col-sm-10 ]">
+            <div class="[ col-xs-12 col-sm-offset-2 col-sm-12 ]">
                 <ul class="event-list">
 
                 </ul>
@@ -141,11 +139,12 @@
                                 </select>
                             </div>
                             <div class="row date-time">
-                                <div class="form-group col-4">
+                                <div class="form-group data col-md-6">
                                     <label for="event-date">Date</label>
                                     <input type="date" id="event-date" name="event-date">
                                 </div>
-                                <div class="form-group col-2">
+                
+                                <div class="form-group col-6">
                                     <label for="event-time">Time</label>
                                     <input type="time" id="event-time" name="event-time">
                                 </div>
@@ -173,49 +172,51 @@
                                 </div>
                             </div>
                             <div class="row">
-                            <div class="form-group">
-                                <label for="form-control">Post Image</label>
-                                <input type="file" id="image" name="placeImage" class="">
-                            </div>
+                                <div class="form-group">
+                                    <label for="form-control">Post Image</label>
+                                    <input type="file" id="image" name="placeImage" class="">
+                                </div>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary cancel-event" data-dismiss="modal">Cancel</button>
-                                <input type="submit" value="Submit" class="btn btn-secondary save-event" >
+                                <input type="submit" value="Submit" class="btn btn-secondary save-event">
                             </div>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
-        <div class="footer">
-            <a href="#">
-                <i class="fa fa-twitter color-twitter"></i>
-            </a>
-            <a href="#">
-                <i class="fa fa-facebook color-facebook"></i>
-            </a>
-            <a href="#">
-                <i class="fa fa-linkedin color-linkedin"></i>
-            </a>
-        </div>
+
+    </div>
+    <div class="footer">
+        <a href="#">
+            <i class="fa fa-twitter color-twitter"></i>
+        </a>
+        <a href="#">
+            <i class="fa fa-facebook color-facebook"></i>
+        </a>
+        <a href="#">
+            <i class="fa fa-linkedin color-linkedin"></i>
+        </a>
     </div>
     </div>
     <script id="event-template" type="text/x-handlebars-template">
         <li class="event">
             <img alt="Disney Junior Live On Tour!" src="{{place.picURL}}" />
             <div class="info">
-                <div>
-                    <h2 class="title">{{eventName}}</h2>
+                <div class="event-div" data-id="{{_id}}">
+                    <h2 class="title" data-name="{{eventName}}">{{eventName}}</h2>
                     <h3>Data : {{eventDate}} </h3>
-                    <p class="desc"> {{eventDesc}} </p>
-                    <p>Venue :{{place.placeName}} </p>
-                    <p>Event Creater :{{userEmail}}</p>
+                    <p class="desc" data-name="{{eventDesc}}"> {{eventDesc}} </p>
+                    <p data-name="{{place.placeName}}">Venue :{{place.placeName}} </p>
+                    <span>Event Creater :</span>
+                    <p class="user-email" data-name="{{userEmail}}">{{userEmail}}</p>
                     <button class="btn btn-info" id="join-event">Join Event</button>
-                    <button class="btn btn-danger" id="delete-event"><i class="fa fa-trash"></i></button>
-
+                    <input type="email" placeholder="Enter your email" name="field" class="user-field-email" />
+                    <button class="btn btn-danger delete-btn" id="delete-event"></button>
                 </div>
                 <ul>
-                    <li style="width:33%;">attendees
+                    <li style="width:33%;">{{attendees.length}}
                         <span class="fa fa-male"></span>
                     </li>
                     <li style="width:34%;">{{maxParticipants}}
@@ -242,7 +243,6 @@
                     </li>
                 </ul>
             </div>
-
         </li>
 
 

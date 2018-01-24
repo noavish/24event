@@ -9,6 +9,7 @@ var event24App = function() {
             datatype: "json",
             success: function(data) {
                 events = data;
+
                 _renderEvents();
             },
             error: function(jqXHR, testStatus) {
@@ -40,20 +41,60 @@ var event24App = function() {
             cache: false,
             success: function(data) {
                 events.push(data);
-                console.log(events)
                 _renderEvents();
             },
-            error : function (xhr,text,err) {
+            error: function(xhr, text, err) {
                 console.log(err);
             }
         });
     };
 
-    var joinEvent = function(userEmail, eventID) {
+    var _maxAttendees = function(index) {
+        for (var i = 0; i < events.length; i++) {
+            if (events[index].attendees.length >= events[index].maxParticipants) {
+                return false;
+            } else {
+                return true
+            }
+        }
+    }
+
+    var joinEvent = function(eventid, useremail) {
+        var index = events.map(function(e) { return e._id; }).indexOf(eventid);
+
+        if (_maxAttendees(index)) {
+            $.ajax({
+                type: "POST",
+                url: '/events/' + eventid + '/users/' + useremail,
+                data: { email: useremail },
+                success: function(data) {
+                    events = data;
+                    fetch();
+
+                },
+                error: function(xhr, text, err) {
+                    console.log(err);
+                }
+            });
+        } else {
+            alert("Sorry , The event is FULL  :}");
+        }
+    };
+
+    var removeEvent = function(index) {
         $.ajax({
-            type: "POST",
-            url: '/events' + eventID + '/user/' + userEmail,
-            success: function(specificEvent) {},
+            type: 'DELETE',
+            url: '/events/' + index,
+
+
+            success: function(data) {
+                console.log('success');
+                fetch();
+            },
+            error: function() {
+                console.log('error');
+
+            }
         });
     };
 
@@ -78,7 +119,8 @@ var event24App = function() {
         addEvent: addEvent,
         joinEvent: joinEvent,
         _renderEvents: _renderEvents,
-        venueDetailsFill: venueDetailsFill
+        venueDetailsFill: venueDetailsFill,
+        removeEvent: removeEvent
     };
 };
 
@@ -114,51 +156,60 @@ $('.cancel-event').on('click', function() {
     $(this).parents('form')[0].reset();
 });
 
+$('#event-form').submit(function(event) {
+    alert("form sumbited ")
+    event.preventDefault();
+    var userEmail = $('#event-creator').val();
+    var eventCity = $('.event-cities').val();
+    var eventDate = $('#event-date').val();
+    var eventTime = $('#event-time').val();
+    var eventName = $('#event-name').val();
+    var eventDesc = $('#event-desc').val();
+    var placeName = $('#event-venue').val();
+    var address = $('#event-address').val();
+    var maxParticipants = $('#max-num').val();
+    var myFile = $('#image').prop('files');
 
-// $('#event-form').submit(function (event) {
-//     alert("form sumbited ")
-//     event.preventDefault();
-//     var userEmail = $('#event-creator').val();
-//     var eventCity = $('.event-cities').val();
-//     var eventDate = $('#event-date').val();
-//     var eventTime = $('#event-time').val();
-//     var eventName = $('#event-name').val();
-//     var eventDesc = $('#event-desc').val();
-//     var placeName = $('#event-venue').val();
-//     var address = $('#event-address').val();
-//     var maxParticipants = $('#max-num').val();
-//     var myFile = $('#image').prop('files');
-//
-//     var formData = new FormData(this);
-//     formData.append('userEmail', userEmail);
-//     formData.append('eventCity', eventCity);
-//     formData.append('eventDate', eventDate);
-//     formData.append('eventTime', eventTime);
-//     formData.append('eventName', eventName);
-//     formData.append('eventDesc', eventDesc);
-//     formData.append('placeName', placeName);
-//     formData.append('address', address);
-//     formData.append('maxParticipants', maxParticipants);
-//     formData.append('placeImage', myFile);
-//
-//     app.addEvent(formData);
-//     $(this).reset();
-//     $('#myInput').trigger('show');
-// });
+    var formData = new FormData(this);
+    formData.append('userEmail', userEmail);
+    formData.append('eventCity', eventCity);
+    formData.append('eventDate', eventDate);
+    formData.append('eventTime', eventTime);
+    formData.append('eventName', eventName);
+    formData.append('eventDesc', eventDesc);
+    formData.append('placeName', placeName);
+    formData.append('address', address);
+    formData.append('maxParticipants', maxParticipants);
+    formData.append('placeImage', myFile);
 
-$('div').on('click', '.join-event', function() {
-    var userEmail = $('div').val();
-    var eventID = $(this).data().id();
-    joinEvent(userEmail, eventID);
+    app.addEvent(formData);
+    // $(this).reset();
+    // $('#myInput').trigger('show');
+
 });
 
-// $('.btn')
-    //Show form on create event button click
+
+$('.event-list').on('click', '#join-event', function() {
+    var eventID = $(this).parents('.event-div').data().id
+    var userEmail = $(this).siblings('.user-field-email').val()
+    app.joinEvent(eventID, userEmail)
+});
+
+
+
+//remove event on click
+$('.event-list').on('click', '.delete-btn', function() {
+    var index = $(this).parents('.event-div').data().id;
+    // console.log(index);
+    app.removeEvent(index);
+});
+//Show form on create event button click
 
 $('#myModal').on('shown.bs.modal', function() {
     $('#myInput').trigger('show')
 
 });
+
 
 $('.carousel').carousel();
 
@@ -169,3 +220,4 @@ $('#event-venue').on('keyup', function(event) {
     app.venueDetailsFill(venueName);
 
 });
+
