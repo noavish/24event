@@ -40,7 +40,7 @@ var event24App = function() {
                 console.log(events)
                 _renderEvents();
             },
-            error : function (xhr,text,err) {
+            error: function(xhr, text, err) {
                 console.log(err);
             }
         });
@@ -54,10 +54,28 @@ var event24App = function() {
         });
     };
 
+    var removeEvent = function(index) {
+        $.ajax({
+            type: 'DELETE',
+            url: '/events/' + index,
+
+
+            success: function(data) {
+                console.log('success');
+                fetch();
+            },
+            error: function() {
+                console.log('error');
+
+            }
+        });
+    };
+
     return {
         addEvent: addEvent,
         joinEvent: joinEvent,
-        _renderEvents: _renderEvents
+        _renderEvents: _renderEvents,
+        removeEvent: removeEvent
     };
 };
 
@@ -94,7 +112,7 @@ $('.cancel-event').on('click', function() {
 });
 
 
-$('#event-form').submit(function (event) {
+$('#event-form').submit(function(event) {
     alert("form sumbited ")
     event.preventDefault();
     var userEmail = $('#event-creator').val();
@@ -119,20 +137,28 @@ $('#event-form').submit(function (event) {
     formData.append('address', address);
     formData.append('maxParticipants', maxParticipants);
     formData.append('placeImage', myFile);
-   
+
     app.addEvent(formData);
-    $(this).reset();
-    $('#myInput').trigger('show');
+    // $(this).reset();
+    // $('#myInput').trigger('show');
+
 });
 
-$('div').on('click', '.join-event', function() {
-    var userEmail = $('div').val();
+$('.event-list').on('click', '#join-event', function() {
+    var userEmail = $(this).siblings().data().name()
     var eventID = $(this).data().id();
     joinEvent(userEmail, eventID);
+    console.log(userEmail, eventId)
+
 });
 
-// $('.btn')
-    //Show form on create event button click
+//remove event on click
+$('.event-list').on('click', '.delete-btn', function() {
+    var index = $(this).parents('.event-div').data().id;
+    // console.log(index);
+    app.removeEvent(index);
+});
+//Show form on create event button click
 
 $('#myModal').on('shown.bs.modal', function() {
     $('#myInput').trigger('show')
@@ -140,4 +166,3 @@ $('#myModal').on('shown.bs.modal', function() {
 });
 
 $('.carousel').carousel();
-  
