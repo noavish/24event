@@ -29,7 +29,7 @@ var event24App = function() {
 
         }
 
-    }
+    };
 
     var addEvent = function(newEvent) {
         $.ajax({
@@ -115,12 +115,17 @@ var event24App = function() {
         return false;
     };
 
+    var returnCurrVenueDetails = function () {
+        return currVenueDetails;
+    };
+
     return {
         addEvent: addEvent,
         joinEvent: joinEvent,
         _renderEvents: _renderEvents,
         venueDetailsFill: venueDetailsFill,
-        removeEvent: removeEvent
+        removeEvent: removeEvent,
+        returnCurrVenueDetails: returnCurrVenueDetails
     };
 };
 
@@ -157,35 +162,46 @@ $('.cancel-event').on('click', function() {
 });
 
 $('#event-form').submit(function(event) {
-    alert("form sumbited ")
+    var currentPlace = app.returnCurrVenueDetails();
+    // alert("form sumbited ")
     event.preventDefault();
     var userEmail = $('#event-creator').val();
-    var eventCity = $('.event-cities').val();
+    // var placeName = $('#event-venue').val();
+    // var eventCity = $('.event-cities').val();
+    // var address = $('#event-address').val();
+    var placeName = currentPlace.data.name;
+    var eventCity = currentPlace.data.city;
+    var address = currentPlace.data.address;
+    var phone = currentPlace.data.phone;
+    var picURL = currentPlace.data.picURL;
+    var rating = currentPlace.data.rating;
+    var price = currentPlace.data.price;
     var eventDate = $('#event-date').val();
     var eventTime = $('#event-time').val();
     var eventName = $('#event-name').val();
     var eventDesc = $('#event-desc').val();
-    var placeName = $('#event-venue').val();
-    var address = $('#event-address').val();
     var maxParticipants = $('#max-num').val();
     var myFile = $('#image').prop('files');
 
     var formData = new FormData(this);
     formData.append('userEmail', userEmail);
+    formData.append('placeName', placeName);
     formData.append('eventCity', eventCity);
+    formData.append('address', address);
+    formData.append('phone', phone);
+    formData.append('picURL', picURL);
+    formData.append('rating', rating);
+    formData.append('price', price);
     formData.append('eventDate', eventDate);
     formData.append('eventTime', eventTime);
     formData.append('eventName', eventName);
     formData.append('eventDesc', eventDesc);
-    formData.append('placeName', placeName);
-    formData.append('address', address);
     formData.append('maxParticipants', maxParticipants);
     formData.append('placeImage', myFile);
 
     app.addEvent(formData);
     // $(this).reset();
     // $('#myInput').trigger('show');
-
 });
 
 

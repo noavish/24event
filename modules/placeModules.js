@@ -7,7 +7,8 @@ var placeSchema = new mongoose.Schema({
     address: String,
     phone: Number,
     picURL: String,
-    review: String
+    rating: String,
+    price: String
 });
 
 var Place = mongoose.model('place', placeSchema);

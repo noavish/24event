@@ -11,7 +11,6 @@ const yelp = require('yelp-fusion');
 const client = yelp.client('QjAlN21ahBuZvWmD3plYAn9rpZVtLStivrnQVkxcoV3-snRKlN6COsM9cyVrZn4ZdthNyaUZjZ7HDPO6J0yvBte2VcrVNZwhzfCKXWXkyEL0-ifYeAPT5iSDTVloWnYx');
 
 
-
 mongoose.connect(process.env.CONNECTION_STRING || 'mongodb://localhost/24eventDB');
 mongoose.connection.once('open', function() {
     console.log("DB connection established!!!");
@@ -54,8 +53,6 @@ app.get('/venueDetails/:venueName', function(request, response) {
             console.log(err);
     });
 });
-
-
 
 
 //multer storage object 
@@ -149,7 +146,8 @@ app.post('/events/newEvent', function(req, res, next) {
                 address: req.body.address,
                 phone: req.body.phone,
                 picURL: req.file.filename,
-                review: req.body.review
+                rating: req.body.rating,
+                price: req.body.price
             });
 
             place.save(function(err, place) {
@@ -166,8 +164,8 @@ app.post('/events/newEvent', function(req, res, next) {
                 });
                 event.save(function(err, event) {
                     if (err) throw err
-                    console.log(eventwithPlace)
-                    res.json(eventwithPlace);
+                    // console.log(eventwithPlace);
+                    // res.json(eventwithPlace);
 
                     Event.findOne({ _id: event._id }).populate('place').exec(function(err, eventwithPlace) {
                         if (err) throw err
@@ -183,6 +181,7 @@ app.post('/events/newEvent', function(req, res, next) {
 
 });
 //get - get event from DB
+
 
 //put - add participant to event
 app.post('/events/:eventid/users/:useremail', function(req, res) {
