@@ -120,10 +120,10 @@ $('#event-form').submit(function (event) {
     formData.append('address', address);
     formData.append('maxParticipants', maxParticipants);
     formData.append('placeImage', myFile);
-    debugger;
-    //app.addPost(formData);
+   
     app.addEvent(formData);
-    $(this)[0].reset();
+    $(this).reset();
+    $('#myInput').trigger('show');
 });
 
 
