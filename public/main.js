@@ -1,5 +1,7 @@
 var event24App = function() {
     var events = [];
+    var currVenueDetails = {};
+
     var fetch = function() {
         $.ajax({
             method: "GET",
@@ -16,6 +18,7 @@ var event24App = function() {
         });
     };
     fetch();
+
     var _renderEvents = function() {
         $(".event-list").empty();
         var source = $("#event-template").html();
@@ -95,10 +98,28 @@ var event24App = function() {
         });
     };
 
+    var venueDetailsFill = function(venueName) {
+        $.ajax({
+            method: "GET",
+            url: `/venueDetails/${venueName}`,
+            success: function(data) {
+                console.log(data);
+                currVenueDetails = {data};
+                console.log(currVenueDetails);
+                $('#event-address').val(data.address);
+            },
+            error: function(jqXHR, testStatus) {
+                console.log(testStatus);
+            }
+        });
+        return false;
+    };
+
     return {
         addEvent: addEvent,
         joinEvent: joinEvent,
         _renderEvents: _renderEvents,
+        venueDetailsFill: venueDetailsFill,
         removeEvent: removeEvent
     };
 };
@@ -135,7 +156,6 @@ $('.cancel-event').on('click', function() {
     $(this).parents('form')[0].reset();
 });
 
-
 $('#event-form').submit(function(event) {
     alert("form sumbited ")
     event.preventDefault();
@@ -168,6 +188,7 @@ $('#event-form').submit(function(event) {
 
 });
 
+
 $('.event-list').on('click', '#join-event', function() {
     var eventID = $(this).parents('.event-div').data().id
     var userEmail = $(this).siblings('.user-field-email').val()
@@ -189,4 +210,14 @@ $('#myModal').on('shown.bs.modal', function() {
 
 });
 
+
 $('.carousel').carousel();
+
+$('#event-venue').on('keyup', function(event) {
+    var venueName = $(this).val();
+    var venueCity = $(this).siblings('.event-cities').val();
+    console.log(venueCity);
+    app.venueDetailsFill(venueName);
+
+});
+
