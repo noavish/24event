@@ -165,6 +165,8 @@
                                 <label for="event-address">Venue Address</label>
                                 <input type="text" class="form-control" id="event-address" name="event-address" placeholder="Street address of venue">
                             </div>
+                            <div class="venueDetails">
+                            </div>
                             <div class="row">
                                 <div class="form-group col-4">
                                     <label for="max-num">Max. Attendees</label>
@@ -200,52 +202,66 @@
         </a>
     </div>
     </div>
+    <script id="placeDetails-template" type="text/x-handlebars-template">
+        <div class="APIdetails">
+            <p>{{name}}</p>
+            <p>{{phone}}</p>
+            <p>Price: {{price}}</p>
+            <p>Rating: {{rating}}</p>
+        </div>
+    </script>
     <script id="event-template" type="text/x-handlebars-template">
-        <li class="event">
-            <img alt="Disney Junior Live On Tour!" src="{{place.picURL}}" />
-            <div class="info">
-                <div class="event-div" data-id="{{_id}}">
-                    <h2 class="title" data-name="{{eventName}}">{{eventName}}</h2>
-                    <h3>Data : {{eventDate}} </h3>
-                    <p class="desc" data-name="{{eventDesc}}"> {{eventDesc}} </p>
-                    <p data-name="{{place.placeName}}">Venue :{{place.placeName}} </p>
-                    <span>Event Creater :</span>
-                    <p class="user-email" data-name="{{userEmail}}">{{userEmail}}</p>
-                    <button class="btn btn-info" id="join-event">Join Event</button>
-                    <input type="email" placeholder="Enter your email" name="field" class="user-field-email" />
-                    <button class="btn btn-danger delete-btn" id="delete-event"></button>
+        {{#each event}}
+            <li class="event">
+                <img alt="place-image" src="{{place.picURL}}" />
+                <div class="info">
+                    <div class="event-div" data-id="{{_id}}">
+                        <h2 class="title" data-name="{{eventName}}">{{eventName}}</h2>
+                        <h3>Date: {{eventDate}} </h3>
+                        <p class="desc" data-name="{{eventDesc}}"> {{eventDesc}} </p>
+                        <p data-name="{{place.placeName}}">Venue: {{place.placeName}} </p>
+                        <p data-name="'{{place.eventCity}}">City: {{place.eventCity}}</p>
+                        <p data-name="'{{place.address}}">Address: {{place.address}}</p>
+                        <p data-name="'{{place.phone}}">Phone: {{place.phone}}</p>
+                        <p data-name="'{{place.rating}}">Rating: {{place.rating}}</p>
+                        <p data-name="'{{place.price}}">Price Range: {{place.price}}</p>
+                        <span>Event Creater :</span>
+                        <img alt="place-image" src="" />
+                        <p class="user-email" data-name="{{userEmail}}">{{userEmail}}</p>
+                        <button class="btn btn-info" id="join-event">Join Event</button>
+                        <input type="email" placeholder="Enter your email" name="field" class="user-field-email" />
+                        <button class="btn btn-danger delete-btn" id="delete-event"></button>
+                    </div>
+                    <ul>
+                        <li style="width:33%;">{{attendees.length}}
+                            <span class="fa fa-male"></span>
+                        </li>
+                        <li style="width:34%;">{{maxParticipants}}
+                            <span class="fa fa-child"></span>
+                        </li>
+                    </ul>
                 </div>
-                <ul>
-                    <li style="width:33%;">{{attendees.length}}
-                        <span class="fa fa-male"></span>
-                    </li>
-                    <li style="width:34%;">{{maxParticipants}}
-                        <span class="fa fa-child"></span>
-                    </li>
-                </ul>
-            </div>
-            <div class="social">
-                <ul>
-                    <li class="facebook" style="width:33%;">
-                        <a href="#facebook">
-                            <span class="fa fa-facebook"></span>
-                        </a>
-                    </li>
-                    <li class="twitter" style="width:34%;">
-                        <a href="#twitter">
-                            <span class="fa fa-twitter"></span>
-                        </a>
-                    </li>
-                    <li class="google-plus" style="width:33%;">
-                        <a href="#google-plus">
-                            <span class="fa fa-google-plus"></span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </li>
-
-
+                <div class="social">
+                    <ul>
+                        <li class="facebook" style="width:33%;">
+                            <a href="#facebook">
+                                <span class="fa fa-facebook"></span>
+                            </a>
+                        </li>
+                        <li class="twitter" style="width:34%;">
+                            <a href="#twitter">
+                                <span class="fa fa-twitter"></span>
+                            </a>
+                        </li>
+                        <li class="google-plus" style="width:33%;">
+                            <a href="#google-plus">
+                                <span class="fa fa-google-plus"></span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+        {{/each}}
     </script>
     <script src="jquery/dist/jquery.js"></script>
     <script src="bootstrap/dist/js/bootstrap.js"></script>
