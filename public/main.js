@@ -1,5 +1,7 @@
 var event24App = function() {
     var events = [];
+    var currVenueDetails = {};
+
     var fetch = function() {
         $.ajax({
             method: "GET",
@@ -59,13 +61,17 @@ var event24App = function() {
         $.ajax({
             method: "GET",
             url: `/venueDetails/${venueName}`,
-            success: function(venueDetails) {
-                console.log(venueDetails);
+            success: function(data) {
+                console.log(data);
+                currVenueDetails = {data};
+                console.log(currVenueDetails);
+                $('#event-address').val(data.address);
             },
             error: function(jqXHR, testStatus) {
                 console.log(testStatus);
             }
         });
+        return false;
     };
 
     return {
@@ -156,17 +162,10 @@ $('#myModal').on('shown.bs.modal', function() {
 
 $('.carousel').carousel();
 
-$('#event-venue').keypress(function(event) {
-    if (event.keyCode == 13 || event.which == 13) {
-        var venueName = $(this).val();
-        app.venueDetailsFill(venueName);
-    }
-});
+$('#event-venue').on('keyup', function(event) {
+    var venueName = $(this).val();
+    var venueCity = $(this).siblings('.event-cities').val();
+    console.log(venueCity);
+    app.venueDetailsFill(venueName);
 
-$('.event-venue').on('keyup', function() {
-    var completeName = $(this).val();
-    $.ajax({
-        method: 'GET',
-        url: ''
-    })
 });

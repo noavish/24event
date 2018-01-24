@@ -38,14 +38,17 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.get('/venueDetails/:venueName', function(request, response) {
     client.search({
         term:`${request.params.venueName}`,
-        location: 'san francisco, ca'
+        location: 'new york, ny'
     }).then(result => {
-        var venueDetails = {address: result.jsonBody.businesses[0].location.address1,
+        console.log(result.jsonBody.businesses[0]);
+        var venueDetails = {name: result.jsonBody.businesses[0].name,
+                            address: result.jsonBody.businesses[0].location.address1,
+                            city: result.jsonBody.businesses[0].location.city,
                             phone: result.jsonBody.businesses[0].phone,
                             picURL: result.jsonBody.businesses[0].image_url,
                             rating: result.jsonBody.businesses[0].rating,
                             price: result.jsonBody.businesses[0].price};
-        response.send(venueDetails.price);
+        response.send(venueDetails);
         console.log(venueDetails);
     }).catch(error => {
             console.log(err);
