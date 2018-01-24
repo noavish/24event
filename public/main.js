@@ -15,6 +15,7 @@ var event24App = function() {
         });
     };
     fetch();
+
     var _renderEvents = function() {
         $(".event-list").empty();
         var source = $("#event-template").html();
@@ -54,10 +55,24 @@ var event24App = function() {
         });
     };
 
+    var venueDetailsFill = function(venueName) {
+        $.ajax({
+            method: "GET",
+            url: `/venueDetails/${venueName}`,
+            success: function(venueDetails) {
+                console.log(venueDetails);
+            },
+            error: function(jqXHR, testStatus) {
+                console.log(testStatus);
+            }
+        });
+    };
+
     return {
         addEvent: addEvent,
         joinEvent: joinEvent,
-        _renderEvents: _renderEvents
+        _renderEvents: _renderEvents,
+        venueDetailsFill: venueDetailsFill
     };
 };
 
@@ -94,36 +109,36 @@ $('.cancel-event').on('click', function() {
 });
 
 
-$('#event-form').submit(function (event) {
-    alert("form sumbited ")
-    event.preventDefault();
-    var userEmail = $('#event-creator').val();
-    var eventCity = $('.event-cities').val();
-    var eventDate = $('#event-date').val();
-    var eventTime = $('#event-time').val();
-    var eventName = $('#event-name').val();
-    var eventDesc = $('#event-desc').val();
-    var placeName = $('#event-venue').val();
-    var address = $('#event-address').val();
-    var maxParticipants = $('#max-num').val();
-    var myFile = $('#image').prop('files');
-
-    var formData = new FormData(this);
-    formData.append('userEmail', userEmail);
-    formData.append('eventCity', eventCity);
-    formData.append('eventDate', eventDate);
-    formData.append('eventTime', eventTime);
-    formData.append('eventName', eventName);
-    formData.append('eventDesc', eventDesc);
-    formData.append('placeName', placeName);
-    formData.append('address', address);
-    formData.append('maxParticipants', maxParticipants);
-    formData.append('placeImage', myFile);
-   
-    app.addEvent(formData);
-    $(this).reset();
-    $('#myInput').trigger('show');
-});
+// $('#event-form').submit(function (event) {
+//     alert("form sumbited ")
+//     event.preventDefault();
+//     var userEmail = $('#event-creator').val();
+//     var eventCity = $('.event-cities').val();
+//     var eventDate = $('#event-date').val();
+//     var eventTime = $('#event-time').val();
+//     var eventName = $('#event-name').val();
+//     var eventDesc = $('#event-desc').val();
+//     var placeName = $('#event-venue').val();
+//     var address = $('#event-address').val();
+//     var maxParticipants = $('#max-num').val();
+//     var myFile = $('#image').prop('files');
+//
+//     var formData = new FormData(this);
+//     formData.append('userEmail', userEmail);
+//     formData.append('eventCity', eventCity);
+//     formData.append('eventDate', eventDate);
+//     formData.append('eventTime', eventTime);
+//     formData.append('eventName', eventName);
+//     formData.append('eventDesc', eventDesc);
+//     formData.append('placeName', placeName);
+//     formData.append('address', address);
+//     formData.append('maxParticipants', maxParticipants);
+//     formData.append('placeImage', myFile);
+//
+//     app.addEvent(formData);
+//     $(this).reset();
+//     $('#myInput').trigger('show');
+// });
 
 $('div').on('click', '.join-event', function() {
     var userEmail = $('div').val();
@@ -140,4 +155,18 @@ $('#myModal').on('shown.bs.modal', function() {
 });
 
 $('.carousel').carousel();
-  
+
+$('#event-venue').keypress(function(event) {
+    if (event.keyCode == 13 || event.which == 13) {
+        var venueName = $(this).val();
+        app.venueDetailsFill(venueName);
+    }
+});
+
+$('.event-venue').on('keyup', function() {
+    var completeName = $(this).val();
+    $.ajax({
+        method: 'GET',
+        url: ''
+    })
+});

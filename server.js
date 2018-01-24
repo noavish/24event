@@ -1,8 +1,14 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
-var multer = require('multer')
-var upload = multer({ dest: 'uploads/' })
+var multer = require('multer');
+var upload = multer({ dest: 'uploads/' });
+var Yelp = require('yelp');
+'use strict';
+
+const yelp = require('yelp-fusion');
+
+const client = yelp.client('QjAlN21ahBuZvWmD3plYAn9rpZVtLStivrnQVkxcoV3-snRKlN6COsM9cyVrZn4ZdthNyaUZjZ7HDPO6J0yvBte2VcrVNZwhzfCKXWXkyEL0-ifYeAPT5iSDTVloWnYx');
 
 
 
@@ -27,6 +33,27 @@ app.use(express.static('uploads'));
 app.use(express.static('node_modules'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+
+// Search venue name in yelp
+app.get('/venueDetails/:venueName', function(request, response) {
+    client.search({
+        term:`${request.params.venueName}`,
+        location: 'san francisco, ca'
+    }).then(result => {
+        var venueDetails = {address: result.jsonBody.businesses[0].location.address1,
+                            phone: result.jsonBody.businesses[0].phone,
+                            picURL: result.jsonBody.businesses[0].image_url,
+                            rating: result.jsonBody.businesses[0].rating,
+                            price: result.jsonBody.businesses[0].price};
+        response.send(venueDetails.price);
+        console.log(venueDetails);
+    }).catch(error => {
+            console.log(err);
+    });
+});
+
+
+
 
 //multer storage object 
 var storage = multer.diskStorage({
@@ -120,7 +147,7 @@ app.post('/events/newEvent', function(req, res,next) {
             eventCity: req.body.eventCity,
             address: req.body.address,
             phone: req.body.phone,
-            picURL: req.file.filename,
+            // picURL: req.file.filename,
             review: req.body.review
         });
 
@@ -140,7 +167,6 @@ app.post('/events/newEvent', function(req, res,next) {
                 if (err) throw err
                 Event.findOne({ _id: event._id }).populate('place').exec(function(err, eventwithPlace) {
                     if (err) throw err
-                    console.log("XXXXXXXXXXXXXXXXXXXXXXXXXXXX ")
                     console.log(eventwithPlace)
                     res.json(eventwithPlace);
                 });
