@@ -211,10 +211,11 @@
                     <span>Event Creater :</span>
                     <p class="user-email" data-name="{{userEmail}}">{{userEmail}}</p>
                     <button class="btn btn-info" id="join-event">Join Event</button>
+                    <input type="email" placeholder="Enter your email" name="field" class="user-field-email" />
                     <button class="btn btn-danger delete-btn" id="delete-event"></button>
                 </div>
                 <ul>
-                    <li style="width:33%;">attendees
+                    <li style="width:33%;">{{attendees.length}}
                         <span class="fa fa-male"></span>
                     </li>
                     <li style="width:34%;">{{maxParticipants}}

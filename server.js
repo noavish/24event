@@ -107,9 +107,6 @@ app.get('/events', function(req, res) {
 
 //post - create new event - event section
 app.post('/events/newEvent', function(req, res, next) {
-
-    console.log(req.body);
-    console.log(req.file);
     if (req.body) {
         upload(req, res, function(err) {
             if (err) {
@@ -140,7 +137,6 @@ app.post('/events/newEvent', function(req, res, next) {
                     if (err) throw err
                     Event.findOne({ _id: event._id }).populate('place').exec(function(err, eventwithPlace) {
                         if (err) throw err
-                        console.log(eventwithPlace)
                         res.json(eventwithPlace);
                     });
                 });
@@ -155,17 +151,17 @@ app.post('/events/newEvent', function(req, res, next) {
 //get - get event from DB
 
 //put - add participant to event
-app.post('/events/:eventID/user/:userEmail', function(req, res) {
-    var eventID = req.param.eventID;
-    var userEmail = req.param.userEmail;
-    Event.findByIdAndUpdate(eventID, { $push: { attendees: userEmail } }, { new: true }, function(err, specificEvent) {
+app.post('/events/:eventid/users/:useremail', function(req, res) {
+    var eventid = req.params.eventid;
+    var email = req.body;
+    Event.findByIdAndUpdate({ _id: eventid }, { $push: { attendees: email } }, { new: true }, function(err, specificEvent) {
         if (err) throw err;
+        console.log(specificEvent)
         res.send(specificEvent);
     })
 });
 //delete - remove event from DB
 app.delete('/events/:id', function(req, res) {
-    console.log(req.params.id);
     Event.findByIdAndRemove(req.params.id, function(err, post) {
         if (!err) {
             console.log('succeeded');
