@@ -238,3 +238,32 @@ $('#event-venue').on('keyup', function(event) {
 
 });
 
+
+
+var options = {
+
+    url: function (phrase) {
+        return "/autocomplete/"+phrase;
+    },
+
+    getValue: function (element) {
+        return element.text;
+    },
+
+    ajaxSettings: {
+        dataType: "json",
+        method: "GET",
+        data: {
+            // dataType: "json"
+        }
+    },
+    preparePostData: function (data) {
+        data.phrase = $("#search").val();
+        return data;
+    },
+    requestDelay: 400
+};
+
+$("#search").easyAutocomplete(options);
+
+

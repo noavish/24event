@@ -55,6 +55,17 @@ app.get('/venueDetails/:venueName', function(request, response) {
 });
 
 
+app.get('/autocomplete/:venueName', function (request, response) {
+client.autocomplete({
+    text: request.params.venueName
+}).then(result => {
+    console.log(result.jsonBody.terms);
+    response.send(result.jsonBody.terms);
+}).catch(e => {
+    console.log(e);
+});
+});
+
 //multer storage object 
 var storage = multer.diskStorage({
     destination: function(request, file, callback) {
