@@ -9,7 +9,7 @@ var eventSchema = new mongoose.Schema({
     eventName: String,
     eventDesc: String,
     maxParticipants: Number,
-    attendees: [{ type: Schema.Types.ObjectId, ref: 'user' }],
+    attendees: [],
 });
 // , { usePushEach: true });
 

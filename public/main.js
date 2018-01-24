@@ -7,6 +7,7 @@ var event24App = function() {
             datatype: "json",
             success: function(data) {
                 events = data;
+
                 _renderEvents();
             },
             error: function(jqXHR, testStatus) {
@@ -37,7 +38,6 @@ var event24App = function() {
             cache: false,
             success: function(data) {
                 events.push(data);
-                console.log(events)
                 _renderEvents();
             },
             error: function(xhr, text, err) {
@@ -46,12 +46,36 @@ var event24App = function() {
         });
     };
 
-    var joinEvent = function(userEmail, eventID) {
-        $.ajax({
-            type: "POST",
-            url: '/events' + eventID + '/user/' + userEmail,
-            success: function(specificEvent) {},
-        });
+    var _maxAttendees = function(index) {
+        for (var i = 0; i < events.length; i++) {
+            if (events[index].attendees.length >= events[index].maxParticipants) {
+                return false;
+            } else {
+                return true
+            }
+        }
+    }
+
+    var joinEvent = function(eventid, useremail) {
+        var index = events.map(function(e) { return e._id; }).indexOf(eventid);
+
+        if (_maxAttendees(index)) {
+            $.ajax({
+                type: "POST",
+                url: '/events/' + eventid + '/users/' + useremail,
+                data: { email: useremail },
+                success: function(data) {
+                    events = data;
+                    fetch();
+
+                },
+                error: function(xhr, text, err) {
+                    console.log(err);
+                }
+            });
+        } else {
+            alert("Sorry , The event is FULL  :}");
+        }
     };
 
     var removeEvent = function(index) {
@@ -145,12 +169,12 @@ $('#event-form').submit(function(event) {
 });
 
 $('.event-list').on('click', '#join-event', function() {
-    var userEmail = $(this).siblings().data().name()
-    var eventID = $(this).data().id();
-    joinEvent(userEmail, eventID);
-    console.log(userEmail, eventId)
-
+    var eventID = $(this).parents('.event-div').data().id
+    var userEmail = $(this).siblings('.user-field-email').val()
+    app.joinEvent(eventID, userEmail)
 });
+
+
 
 //remove event on click
 $('.event-list').on('click', '.delete-btn', function() {
