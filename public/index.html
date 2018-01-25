@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" href="easy-autocomplete/dist/easy-autocomplete.css">
     <link href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah|Indie+Flower" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.3/TweenMax.min.js"></script>
     <link rel="stylesheet" href="style.css">
@@ -37,7 +38,7 @@
                 <li class="search-bar">
                     <form class="navbar-form" role="search">
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Search" name="q">
+                            <input type="text" id="search" class="form-control" placeholder="Search" name="q">
                             <div class="input-group-btn">
                                 <button class="btn btn-default search-city" type="submit">
                                     <i class="fa fa-search"></i>
@@ -171,6 +172,7 @@
                                         </button>
                                     </span>
                                 </div>
+
                             </div>
                             <div class="form-group">
                                 <label for="event-address">Venue Address</label>
@@ -303,6 +305,7 @@
     <script src="jquery/dist/jquery.js"></script>
     <script src="bootstrap/dist/js/bootstrap.js"></script>
     <script src="handlebars/dist/handlebars.js"></script>
+    <script src="easy-autocomplete/dist/jquery.easy-autocomplete.js"></script>
     <script src="main.js"></script>
     <script src="handlebartest.js"></script>
 </body>
