@@ -1,17 +1,235 @@
+* {
+    box-sizing: border-box;
+    margin: auto;
+}
 
+.search-bar {
+    float: right;
+}
+
+.carousel-inner>.item>img {
+    width: 100%;
+    height: 0px;
+}
+
+.carousel-indicators--round li {
+    border-radius: 10px;
+    margin: 1px 3px;
+    height: 10px;
+    max-width: 10px;
+    border: 1px solid #FFF;
+    background-color: transparent;
+}
+
+.carousel-indicators .active {
+    background-color: #fff;
+    max-width: 12px;
+    margin: 0 3px;
+    height: 12px;
+}
+
+.carousel-text {
+    font-size: 350%;
+    font-family: 'Gloria Hallelujah', cursive;
+    color: white;
+}
+
+.create-event {
+    margin: 6%;
+}
+
+.modal-content {
+    background: linear-gradient(to right, #d3cce3, #e9e4f0);
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.event-details {
+    text-align: center;
+}
+
+[type="date"] {
+    background: #fff url(https://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/calendar_2.png) 97% 50% no-repeat;
+}
+
+[type="date"]::-webkit-inner-spin-button {
+    display: none;
+}
+
+[type="date"]::-webkit-calendar-picker-indicator {
+    opacity: 0;
+}
+
+.upcoming {
+    text-align: center;
+}
+
+.footer {
+    background-color: #29293d;
+    bottom: 0;
+    text-align: center;
+    height: 300px;
+}
+
+input {
+    border: 1px solid #c4c4c4;
+    border-radius: 5px;
+    background-color: #fff;
+    padding: 3px 5px;
+    box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.1);
+    width: 190px;
+}
+
+#join-event {
+    position: relative;
+    width: 198px;
+}
+
+#delete-event {
+    float: right;
+}
+
+.event-div {
+    background: linear-gradient(to right, #d3cce3, #e9e4f0);
+    margin-top: 2%;
+    text-align: center;
+}
+
+
+/* Set uploaded image as thumbnail */
+
+.thumbnail {
+    position: relative;
+    width: 300px;
+    height: 300px;
+    overflow: hidden;
+}
+
+.thumbnail img {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    height: 100%;
+    /* width: 100%; */
+    /* width: auto; */
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.thumbnail img.place-image {
+    /* width: 100%; */
+    height: 100%;
+    /* height: auto; */
+}
+
+
+/* Set uploaded image to profile picture */
+
+.profile-pic img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 20px;
+    object-fit: cover;
+    object-position: center right;
+}
+
+.title {
+    text-align: center;
+}
+
+.attendee-count {
+    display: inline;
+}
+
+.attendees {
+    display: inline;
+}
+
+.profile {
+    display: inline;
+}
+
+
+/* social media footer */
+
+
+/* container */
+
+#share {
+    width: 100%;
+    margin: 100px auto;
+    text-align: center;
+}
+
+
+/* buttons */
+
+#share a {
+    width: 50px;
+    height: 50px;
+    display: inline-block;
+    margin: 8px;
+    border-radius: 50%;
+    font-size: 24px;
+    color: #fff;
+    opacity: 0.75;
+    transition: opacity 0.15s linear;
+}
+
+#share a:hover {
+    opacity: 1;
+}
+
+
+/* icons */
+
+#share i {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+
+/* colors */
+
+.facebook {
+    background: #3b5998;
+}
+
+.twitter {
+    background: #55acee;
+}
+
+.googleplus {
+    background: #dd4b39;
+}
+
+.linkedin {
+    background: #0077b5;
+}
+
+.pinterest {
+    background: #cb2027;
+}
+
+
+/* social media share link */
+
+
+/* *,
 *:before,
 *:after {
   -webkit-box-sizing: content-box;
   -moz-box-sizing: content-box;
   box-sizing: content-box;
 }
-
 #socialShare {
   width: 100%;
   margin-top: 15px;
   text-align: center;
 }
-
 #socialShare a,
 #socialShare > .socialBox {
   position: relative;
@@ -27,12 +245,9 @@
   text-align: center;
   border-radius: 50%;
 }
-
 #socialShare  a {
   background-color: rgba(0, 0, 0, 0.2);
 }
-
-
 #socialShare > * > span {
   background-color: rgba(0, 0, 0, 0.6);
   box-shadow: 0 0 0 5px rgba(0, 0, 0, 0.15);
@@ -61,6 +276,17 @@
   -moz-transition: all .15s ease-in-out;
   transition: all .15s ease-in-out;
 } */
+
+
+/* #socialGallery {
+  left: 50%;
+  position: absolute;
+  top: 60px;
+  transform: translate(-50%, 0);
+  visibility: hidden;
+  width: 400px; 
+} */
+
 #socialGallery a {
     visibility: hidden;
     opacity: 0;
@@ -111,24 +337,80 @@
     background: #bb0000 !important
 }
 
+.gray-div {
+    -webkit-animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+    animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-perspective: 1000px;
+    perspective: 1000px;
+}
+
+#delete-event {
+    float: right;
+}
+
+@-webkit-keyframes shake {
+    10%,
+    90% {
+        -webkit-transform: translate3d(-1px, 0, 0);
+        transform: translate3d(-1px, 0, 0);
+    }
+    20%,
+    80% {
+        -webkit-transform: translate3d(2px, 0, 0);
+        transform: translate3d(2px, 0, 0);
+    }
+    30%,
+    50%,
+    70% {
+        -webkit-transform: translate3d(-4px, 0, 0);
+        transform: translate3d(-4px, 0, 0);
+    }
+    40%,
+    60% {
+        -webkit-transform: translate3d(4px, 0, 0);
+        transform: translate3d(4px, 0, 0);
+    }
+}
+
+@keyframes shake {
+    10%,
+    90% {
+        -webkit-transform: translate3d(-1px, 0, 0);
+        transform: translate3d(-1px, 0, 0);
+    }
+    20%,
+    80% {
+        -webkit-transform: translate3d(2px, 0, 0);
+        transform: translate3d(2px, 0, 0);
+    }
+    30%,
+    50%,
+    70% {
+        -webkit-transform: translate3d(-4px, 0, 0);
+        transform: translate3d(-4px, 0, 0);
+    }
+    40%,
+    60% {
+        -webkit-transform: translate3d(4px, 0, 0);
+        transform: translate3d(4px, 0, 0);
+    }
+}
+
+.navbar {
+    height: 50px;
+}
+
+.logo {
+    font-family: 'Gloria Hallelujah', cursive;
+}
+
 @media only screen and (max-width: 480px) {
     #socialGallery {
         width: 120px;
-    }
-    .gray-div {
-        -webkit-animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
-        animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
-        -webkit-transform: translate3d(0, 0, 0);
-        transform: translate3d(0, 0, 0);
-        -webkit-backface-visibility: hidden;
-        backface-visibility: hidden;
-        -webkit-perspective: 1000px;
-        perspective: 1000px;
-    }
-    #delete-event {
-        top: 262px;
-        position: absolute;
-        right: 0px;
     }
     @media (min-width: 768px) {
         .event-list>li {
@@ -205,54 +487,6 @@
     }
 }
 
-@-webkit-keyframes shake {
-    10%,
-    90% {
-        -webkit-transform: translate3d(-1px, 0, 0);
-        transform: translate3d(-1px, 0, 0);
-    }
-    20%,
-    80% {
-        -webkit-transform: translate3d(2px, 0, 0);
-        transform: translate3d(2px, 0, 0);
-    }
-    30%,
-    50%,
-    70% {
-        -webkit-transform: translate3d(-4px, 0, 0);
-        transform: translate3d(-4px, 0, 0);
-    }
-    40%,
-    60% {
-        -webkit-transform: translate3d(4px, 0, 0);
-        transform: translate3d(4px, 0, 0);
-    }
-}
-
-@keyframes shake {
-    10%,
-    90% {
-        -webkit-transform: translate3d(-1px, 0, 0);
-        transform: translate3d(-1px, 0, 0);
-    }
-    20%,
-    80% {
-        -webkit-transform: translate3d(2px, 0, 0);
-        transform: translate3d(2px, 0, 0);
-    }
-    30%,
-    50%,
-    70% {
-        -webkit-transform: translate3d(-4px, 0, 0);
-        transform: translate3d(-4px, 0, 0);
-    }
-    40%,
-    60% {
-        -webkit-transform: translate3d(4px, 0, 0);
-        transform: translate3d(4px, 0, 0);
-    }
-}
-
 .rating {
     display: inline;
     text-align: center;
@@ -264,5 +498,5 @@
     display: inline;
     text-align: center;
     -webkit-text-stroke-width: 1px;
-    -webkit-text-stroke-color: black;    
+    -webkit-text-stroke-color: black;
 }

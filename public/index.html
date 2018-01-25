@@ -17,10 +17,9 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
 
-        <a class="navbar-brand logo" href="#">EatUp</a>
+        <a class="navbar-brand logo" href="#">EatUp</a><img src="" alt="">
         <button type="button" class="btn btn-outline-primary btn-sm create-event" data-toggle="modal" data-target="#myModal">Create Event</button>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-            aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
@@ -99,103 +98,103 @@
     <div class="container">
         <div class="row">
             <div class="upcoming col-12">
-            <h1>Upcoming Events</h1>
+                <h1>Upcoming Events</h1>
             </div>
         </div>
         <div class="row">
             <!-- <div class="[ col-xs-12 col-sm-offset-2 col-sm-12 ]"> -->
-                <ul class="event-list col-12" style="list-style: none;">
-    
-                </ul>
-            </div>
+            <ul class="event-list col-12" style="list-style: none;">
+
+            </ul>
         </div>
-        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <form class="create-event-form" id="event-form">
-                        <div class="modal-header">
-                            <h5 class="modal-title event-details">Event Details</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    </div>
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form class="create-event-form" id="event-form">
+                    <div class="modal-header">
+                        <h5 class="modal-title event-details">Event Details</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="event-creator">Email Address</label>
+                            <input type="email" class="form-control" id="event-creator" name="event-creator" placeholder="Enter a contact email">
                         </div>
-                        <div class="modal-body">
-                            <div class="form-group">
-                                <label for="event-creator">Email Address</label>
-                                <input type="email" class="form-control" id="event-creator" name="event-creator" placeholder="Enter a contact email">
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleFormControlSelect1">Event City</label>
-                                <select class="form-control event-cities">
+                        <div class="form-group">
+                            <label for="exampleFormControlSelect1">Event City</label>
+                            <select class="form-control event-cities">
                                     <option selected>Choose...</option>
                                     <option class="city-select tel-aviv" value="New York, NY">New York, NY</option>
                                     <option class="city-select london" value="San Francisco, CA">San Francisco, CA</option>
                                     <option class="city-select new-york" value="Las Vegas, NV">Las Vegas, NV</option>
                                 </select>
+                        </div>
+                        <div class="row date-time">
+                            <div class="form-group data col-md-6">
+                                <label for="event-date">Date</label>
+                                <input type="date" id="event-date" name="event-date">
                             </div>
-                            <div class="row date-time">
-                                <div class="form-group data col-md-6">
-                                    <label for="event-date">Date</label>
-                                    <input type="date" id="event-date" name="event-date">
-                                </div>
 
-                                <div class="form-group col-6">
-                                    <label for="event-time">Time</label>
-                                    <input type="time" id="event-time" name="event-time">
-                                </div>
+                            <div class="form-group col-6">
+                                <label for="event-time">Time</label>
+                                <input type="time" id="event-time" name="event-time">
                             </div>
-                            <div class="form-group">
-                                <label for="event-name">Event Name</label>
-                                <input type="text" class="form-control" id="event-name" name="event-name" placeholder="Give your event a name">
-                            </div>
-                            <div class="form-group">
-                                <label for="event-desc">Event Description</label>
-                                <textarea class="form-control" id="event-desc" name="event-desc" placeholder="Describe your event so people will want to attend" rows="3"></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label for="event-venue">Venue Name</label>
-                                <div class="input-group">
-                                    <input type="text" class="form-control" id="event-venue" name="event-venue" placeholder="Name of venue where event will be held">
-                                    <span class="input-group-btn">
+                        </div>
+                        <div class="form-group">
+                            <label for="event-name">Event Name</label>
+                            <input type="text" class="form-control" id="event-name" name="event-name" placeholder="Give your event a name">
+                        </div>
+                        <div class="form-group">
+                            <label for="event-desc">Event Description</label>
+                            <textarea class="form-control" id="event-desc" name="event-desc" placeholder="Describe your event so people will want to attend" rows="3"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="event-venue">Venue Name</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="event-venue" name="event-venue" placeholder="Name of venue where event will be held">
+                                <span class="input-group-btn">
                                         <button type="button" class="btn btn-default venue-name-btn search-venue">
                                             <i class="fa fa-search" aria-hidden="true"></i>
                                         </button>
                                     </span>
-                                    <span class="input-group-btn">
+                                <span class="input-group-btn">
                                         <button type="button" class="btn btn-default venue-name-btn clear-venue">
                                             <i class="fa fa-times" aria-hidden="true"></i>
                                         </button>
                                     </span>
-                                </div>
+                            </div>
 
-                            </div>
-                            <div class="form-group">
-                                <label for="event-address">Venue Address</label>
-                                <input type="text" class="form-control" id="event-address" name="event-address" placeholder="Street address of venue">
-                            </div>
-                            <div class="venueDetails">
-                            </div>
-                            <div class="row">
-                                <div class="form-group col-4">
-                                    <label for="max-num">Max. Attendees</label>
-                                    <input type="number" id="max-num" name="max-num" placeholder="#">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="form-group">
-                                    <label for="form-control">Post Image</label>
-                                    <input type="file" id="image" name="placeImage" class="">
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary cancel-event" data-dismiss="modal">Cancel</button>
-                                <input type="submit" value="Submit" class="btn btn-secondary save-event">
+                        </div>
+                        <div class="form-group">
+                            <label for="event-address">Venue Address</label>
+                            <input type="text" class="form-control" id="event-address" name="event-address" placeholder="Street address of venue">
+                        </div>
+                        <div class="venueDetails">
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-4">
+                                <label for="max-num">Max. Attendees</label>
+                                <input type="number" id="max-num" name="max-num" placeholder="#">
                             </div>
                         </div>
-                    </form>
-                </div>
+                        <div class="row">
+                            <div class="form-group">
+                                <label for="form-control">Profile Pic</label>
+                                <input type="file" id="image" name="placeImage" class="">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary cancel-event" data-dismiss="modal">Cancel</button>
+                            <input type="submit" value="Submit" class="btn btn-secondary save-event">
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
+    </div>
 
     </div>
     <div class="footer">
@@ -248,72 +247,63 @@
         {{#each event}}
         <li class="event container">
             <div class="event-div" data-id="{{_id}}">
-            <div class="row">
-            <div class="thumbnail col-sm-5">
-                <img alt="place-image" alt="Image" src="{{place.picURL}}"/>
-                <!-- <br> -->
-            </div>
-            <div class="event-info col-sm-7">
-                <div id="socialShare">
-            
-                </div>
-                <h2 class="title" data-name="{{eventName}}">{{eventName}}  |  {{eventDate}}</h2>
-                <h4 data-name="{{place.placeName}}">{{place.placeName}}</h4>
-                <div class="rating" style="list-style: none;">
-                    <span class="stars rating" >{{place.rating}} | </span>
-                    <span class="dollar rating" >{{place.price}}</span>
-                </div>
-                <p data-name="'{{place.address}}">{{place.address}}, {{place.eventCity}}</p>          
-                <h5 class="desc" data-name="{{eventDesc}}">{{eventDesc}}</h5>
+                <div class="row">
+                    <div class="thumbnail col-sm-5">
+                        <img alt="place-image" alt="Image" src="{{place.picURL}}" />
+                        <!-- <br> -->
+                    </div>
+                    <div class="event-info col-sm-7">
+                        <div id="socialShare">
 
-                <div class="profile profile-pic">
-                    <img class="profile profile-img" alt="Image" src="{{userPic}}"/>                    
-                    <p class="profile user-email" data-name="{{userEmail}}">Contact: {{userEmail}}</p>   
-                </div>
-                <!-- <p data-name="'{{place.address}}">Phone: {{place.phone}}  |  Address: {{place.address}} {{place.eventCity}}</p> -->
-                <div class="input-group col-sm-8">
-                    <input type="email" placeholder="Enter your email to join event" name="field" class="user-field-email form-control">
-                    <div class="input-group-btn">
-                        <button class="btn btn-info" id="join-event" type="submit">
+                        </div>
+                        <h2 class="title" data-name="{{eventName}}">{{eventName}} </h2>
+                        <h3 class="time">on {{eventDate}} at {{eventTime}}</h3>
+                        <h4 data-name="{{place.placeName}}">{{place.placeName}}</h4>
+                        <div class="rating" style="list-style: none;">
+                            <span class="stars rating">{{place.rating}} | </span>
+                            <span class="dollar rating">{{place.price}}</span>
+                        </div>
+                        <p data-name="'{{place.address}}">{{place.address}}, {{place.eventCity}}</p>
+                        <h5 class="desc" data-name="{{eventDesc}}">{{eventDesc}}</h5>
+
+                        <div class="profile profile-pic">
+                            <img class="profile profile-img" alt="Image" src="{{userPic}}" />
+                            <p class="profile user-email" data-name="{{userEmail}}">Contact: {{userEmail}}</p>
+                        </div>
+                        <!-- <p data-name="'{{place.address}}">Phone: {{place.phone}}  |  Address: {{place.address}} {{place.eventCity}}</p> -->
+                        <div class="input-group col-sm-10">
+                            <input type="email" placeholder="Enter your email to join event" name="field" class="user-field-email form-control">
+                            <div class="input-group-btn">
+                                <button class="btn btn-info" id="join-event" type="submit">
                             Join Event
+                        </button>
+                            </div>
+                        </div>
+                        <ul class="attendee-count" style="list-style: none;">
+                            <li class="attendees" style="width:33%;">{{attendees.length}} attending
+                                <span class="fa fa-male"></span>
+                            </li>
+                            <li class="attendees" style="width:34%;"> | {{maxParticipants}} invited
+                                <span class="fa fa-child"></span>
+                            </li>
+                        </ul>
+                        <button class="btn btn-danger delete-btn" id="delete-event"><i class="fa fa-trash"></i></button>
+                    </div>
+                </div>
+                <div class="row comments">
+                    <button class="btn btn-info comment-btn" id="comment">Comment</button>
+                    <div class="input-group col-sm-5">
+                        <input type="text" placeholder="Comment here" name="field" class="form-control comment-text">
+                        <div class="input-group-btn">
+                            <button class="btn btn-info" id="comment-text-btn" type="submit">
+                            Submit
                         </button>
                         </div>
                     </div>
-                    <ul class="attendee-count" style="list-style: none;">
-                        <li class="attendees" style="width:33%;">Attending: {{attendees.length}}
-                            <span class="fa fa-male"></span>
-                        </li>
-                        <li class="attendees" style="width:34%;">Space left: {{maxParticipants}}
-                            <span class="fa fa-child"></span>
-                        </li>
-                    </ul>
-                    <button class="btn btn-danger delete-btn" id="delete-event"><i class="fa fa-trash"></i></button>
-                </div>
-                <ul class="attendee-count" style="list-style: none;">
-                    <li class="attendees" style="width:34%;">{{maxParticipants}} spots left 
-                        <span class="fa fa-child"></span>
-                    </li>
-                    <li class="attendees" style="width:33%;"> | {{attendees.length}} attending
-                            <span class="fa fa-male"></span>
-                    </li>
-                </ul>
-                <button class="btn btn-danger delete-btn" id="delete-event"><i class="fa fa-trash"></i></button>
-            </div>
-            </div>
-            <div class="row comments">
-                <button class="btn btn-info comment-btn" id="comment">Comment</button>
-                <div class="input-group col-sm-5">
-                    <input type="text" placeholder="Comment here" name="field" class="form-control comment-text">
-                    <div class="input-group-btn">
-                        <button class="btn btn-info" id="comment-text-btn" type="submit">
-                            Submit
-                        </button>
+                    <div class="comments'list">
+
                     </div>
                 </div>
-                <div class="comments'list">
-
-                </div>
-            </div>
         </li>
         {{/each}}
     </script>
