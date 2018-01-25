@@ -161,10 +161,14 @@
                                 <div class="input-group">
                                     <input type="text" class="form-control" id="event-venue" name="event-venue" placeholder="Name of venue where event will be held">
                                     <span class="input-group-btn">
-                                        <button type="button" class="btn btn-default venue-name-btn search-venue"><i class="fa fa-search" aria-hidden="true"></i></button>
+                                        <button type="button" class="btn btn-default venue-name-btn search-venue">
+                                            <i class="fa fa-search" aria-hidden="true"></i>
+                                        </button>
                                     </span>
                                     <span class="input-group-btn">
-                                        <button type="button" class="btn btn-default venue-name-btn clear-venue"><i class="fa fa-times" aria-hidden="true"></i></button>
+                                        <button type="button" class="btn btn-default venue-name-btn clear-venue">
+                                            <i class="fa fa-times" aria-hidden="true"></i>
+                                        </button>
                                     </span>
                                 </div>
                             </div>
@@ -239,107 +243,59 @@
             </p>
         </div>
     </script>
-    <script id="event-template" type="text/x-handlebars-template">
-  /* xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx */
-        <li class="event">
-            <div class="info">
-                <div class="event-div row" data-id="{{_id}}">
-                    <div class="thumbnail col-sm-5">
-                        <img class="event-img" alt="Image" src="{{place.picURL}}"/>
-                    </div>
-                    <div class="event-info col-sm-6">
-                            <div id="socialShare">
-                                    <div class="socialBox pointer">
-                                      <span class="fa fa-share-alt"></span>
-                                      <div id="socialGallery">
-                                        <ul class="socialToolBox" style="list-style: none;">
-                                            <li><a class="facebook" href=""><i class="fa fa-facebook"></i></a></li>
-                                            <li><a class="google" href=""><i class="fa fa-google-plus"></i></a></li>
-                                            <li><a class="twitter" href=""><i class="fa fa-twitter"></i></a></li>                            
-                                            <!-- <li><a class="instagram" href=""><i class="fa fa-instagram"></i></a></li> -->
-                                            <!-- <li><a class="tumblr" href=""><i class="fa fa-tumblr"></i></a></li> -->
-                                            <!-- <li><a class="youtube" href=""><i class="fa fa-youtube"></i></a></li> -->
-                                        </ul>
-                                      </div>
-                                    </div>
-                            </div>
-                    <h2 class="title" data-name="{{eventName}}">{{eventName}}</h2>
-                    <h5>On {{eventDate}}<h5>
-                    <h4 data-name="{{place.placeName}}">At {{place.placeName}}</h4>                    
-                    <p class="desc" data-name="{{eventDesc}}">{{eventDesc}}</p>
-                    <div class="profile profile-pic">
-                        <img class="profile profile-img" alt="Image" src="{{place.picURL}}"/>                    
-                        <p class="profile user-email" data-name="{{userEmail}}">Contact: {{userEmail}}</p>   
-                    </div>
-                    <br>  
-                    <div class="input-group">
-                            <input type="email" placeholder="Enter your email to join event" name="field" class="user-field-email form-control">
-                            <div class="input-group-btn">
-                                <button class="btn btn-info" id="join-event" type="submit">
-                                    Join Event
-                                </button>
-                            </div>
-                    </div>
-                    <ul class="attendee-count" style="list-style: none;">
-                        <li class="attendees" style="width:33%;">Attending: {{attendees.length}}
-                            <span class="fa fa-male"></span>
-                        </li>
-                        <li class="attendees" style="width:34%;">Space left: {{maxParticipants}}
-                            <span class="fa fa-child"></span>
-                        </li>
-                    </ul>
-                    <button class="btn btn-danger delete-btn" id="delete-event"><i class="fa fa-trash"></i></button>                                                                                  
-                </div>
+    <script id="event-template" type="text/x-handlebars-template">   
+    {{#each event}}
+        <li class="event container">
+            <div class="event-div row" data-id="{{_id}}">
+            <div class="thumbnail col-sm-5">
+                <img alt="place-image" alt="Image" src="{{place.picURL}}"/>
             </div>
-        </li>
-  /* xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx */
-        {{#each event}}
-            <li class="event">
-                <img alt="place-image" src="{{place.picURL}}" />
-                <div class="info">
-                    <div class="event-div" data-id="{{_id}}">
-                        <h2 class="title" data-name="{{eventName}}">{{eventName}}  |  {{eventDate}}</h2>
-                        <span>Event Creater: {{userEmail}}</span>
-                        <!--<img alt="place-image" src="" />-->
-                        <p class="desc" data-name="{{eventDesc}}"> {{eventDesc}} </p>
-                        <p data-name="{{place.placeName}}">Venue: {{place.placeName}} </p>
-                        <p data-name="'{{place.address}}">Phone: {{place.phone}}  |  Address: {{place.address}} {{place.eventCity}}</p>
-                        <p data-name="'{{place.rating}}">Rating: {{place.rating}} Stars  |  Price Range: {{place.price}}</p>
-                        <button class="btn btn-info" id="join-event">Join Event</button>
-                        <input type="email" placeholder="Enter your email" name="field" class="user-field-email" />
-                        <button class="btn btn-danger delete-btn" id="delete-event"></button>
+            <div class="event-info col-sm-7">
+                <!-- <div id="socialShare">
+                    <div class="socialBox pointer">
+                    <span class="fa fa-share-alt"></span>
+                        <div id="socialGallery">
+                            <ul class="socialToolBox" style="list-style: none;">
+                                <li><a class="facebook" href=""><i class="fa fa-facebook"></i></a></li>
+                                <li><a class="google" href=""><i class="fa fa-google-plus"></i></a></li>
+                                <li><a class="twitter" href=""><i class="fa fa-twitter"></i></a></li>                             -->
+                                <!-- <li><a class="instagram" href=""><i class="fa fa-instagram"></i></a></li> -->
+                                <!-- <li><a class="tumblr" href=""><i class="fa fa-tumblr"></i></a></li> -->
+                                <!-- <li><a class="youtube" href=""><i class="fa fa-youtube"></i></a></li> -->
+                            <!-- </ul>
+                        </div>
                     </div>
-                    <ul>
-                        <li style="width:33%;">{{attendees.length}}
-                            <span class="fa fa-male"></span>
-                        </li>
-                        <li style="width:34%;">{{maxParticipants}}
-                            <span class="fa fa-child"></span>
-                        </li>
-                    </ul>
+                </div> -->
+                <h2 class="title" data-name="{{eventName}}">{{eventName}}  |  {{eventDate}}</h2>
+                <h4 data-name="{{place.placeName}}">{{place.placeName}}</h4>                    
+                <p class="desc" data-name="{{eventDesc}}">{{eventDesc}}</p>
+                <div class="profile profile-pic">
+                    <img class="profile profile-img" alt="Image" src="{{place.picURL}}"/>                    
+                    <p class="profile user-email" data-name="{{userEmail}}">Contact: {{userEmail}}</p>   
                 </div>
-                <div class="social">
-                    <ul>
-                        <li class="facebook" style="width:33%;">
-                            <a href="#facebook">
-                                <span class="fa fa-facebook"></span>
-                            </a>
-                        </li>
-                        <li class="twitter" style="width:34%;">
-                            <a href="#twitter">
-                                <span class="fa fa-twitter"></span>
-                            </a>
-                        </li>
-                        <li class="google-plus" style="width:33%;">
-                            <a href="#google-plus">
-                                <span class="fa fa-google-plus"></span>
-                            </a>
-                        </li>
-                    </ul>
+                <p data-name="'{{place.address}}">Phone: {{place.phone}}  |  Address: {{place.address}} {{place.eventCity}}</p>
+                <p data-name="'{{place.rating}}">Rating: {{place.rating}} Stars  |  Price Range: {{place.price}}</p>     
+                <br>
+                <div class="input-group">
+                    <input type="email" placeholder="Enter your email to join event" name="field" class="user-field-email form-control">
+                    <div class="input-group-btn">
+                        <button class="btn btn-info" id="join-event" type="submit">
+                            Join Event
+                        </button>
+                    </div>
                 </div>
-            </li>
-        {{/each}}
-  /* xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx */
+                <ul class="attendee-count" style="list-style: none;">
+                    <li class="attendees" style="width:33%;">Attending: {{attendees.length}}
+                        <span class="fa fa-male"></span>
+                    </li>
+                    <li class="attendees" style="width:34%;">Space left: {{maxParticipants}}
+                        <span class="fa fa-child"></span>
+                    </li>
+                </ul>
+                <button class="btn btn-danger delete-btn" id="delete-event"><i class="fa fa-trash"></i></button>
+            </div>     
+        </li>
+    {{/each}}
     </script>
     <script src="jquery/dist/jquery.js"></script>
     <script src="bootstrap/dist/js/bootstrap.js"></script>
@@ -347,5 +303,4 @@
     <script src="main.js"></script>
     <script src="handlebartest.js"></script>
 </body>
-
 </html>
