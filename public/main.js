@@ -25,8 +25,12 @@ var event24App = function() {
         // for (var i = 0; i < events.length; i++) {
             var newHTML = template({event: events});
             $(".event-list").append(newHTML);
+
         // }
     };
+
+
+
 
     var addEvent = function(newEvent) {
         $.ajax({
@@ -94,6 +98,8 @@ var event24App = function() {
         });
     };
 
+
+
     var venueDetailsFill = function(venueCity, venueName) {
         $.ajax({
             method: "GET",
@@ -107,6 +113,7 @@ var event24App = function() {
                 var template = Handlebars.compile(source);
                 var newHTML = template(currVenueDetails);
                 $(".venueDetails").html(newHTML);
+
             },
             error: function(jqXHR, testStatus) {
                 console.log(testStatus);
@@ -115,6 +122,9 @@ var event24App = function() {
         return false;
     };
 
+
+   
+    
     var returnCurrVenueDetails = function () {
         return currVenueDetails;
     };
@@ -176,7 +186,9 @@ $('#event-form').submit(function(event) {
     var address = currentPlace.address;
     var phone = currentPlace.phone;
     var picURL = currentPlace.picURL;
-    var rating = currentPlace.rating;
+
+    
+    var rating = _renderStars(currentPlace.rating);
     var price = currentPlace.price;
     var eventDate = $('#event-date').val();
     // var eventTime = $('#event-time').val();
@@ -207,6 +219,7 @@ $('#event-form').submit(function(event) {
 });
 
 
+//Join event
 $('.event-list').on('click', '#join-event', function() {
     var eventID = $(this).parents('.event-div').data().id
     var userEmail = $(this).siblings('.user-field-email').val()
@@ -221,8 +234,8 @@ $('.event-list').on('click', '.delete-btn', function() {
     // console.log(index);
     app.removeEvent(index);
 });
-//Show form on create event button click
 
+//Show form on create event button click
 $('#myModal').on('shown.bs.modal', function() {
     $('#myInput').trigger('show')
 
@@ -308,3 +321,11 @@ $('.clear-venue').on('click', function () {
     $('.venueDetails').html('');
 });
 
+var _renderStars = function(starsNum){
+    let html = '';
+    for(let i=0;i<starsNum;i++){
+        html +='⭐';
+    }
+   
+  return html;
+};
