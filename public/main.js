@@ -8,6 +8,7 @@ var event24App = function() {
             url: '/events',
             datatype: "json",
             success: function(data) {
+                console.log(data)
                 events = data;
                 _renderEvents();
             },
@@ -23,8 +24,8 @@ var event24App = function() {
         var source = $("#event-template").html();
         var template = Handlebars.compile(source);
         // for (var i = 0; i < events.length; i++) {
-            var newHTML = template({event: events});
-            $(".event-list").append(newHTML);
+        var newHTML = template({ event: events });
+        $(".event-list").append(newHTML);
         // }
     };
 
@@ -115,7 +116,7 @@ var event24App = function() {
         return false;
     };
 
-    var returnCurrVenueDetails = function () {
+    var returnCurrVenueDetails = function() {
         return currVenueDetails;
     };
 
@@ -163,10 +164,10 @@ $('.cancel-event').on('click', function() {
 
 $('#event-form').submit(function(event) {
 
-    $('#myModal').modal('hide');    
+    $('#myModal').modal('hide');
     var currentPlace = app.returnCurrVenueDetails();
     event.preventDefault();
-  
+
     var userEmail = $('#event-creator').val();
     // var placeName = $('#event-venue').val();
     // var eventCity = $('.event-cities').val();
@@ -179,7 +180,7 @@ $('#event-form').submit(function(event) {
     var rating = currentPlace.rating;
     var price = currentPlace.price;
     var eventDate = $('#event-date').val();
-    // var eventTime = $('#event-time').val();
+    var eventTime = $('#event-time').val();
     var eventName = $('#event-name').val();
     var eventDesc = $('#event-desc').val();
     var maxParticipants = $('#max-num').val();
@@ -195,13 +196,13 @@ $('#event-form').submit(function(event) {
     formData.append('rating', rating);
     formData.append('price', price);
     formData.append('eventDate', eventDate);
-    // formData.append('eventTime', eventTime);
+    formData.append('eventTime', eventTime);
     formData.append('eventName', eventName);
     formData.append('eventDesc', eventDesc);
     formData.append('maxParticipants', maxParticipants);
     formData.append('placeImage', myFile);
 
-    app.addEvent(formData);    
+    app.addEvent(formData);
     // $(this).reset();
     // $('#myInput').trigger('show');
 });
@@ -237,60 +238,60 @@ $('.carousel').carousel();
 //social media share link
 // add this rail gallery effect
 $(document).on('click', '#socialShare > .socialBox', function() {
-    
-      var self = $(this);
-      var element = $('#socialGallery a');
-      var c = 0;
-    
-      if (self.hasClass('animate')) {
+
+    var self = $(this);
+    var element = $('#socialGallery a');
+    var c = 0;
+
+    if (self.hasClass('animate')) {
         return;
-      }
-    
-      if (!self.hasClass('open')) {
-    
+    }
+
+    if (!self.hasClass('open')) {
+
         self.addClass('open');
-    
+
         TweenMax.staggerTo(element, 0.3, {
-            opacity: 1,
-            visibility: 'visible'
-          },
-          0.075);
+                opacity: 1,
+                visibility: 'visible'
+            },
+            0.075);
         TweenMax.staggerTo(element, 0.3, {
-            top: -12,
-            ease: Cubic.easeOut
-          },
-          0.075);
-    
+                top: -12,
+                ease: Cubic.easeOut
+            },
+            0.075);
+
         TweenMax.staggerTo(element, 0.2, {
-            top: 0,
-            delay: 0.1,
-            ease: Cubic.easeOut,
-            onComplete: function() {
-              c++;
-              if (c >= element.length) {
-                self.removeClass('animate');
-              }
-            }
-          },
-          0.075);
-    
+                top: 0,
+                delay: 0.1,
+                ease: Cubic.easeOut,
+                onComplete: function() {
+                    c++;
+                    if (c >= element.length) {
+                        self.removeClass('animate');
+                    }
+                }
+            },
+            0.075);
+
         self.addClass('animate');
-    
-      } else {
-    
+
+    } else {
+
         TweenMax.staggerTo(element, 0.3, {
-            opacity: 0,
-            onComplete: function() {
-              c++;
-              if (c >= element.length) {
-                self.removeClass('open animate');
-                element.css('visibility', 'hidden');
-              };
-            }
-          },
-          0.075);
-      }
-    });
+                opacity: 0,
+                onComplete: function() {
+                    c++;
+                    if (c >= element.length) {
+                        self.removeClass('open animate');
+                        element.css('visibility', 'hidden');
+                    };
+                }
+            },
+            0.075);
+    }
+});
 
 
 
@@ -302,9 +303,8 @@ $('.search-venue').on('click', function() {
     app.venueDetailsFill(venueCity, venueName);
 });
 
-$('.clear-venue').on('click', function () {
+$('.clear-venue').on('click', function() {
     $('#event-venue').val('');
     $('#event-address').val('');
     $('.venueDetails').html('');
 });
-
