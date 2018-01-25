@@ -29,6 +29,9 @@ var event24App = function() {
         // }
     };
 
+
+
+
     var addEvent = function(newEvent) {
         $.ajax({
             type: "POST",
@@ -95,6 +98,8 @@ var event24App = function() {
         });
     };
 
+
+
     var venueDetailsFill = function(venueCity, venueName) {
         $.ajax({
             method: "GET",
@@ -108,6 +113,7 @@ var event24App = function() {
                 var template = Handlebars.compile(source);
                 var newHTML = template(currVenueDetails);
                 $(".venueDetails").html(newHTML);
+
             },
             error: function(jqXHR, testStatus) {
                 console.log(testStatus);
@@ -115,8 +121,8 @@ var event24App = function() {
         });
         return false;
     };
-
-    var returnCurrVenueDetails = function() {
+    
+    var returnCurrVenueDetails = function () {
         return currVenueDetails;
     };
 
@@ -177,7 +183,9 @@ $('#event-form').submit(function(event) {
     var address = currentPlace.address;
     var phone = currentPlace.phone;
     var picURL = currentPlace.picURL;
-    var rating = currentPlace.rating;
+
+    
+    var rating = _renderStars(currentPlace.rating);
     var price = currentPlace.price;
     var eventDate = $('#event-date').val();
     var eventTime = $('#event-time').val();
@@ -208,6 +216,7 @@ $('#event-form').submit(function(event) {
 });
 
 
+//Join event
 $('.event-list').on('click', '#join-event', function() {
     var eventID = $(this).parents('.event-div').data().id
     var userEmail = $(this).siblings('.user-field-email').val()
@@ -222,8 +231,8 @@ $('.event-list').on('click', '.delete-btn', function() {
     // console.log(index);
     app.removeEvent(index);
 });
-//Show form on create event button click
 
+//Show form on create event button click
 $('#myModal').on('shown.bs.modal', function() {
     $('#myInput').trigger('show')
 
@@ -308,3 +317,48 @@ $('.clear-venue').on('click', function() {
     $('#event-address').val('');
     $('.venueDetails').html('');
 });
+
+
+
+
+var options = {
+
+    url: function (phrase) {
+        return "/autocomplete/"+phrase;
+    },
+
+    getValue: function (element) {
+        return element.text;
+    },
+
+    ajaxSettings: {
+        dataType: "json",
+        method: "GET",
+        data: {
+            // dataType: "json"
+        }
+    },
+    preparePostData: function (data) {
+        data.phrase = $("#search").val();
+        return data;
+    },
+    requestDelay: 400
+};
+
+$("#search").easyAutocomplete(options);
+
+
+$('.clear-venue').on('click', function () {
+    $('#event-venue').val('');
+    $('#event-address').val('');
+    $('.venueDetails').html('');
+});
+
+var _renderStars = function(starsNum){
+    let html = '';
+    for(let i=0;i<starsNum;i++){
+        html +='⭐';
+    }
+   
+  return html;
+};
