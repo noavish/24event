@@ -175,6 +175,7 @@ app.post('/events/newEvent', function(req, res, next) {
                     eventTime: req.body.eventTime,
                     eventName: req.body.eventName,
                     eventDesc: req.body.eventDesc,
+                    userPic  : req.file.filename,
                     maxParticipants: req.body.maxParticipants,
                     attendees: []
                 });
