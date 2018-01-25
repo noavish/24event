@@ -324,26 +324,29 @@ $('.clear-venue').on('click', function() {
 
 var options = {
 
-    url: function (phrase) {
-        return "/autocomplete/"+phrase;
-    },
 
+
+    url : "/autocomplete",
     getValue: function (element) {
-        return element.text;
+        return element.place.placeName;
     },
+    template: {
+        type: "description",
 
-    ajaxSettings: {
-        dataType: "json",
-        method: "GET",
-        data: {
-            // dataType: "json"
+        fields: {
+            description: "eventDesc",
+
         }
     },
-    preparePostData: function (data) {
-        data.phrase = $("#search").val();
-        return data;
+  
+    list: {
+        match: {
+            enabled: true
+        }
     },
-    requestDelay: 400
+    theme: "plate-dark",
+
+     requestDelay: 400
 };
 
 $("#search").easyAutocomplete(options);
