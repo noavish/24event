@@ -8,6 +8,7 @@ var eventSchema = new mongoose.Schema({
     // eventTime: Number,
     eventName: String,
     eventDesc: String,
+    userPic : String,
     maxParticipants: Number,
     attendees: [],
 });

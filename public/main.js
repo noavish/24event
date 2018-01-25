@@ -216,6 +216,7 @@ $('#event-form').submit(function(event) {
     app.addEvent(formData);    
     // $(this).reset();
     // $('#myInput').trigger('show');
+    $(this).reset();
 });
 
 
