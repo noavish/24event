@@ -91,10 +91,10 @@ var event24App = function() {
         });
     };
 
-    var venueDetailsFill = function(venueName) {
+    var venueDetailsFill = function(venueCity, venueName) {
         $.ajax({
             method: "GET",
-            url: `/venueDetails/${venueName}`,
+            url: `/venueDetails/${venueCity}/${venueName}`,
             success: function(data) {
                 currVenueDetails = data;
                 console.log(currVenueDetails);
@@ -226,10 +226,13 @@ $('#myModal').on('shown.bs.modal', function() {
 
 $('.carousel').carousel();
 
+
+
+
 $('.search-venue').on('click', function() {
     var venueName = $('#event-venue').val();
-    // var venueCity = $(this).siblings('.event-cities').val();
-    app.venueDetailsFill(venueName);
+    var venueCity = $('.event-cities option:selected').text();
+    app.venueDetailsFill(venueCity, venueName);
 });
 
 $('.clear-venue').on('click', function () {
