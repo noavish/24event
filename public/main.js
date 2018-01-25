@@ -73,7 +73,10 @@ var event24App = function() {
                 }
             });
         } else {
-            alert("Sorry , The event is FULL  :}");
+            $('.event-list').on('click', '#join-event', function() {
+                $(this).toggleClass('gray-div');
+                $(this).text('FULL,STOP TICKLING ME!')
+            });
         }
     };
 
