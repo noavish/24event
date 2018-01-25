@@ -15,8 +15,7 @@
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand logo" href="#">2-4 Events</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+        <a class="navbar-brand logo" href="#"></a><img src="24event-logo.png" alt="24Event-"></a>        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
             aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -336,10 +335,21 @@
                             </a>
                         </li>
                     </ul>
+                    <button class="btn btn-secondery comment-btn" id="comment-event">Comment</button>
+                    <input type="text" class="comment-email" placeholder="your Email here">
+                    <input type="text" class="comment-input" placeholder="Your comment">
+                    <hr>
+                    <ul class="comment-container">
+                    </ul>
                 </div>
             </li>
         {{/each}}
   /* xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx */
+    </script>
+    <script id="comment-template" type="text/x-handlebars-template">
+        {{#each comment}}
+            <li><>span>{{userEmail}}</span>{{comment}}</li>
+        {{/each}}
     </script>
     <script src="jquery/dist/jquery.js"></script>
     <script src="bootstrap/dist/js/bootstrap.js"></script>

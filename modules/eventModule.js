@@ -10,6 +10,7 @@ var eventSchema = new mongoose.Schema({
     eventDesc: String,
     maxParticipants: Number,
     attendees: [],
+    comments: []
 });
 // , { usePushEach: true });
 

@@ -45,6 +45,36 @@ var event24App = function() {
             }
         });
     };
+    
+    var addComments = function (eventID, comment) {
+        $.ajax({
+            type: "POST",
+            url: '/events/:eventID',
+            data: comment,
+            processData: false,
+            contentType: false,
+            cache: false,
+            success: function(data) {
+                newComment._id = data.newCommentId;
+                events[eventID].comments.push(newComment);
+                _renderComments(eventID);
+            },
+            error: function(xhr, text, err) {
+                console.log(err);
+            }
+        });
+    };
+
+    function _renderComments(postIndex) {
+        var post = $(".post")[postIndex];
+        $commentsList = $(post).find('.comments-list');
+        $commentsList.empty();
+        var source = $('#comment-template').html();
+        var template = Handlebars.compile(source);
+        var newHTML = template(posts[postIndex].comments[i]);
+        $commentsList.append(newHTML);
+
+    }
 
     var _maxAttendees = function(index) {
         for (var i = 0; i < events.length; i++) {
@@ -122,10 +152,10 @@ var event24App = function() {
     return {
         addEvent: addEvent,
         joinEvent: joinEvent,
-        _renderEvents: _renderEvents,
         venueDetailsFill: venueDetailsFill,
         removeEvent: removeEvent,
-        returnCurrVenueDetails: returnCurrVenueDetails
+        returnCurrVenueDetails: returnCurrVenueDetails,
+        addComments: addComments
     };
 };
 
@@ -225,7 +255,6 @@ $('.event-list').on('click', '.delete-btn', function() {
 
 $('#myModal').on('shown.bs.modal', function() {
     $('#myInput').trigger('show')
-
 });
 
 
@@ -306,5 +335,12 @@ $('.clear-venue').on('click', function () {
     $('#event-venue').val('');
     $('#event-address').val('');
     $('.venueDetails').html('');
+});
+
+$('.event-list').on('click', '#comment-event', function () {
+   var comment = {commentEmail: $(this).siblings('.comment-email').val(),
+       commentInput: $(this).siblings('.comment-input').val()};
+   var eventID = $(this).parents('.event-div').data().id;
+   app.addComments(eventID, comment);
 });
 
