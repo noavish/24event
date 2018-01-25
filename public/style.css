@@ -293,6 +293,15 @@ input {
     }
 }
 
+
+#event-venue {
+    width: 80%;
+}
+
+.venue-name-btn {
+    background-color: #e9e4f0;
+}
+
 @-webkit-keyframes shake {
     10%,
     90% {

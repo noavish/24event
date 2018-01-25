@@ -133,9 +133,9 @@
                                 <label for="exampleFormControlSelect1">Event City</label>
                                 <select class="form-control event-cities">
                                     <option selected>Choose...</option>
-                                    <option class="tel-aviv">Tel Aviv</option>
-                                    <option class="london">London</option>
-                                    <option class="new-york">New York</option>
+                                    <option class="city-select tel-aviv" value="New York, NY">New York, NY</option>
+                                    <option class="city-select london" value="San Francisco, CA">San Francisco, CA</option>
+                                    <option class="city-select new-york" value="Las Vegas, NV">Las Vegas, NV</option>
                                 </select>
                             </div>
                             <div class="row date-time">
@@ -159,11 +159,21 @@
                             </div>
                             <div class="form-group">
                                 <label for="event-venue">Venue Name</label>
-                                <input type="text" class="form-control" id="event-venue" name="event-venue" placeholder="Name of venue where event will be held">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="event-venue" name="event-venue" placeholder="Name of venue where event will be held">
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default venue-name-btn search-venue"><i class="fa fa-search" aria-hidden="true"></i></button>
+                                    </span>
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default venue-name-btn clear-venue"><i class="fa fa-times" aria-hidden="true"></i></button>
+                                    </span>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label for="event-address">Venue Address</label>
                                 <input type="text" class="form-control" id="event-address" name="event-address" placeholder="Street address of venue">
+                            </div>
+                            <div class="venueDetails">
                             </div>
                             <div class="row">
                                 <div class="form-group col-4">
@@ -200,52 +210,62 @@
         </a>
     </div>
     </div>
+    <script id="placeDetails-template" type="text/x-handlebars-template">
+        <div class="APIdetails">
+            <p><span class="badge badge-secondary">{{name}}</span>
+                <span class="badge badge-secondary">{{phone}}</span>
+                <span class="badge badge-secondary">{{price}}</span>
+                <span class="badge badge-secondary">{{rating}} Stars</span>
+            </p>
+        </div>
+    </script>
     <script id="event-template" type="text/x-handlebars-template">
-        <li class="event">
-            <img alt="Disney Junior Live On Tour!" src="{{place.picURL}}" />
-            <div class="info">
-                <div class="event-div" data-id="{{_id}}">
-                    <h2 class="title" data-name="{{eventName}}">{{eventName}}</h2>
-                    <h3>Data : {{eventDate}} </h3>
-                    <p class="desc" data-name="{{eventDesc}}"> {{eventDesc}} </p>
-                    <p data-name="{{place.placeName}}">Venue :{{place.placeName}} </p>
-                    <span>Event Creater :</span>
-                    <p class="user-email" data-name="{{userEmail}}">{{userEmail}}</p>
-                    <button class="btn btn-info" id="join-event">Join Event</button>
-                    <input type="email" placeholder="Enter your email" name="field" class="user-field-email" />
-                    <button class="btn btn-danger delete-btn" id="delete-event"></button>
+        {{#each event}}
+            <li class="event">
+                <img alt="place-image" src="{{place.picURL}}" />
+                <div class="info">
+                    <div class="event-div" data-id="{{_id}}">
+                        <h2 class="title" data-name="{{eventName}}">{{eventName}}  |  {{eventDate}}</h2>
+                        <span>Event Creater: {{userEmail}}</span>
+                        <!--<img alt="place-image" src="" />-->
+                        <p class="desc" data-name="{{eventDesc}}"> {{eventDesc}} </p>
+                        <p data-name="{{place.placeName}}">Venue: {{place.placeName}} </p>
+                        <p data-name="'{{place.address}}">Phone: {{place.phone}}  |  Address: {{place.address}} {{place.eventCity}}</p>
+                        <p data-name="'{{place.rating}}">Rating: {{place.rating}} Stars  |  Price Range: {{place.price}}</p>
+                        <button class="btn btn-info" id="join-event">Join Event</button>
+                        <input type="email" placeholder="Enter your email" name="field" class="user-field-email" />
+                        <button class="btn btn-danger delete-btn" id="delete-event"></button>
+                    </div>
+                    <ul>
+                        <li style="width:33%;">{{attendees.length}}
+                            <span class="fa fa-male"></span>
+                        </li>
+                        <li style="width:34%;">{{maxParticipants}}
+                            <span class="fa fa-child"></span>
+                        </li>
+                    </ul>
                 </div>
-                <ul>
-                    <li style="width:33%;">{{attendees.length}}
-                        <span class="fa fa-male"></span>
-                    </li>
-                    <li style="width:34%;">{{maxParticipants}}
-                        <span class="fa fa-child"></span>
-                    </li>
-                </ul>
-            </div>
-            <div class="social">
-                <ul>
-                    <li class="facebook" style="width:33%;">
-                        <a href="#facebook">
-                            <span class="fa fa-facebook"></span>
-                        </a>
-                    </li>
-                    <li class="twitter" style="width:34%;">
-                        <a href="#twitter">
-                            <span class="fa fa-twitter"></span>
-                        </a>
-                    </li>
-                    <li class="google-plus" style="width:33%;">
-                        <a href="#google-plus">
-                            <span class="fa fa-google-plus"></span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </li>
-
-
+                <div class="social">
+                    <ul>
+                        <li class="facebook" style="width:33%;">
+                            <a href="#facebook">
+                                <span class="fa fa-facebook"></span>
+                            </a>
+                        </li>
+                        <li class="twitter" style="width:34%;">
+                            <a href="#twitter">
+                                <span class="fa fa-twitter"></span>
+                            </a>
+                        </li>
+                        <li class="google-plus" style="width:33%;">
+                            <a href="#google-plus">
+                                <span class="fa fa-google-plus"></span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+        {{/each}}
     </script>
     <script src="jquery/dist/jquery.js"></script>
     <script src="bootstrap/dist/js/bootstrap.js"></script>
