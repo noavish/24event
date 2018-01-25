@@ -57,16 +57,25 @@ app.get('/venueDetails/:venueCity/:venueName', function(request, response) {
 });
 
 
-app.get('/autocomplete/:venueName', function (request, response) {
-client.autocomplete({
-    text: request.params.venueName
-}).then(result => {
-    console.log(result.jsonBody.terms);
-    response.send(result.jsonBody.terms);
-}).catch(e => {
-    console.log(e);
+// app.get('/autocomplete/:venueName', function (request, response) {
+// client.autocomplete({
+//     text: request.params.venueName
+// }).then(result => {
+//     console.log(result.jsonBody.terms);
+//     response.send(result.jsonBody.terms);
+// }).catch(e => {
+//     console.log(e);
+// });
+// });
+
+
+app.get('/autocomplete', function (request, response) {
+    Event.find().populate('place').exec(function (err, events) {
+        if (err) throw err;
+        response.send(events)
+    });
 });
-});
+
 
 //multer storage object 
 var storage = multer.diskStorage({
