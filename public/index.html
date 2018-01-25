@@ -234,6 +234,12 @@
         </div>
     </div>
     </div>
+    <!-- <script id="ratingDetails-template" type="text/x-handlebars-template">
+        <div class="rating">
+            <span>{{stars}} | {{dollars}}</span>
+        </div>
+    </script> -->
+
     <script id="placeDetails-template" type="text/x-handlebars-template">
         <div class="APIdetails">
             <p><span class="badge badge-secondary">{{name}}</span>
@@ -246,37 +252,30 @@
     <script id="event-template" type="text/x-handlebars-template">   
     {{#each event}}
         <li class="event container">
-            <div class="event-div row" data-id="{{_id}}">
+            <div class="event-div" data-id="{{_id}}">
+            <div class="row">
             <div class="thumbnail col-sm-5">
                 <img alt="place-image" alt="Image" src="{{place.picURL}}"/>
+                <!-- <br> -->
             </div>
             <div class="event-info col-sm-7">
-                <!-- <div id="socialShare">
-                    <div class="socialBox pointer">
-                    <span class="fa fa-share-alt"></span>
-                        <div id="socialGallery">
-                            <ul class="socialToolBox" style="list-style: none;">
-                                <li><a class="facebook" href=""><i class="fa fa-facebook"></i></a></li>
-                                <li><a class="google" href=""><i class="fa fa-google-plus"></i></a></li>
-                                <li><a class="twitter" href=""><i class="fa fa-twitter"></i></a></li>                             -->
-                                <!-- <li><a class="instagram" href=""><i class="fa fa-instagram"></i></a></li> -->
-                                <!-- <li><a class="tumblr" href=""><i class="fa fa-tumblr"></i></a></li> -->
-                                <!-- <li><a class="youtube" href=""><i class="fa fa-youtube"></i></a></li> -->
-                            <!-- </ul>
-                        </div>
-                    </div>
-                </div> -->
+                <div id="socialShare">
+            
+                </div>
                 <h2 class="title" data-name="{{eventName}}">{{eventName}}  |  {{eventDate}}</h2>
-                <h4 data-name="{{place.placeName}}">{{place.placeName}}</h4>                    
-                <p class="desc" data-name="{{eventDesc}}">{{eventDesc}}</p>
+                <h4 data-name="{{place.placeName}}">{{place.placeName}}</h4>
+                <ul class="rating" style="list-style: none;">
+                    <li class="stars rating" >{{place.rating}}</li>
+                    <li class="dollar rating" >{{place.price}}</li>
+                </ul>
+                <p data-name="'{{place.address}}">{{place.address}}, {{place.eventCity}}</p>          
+                <h5 class="desc" data-name="{{eventDesc}}">{{eventDesc}}</h5>
                 <div class="profile profile-pic">
                     <img class="profile profile-img" alt="Image" src="{{place.picURL}}"/>                    
                     <p class="profile user-email" data-name="{{userEmail}}">Contact: {{userEmail}}</p>   
                 </div>
-                <p data-name="'{{place.address}}">Phone: {{place.phone}}  |  Address: {{place.address}} {{place.eventCity}}</p>
-                <p data-name="'{{place.rating}}">Rating: {{place.rating}} Stars  |  Price Range: {{place.price}}</p>     
-                <br>
-                <div class="input-group">
+                <!-- <p data-name="'{{place.address}}">Phone: {{place.phone}}  |  Address: {{place.address}} {{place.eventCity}}</p> -->
+                <div class="input-group col-sm-10">
                     <input type="email" placeholder="Enter your email to join event" name="field" class="user-field-email form-control">
                     <div class="input-group-btn">
                         <button class="btn btn-info" id="join-event" type="submit">
@@ -285,15 +284,19 @@
                     </div>
                 </div>
                 <ul class="attendee-count" style="list-style: none;">
-                    <li class="attendees" style="width:33%;">Attending: {{attendees.length}}
-                        <span class="fa fa-male"></span>
-                    </li>
-                    <li class="attendees" style="width:34%;">Space left: {{maxParticipants}}
+                    <li class="attendees" style="width:34%;">{{maxParticipants}} spots left 
                         <span class="fa fa-child"></span>
+                    </li>
+                    <li class="attendees" style="width:33%;">{{attendees.length}} attending
+                            <span class="fa fa-male"></span>
                     </li>
                 </ul>
                 <button class="btn btn-danger delete-btn" id="delete-event"><i class="fa fa-trash"></i></button>
-            </div>     
+            </div>
+            </div>
+            <div class="row comments">
+                <button class="btn btn-info comment-btn" id="comment">Comment</button>  
+            </div>
         </li>
     {{/each}}
     </script>
@@ -303,4 +306,5 @@
     <script src="main.js"></script>
     <script src="handlebartest.js"></script>
 </body>
+
 </html>
