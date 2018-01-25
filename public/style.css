@@ -3,8 +3,16 @@
     margin: auto;
 }
 
+.navbar {
+    position: relative;
+    height: 50px;
+}
+
 .search-bar {
     float: right;
+    position: absolute;
+    top:10%;
+    right:0;
 }
 
 .carousel-inner>.item>img {
@@ -26,6 +34,11 @@
     max-width: 12px;
     margin: 0 3px;
     height: 12px;
+}
+
+.logo {
+    font-family: 'Gloria Hallelujah', cursive;
+    font-weight: 900;    
 }
 
 .carousel-text {
@@ -61,6 +74,8 @@
 
 .upcoming {
     text-align: center;
+    /* font-family: 'Gloria Hallelujah', cursive; */
+    font-weight: 900; 
 }
 
 .footer {
@@ -79,19 +94,22 @@ input {
     width: 190px;
 }
 
-#join-event {
-    position: relative;
-    width: 198px;
+.event-info {
 }
 
 #delete-event {
     float: right;
 }
 
+
 .event-div {
     background: linear-gradient(to right, #d3cce3, #e9e4f0);
     margin-top: 2%;
     text-align: center;
+    position: relative;    
+    border-radius: 4px;
+    
+    
 }
 
 

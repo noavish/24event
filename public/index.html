@@ -16,7 +16,8 @@
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand logo" href="#">2-4 Events</a>
+        <a class="navbar-brand logo" href="#">EatUp</a>
+        <button type="button" class="btn btn-outline-primary btn-sm create-event" data-toggle="modal" data-target="#myModal">Create Event</button>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
             aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -24,7 +25,7 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto" style="list-style: none;">
-                <li class="nav-item dropdown">
+                <!-- <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
                         aria-expanded="false">
                         Explore Events
@@ -34,7 +35,7 @@
                         <a class="dropdown-item" href="#">London</a>
                         <a class="dropdown-item" href="#">New York</a>
                     </div>
-                </li>
+                </li> -->
                 <li class="search-bar">
                     <form class="navbar-form" role="search">
                         <div class="input-group">
@@ -107,9 +108,14 @@
     </div>
     <div class="container">
         <div class="row">
-            <div class="[ col-xs-12 col-sm-offset-2 col-sm-12 ]">
-                <ul class="event-list" style="list-style: none;">
-                    <h1>Upcoming Events</h1>
+            <div class="upcoming col-12">
+            <h1>Upcoming Events</h1>
+            </div>
+        </div>
+        <div class="row">
+            <!-- <div class="[ col-xs-12 col-sm-offset-2 col-sm-12 ]"> -->
+                <ul class="event-list col-12" style="list-style: none;">
+    
                 </ul>
             </div>
         </div>
@@ -266,18 +272,18 @@
                 </div>
                 <h2 class="title" data-name="{{eventName}}">{{eventName}}  |  {{eventDate}}</h2>
                 <h4 data-name="{{place.placeName}}">{{place.placeName}}</h4>
-                <ul class="rating" style="list-style: none;">
-                    <li class="stars rating" >{{place.rating}}</li>
-                    <li class="dollar rating" >{{place.price}}</li>
-                </ul>
+                <div class="rating" style="list-style: none;">
+                    <span class="stars rating" >{{place.rating}} | </span>
+                    <span class="dollar rating" >{{place.price}}</span>
+                </div>
                 <p data-name="'{{place.address}}">{{place.address}}, {{place.eventCity}}</p>          
                 <h5 class="desc" data-name="{{eventDesc}}">{{eventDesc}}</h5>
-                <div class="profile profile-pic">
-                    <img class="profile profile-img" alt="Image" src="{{place.picURL}}"/>                    
-                    <p class="profile user-email" data-name="{{userEmail}}">Contact: {{userEmail}}</p>   
+                <div class="profile profile-pic">                   
+                    <p class="profile user-email" data-name="{{userEmail}}">Host: {{userEmail}}</p>
+                    <img class="profile profile-img" alt="Image" src="{{place.picURL}}"/>    
                 </div>
                 <!-- <p data-name="'{{place.address}}">Phone: {{place.phone}}  |  Address: {{place.address}} {{place.eventCity}}</p> -->
-                <div class="input-group col-sm-10">
+                <div class="input-group col-sm-8">
                     <input type="email" placeholder="Enter your email to join event" name="field" class="user-field-email form-control">
                     <div class="input-group-btn">
                         <button class="btn btn-info" id="join-event" type="submit">
@@ -289,7 +295,7 @@
                     <li class="attendees" style="width:34%;">{{maxParticipants}} spots left 
                         <span class="fa fa-child"></span>
                     </li>
-                    <li class="attendees" style="width:33%;">{{attendees.length}} attending
+                    <li class="attendees" style="width:33%;"> | {{attendees.length}} attending
                             <span class="fa fa-male"></span>
                     </li>
                 </ul>
@@ -297,7 +303,18 @@
             </div>
             </div>
             <div class="row comments">
-                <button class="btn btn-info comment-btn" id="comment">Comment</button>  
+                <button class="btn btn-info comment-btn" id="comment">Comment</button>
+                <div class="input-group col-sm-5">
+                    <input type="text" placeholder="Comment here" name="field" class="form-control comment-text">
+                    <div class="input-group-btn">
+                        <button class="btn btn-info" id="comment-text-btn" type="submit">
+                            Submit
+                        </button>
+                    </div>
+                </div>
+                <div class="comments'list">
+
+                </div>
             </div>
         </li>
     {{/each}}
