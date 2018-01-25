@@ -34,10 +34,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 // Search venue name in yelp
-app.get('/venueDetails/:venueName', function(request, response) {
+app.get('/venueDetails/:venueCity/:venueName', function(request, response) {
     client.search({
         term:`${request.params.venueName}`,
-        location: 'new york, ny'
+        location: `${request.params.venueCity}`
     }).then(result => {
         console.log(result.jsonBody.businesses[0]);
         var venueDetails = {name: result.jsonBody.businesses[0].name,
@@ -156,10 +156,12 @@ app.post('/events/newEvent', function(req, res, next) {
                 eventCity: req.body.eventCity,
                 address: req.body.address,
                 phone: req.body.phone,
-                picURL: req.file.filename,
+                picURL: req.body.picURL,
                 rating: req.body.rating,
                 price: req.body.price
-            });
+              // picURL: req.file.filename,
+
+          });
 
             place.save(function(err, place) {
                 if (err) throw err

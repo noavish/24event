@@ -9,26 +9,24 @@
     <link rel="stylesheet" href="font-awesome/css/font-awesome.css">
     <link rel="stylesheet" href="easy-autocomplete/dist/easy-autocomplete.css">
     <link href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah|Indie+Flower" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.3/TweenMax.min.js"></script>
     <link rel="stylesheet" href="style.css">
-    <title>2-4 Events</title>
+    <title>2/4 Events</title>
 </head>
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand logo" href="#">2-4 Events</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+            aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Home
-                        <span class="sr-only">(current)</span>
-                    </a>
-                </li>
+            <ul class="navbar-nav mr-auto" style="list-style: none;">
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false">
                         Explore Events
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -110,8 +108,8 @@
     <div class="container">
         <div class="row">
             <div class="[ col-xs-12 col-sm-offset-2 col-sm-12 ]">
-                <ul class="event-list">
-
+                <ul class="event-list" style="list-style: none;">
+                    <h1>Upcoming Events</h1>
                 </ul>
             </div>
         </div>
@@ -134,9 +132,9 @@
                                 <label for="exampleFormControlSelect1">Event City</label>
                                 <select class="form-control event-cities">
                                     <option selected>Choose...</option>
-                                    <option class="tel-aviv">Tel Aviv</option>
-                                    <option class="london">London</option>
-                                    <option class="new-york">New York</option>
+                                    <option class="city-select tel-aviv" value="New York, NY">New York, NY</option>
+                                    <option class="city-select london" value="San Francisco, CA">San Francisco, CA</option>
+                                    <option class="city-select new-york" value="Las Vegas, NV">Las Vegas, NV</option>
                                 </select>
                             </div>
                             <div class="row date-time">
@@ -144,7 +142,7 @@
                                     <label for="event-date">Date</label>
                                     <input type="date" id="event-date" name="event-date">
                                 </div>
-                
+
                                 <div class="form-group col-6">
                                     <label for="event-time">Time</label>
                                     <input type="time" id="event-time" name="event-time">
@@ -156,15 +154,31 @@
                             </div>
                             <div class="form-group">
                                 <label for="event-desc">Event Description</label>
-                                <textarea class="form-control" id="event-desc" name="event-desc" placeholder="Describe your event so people will want to attend" rows="3"></textarea>
+                                <textarea class="form-control" id="event-desc" name="event-desc" placeholder="Describe your event so people will want to attend"
+                                    rows="3"></textarea>
                             </div>
                             <div class="form-group">
                                 <label for="event-venue">Venue Name</label>
-                                <input type="text" class="form-control event-venue " id="event-venue" name="event-venue" placeholder="Name of venue where event will be held">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="event-venue" name="event-venue" placeholder="Name of venue where event will be held">
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default venue-name-btn search-venue">
+                                            <i class="fa fa-search" aria-hidden="true"></i>
+                                        </button>
+                                    </span>
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default venue-name-btn clear-venue">
+                                            <i class="fa fa-times" aria-hidden="true"></i>
+                                        </button>
+                                    </span>
+                                </div>
+
                             </div>
                             <div class="form-group">
                                 <label for="event-address">Venue Address</label>
                                 <input type="text" class="form-control" id="event-address" name="event-address" placeholder="Street address of venue">
+                            </div>
+                            <div class="venueDetails">
                             </div>
                             <div class="row">
                                 <div class="form-group col-4">
@@ -190,63 +204,103 @@
 
     </div>
     <div class="footer">
-        <a href="#">
-            <i class="fa fa-twitter color-twitter"></i>
-        </a>
-        <a href="#">
-            <i class="fa fa-facebook color-facebook"></i>
-        </a>
-        <a href="#">
-            <i class="fa fa-linkedin color-linkedin"></i>
-        </a>
+        <div id="share">
+
+            <!-- facebook -->
+            <a class="facebook" href="https://www.facebook.com/share.php?u={{url}}&title={{title}}" target="blank">
+                <i class="fa fa-facebook"></i>
+            </a>
+
+            <!-- twitter -->
+            <a class="twitter" href="https://twitter.com/intent/tweet?status={{title}}+{{url}}" target="blank">
+                <i class="fa fa-twitter"></i>
+            </a>
+
+            <!-- google plus -->
+            <a class="googleplus" href="https://plus.google.com/share?url={{url}}" target="blank">
+                <i class="fa fa-google-plus"></i>
+            </a>
+
+            <!-- linkedin -->
+            <a class="linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url={{url}}&title={{title}}&source={{source}}"
+                target="blank">
+                <i class="fa fa-linkedin"></i>
+            </a>
+
+            <!-- pinterest -->
+            <a class="pinterest" href="https://pinterest.com/pin/create/bookmarklet/?media={{media}}&url={{url}}&is_video=false&description={{title}}"
+                target="blank">
+                <i class="fa fa-pinterest-p"></i>
+            </a>
+
+        </div>
     </div>
     </div>
-    <script id="event-template" type="text/x-handlebars-template">
-        <li class="event">
-            <img alt="Disney Junior Live On Tour!" src="{{place.picURL}}" />
-            <div class="info">
-                <div class="event-div" data-id="{{_id}}">
-                    <h2 class="title" data-name="{{eventName}}">{{eventName}}</h2>
-                    <h3>Data : {{eventDate}} </h3>
-                    <p class="desc" data-name="{{eventDesc}}"> {{eventDesc}} </p>
-                    <p data-name="{{place.placeName}}">Venue :{{place.placeName}} </p>
-                    <span>Event Creater :</span>
-                    <p class="user-email" data-name="{{userEmail}}">{{userEmail}}</p>
-                    <button class="btn btn-info" id="join-event">Join Event</button>
-                    <input type="email" placeholder="Enter your email" name="field" class="user-field-email" />
-                    <button class="btn btn-danger delete-btn" id="delete-event"></button>
+    <!-- <script id="ratingDetails-template" type="text/x-handlebars-template">
+        <div class="rating">
+            <span>{{stars}} | {{dollars}}</span>
+        </div>
+    </script> -->
+
+    <script id="placeDetails-template" type="text/x-handlebars-template">
+        <div class="APIdetails">
+            <p><span class="badge badge-secondary">{{name}}</span>
+                <span class="badge badge-secondary">{{phone}}</span>
+                <span class="badge badge-secondary">{{price}}</span>
+                <span class="badge badge-secondary">{{rating}} Stars</span>
+            </p>
+        </div>
+    </script>
+    <script id="event-template" type="text/x-handlebars-template">   
+    {{#each event}}
+        <li class="event container">
+            <div class="event-div" data-id="{{_id}}">
+            <div class="row">
+            <div class="thumbnail col-sm-5">
+                <img alt="place-image" alt="Image" src="{{place.picURL}}"/>
+                <!-- <br> -->
+            </div>
+            <div class="event-info col-sm-7">
+                <div id="socialShare">
+            
                 </div>
-                <ul>
-                    <li style="width:33%;">{{attendees.length}}
-                        <span class="fa fa-male"></span>
-                    </li>
-                    <li style="width:34%;">{{maxParticipants}}
+                <h2 class="title" data-name="{{eventName}}">{{eventName}}  |  {{eventDate}}</h2>
+                <h4 data-name="{{place.placeName}}">{{place.placeName}}</h4>
+                <ul class="rating" style="list-style: none;">
+                    <li class="stars rating" >{{place.rating}}</li>
+                    <li class="dollar rating" >{{place.price}}</li>
+                </ul>
+                <p data-name="'{{place.address}}">{{place.address}}, {{place.eventCity}}</p>          
+                <h5 class="desc" data-name="{{eventDesc}}">{{eventDesc}}</h5>
+                <div class="profile profile-pic">
+                    <img class="profile profile-img" alt="Image" src="{{place.picURL}}"/>                    
+                    <p class="profile user-email" data-name="{{userEmail}}">Contact: {{userEmail}}</p>   
+                </div>
+                <!-- <p data-name="'{{place.address}}">Phone: {{place.phone}}  |  Address: {{place.address}} {{place.eventCity}}</p> -->
+                <div class="input-group col-sm-10">
+                    <input type="email" placeholder="Enter your email to join event" name="field" class="user-field-email form-control">
+                    <div class="input-group-btn">
+                        <button class="btn btn-info" id="join-event" type="submit">
+                            Join Event
+                        </button>
+                    </div>
+                </div>
+                <ul class="attendee-count" style="list-style: none;">
+                    <li class="attendees" style="width:34%;">{{maxParticipants}} spots left 
                         <span class="fa fa-child"></span>
                     </li>
+                    <li class="attendees" style="width:33%;">{{attendees.length}} attending
+                            <span class="fa fa-male"></span>
+                    </li>
                 </ul>
+                <button class="btn btn-danger delete-btn" id="delete-event"><i class="fa fa-trash"></i></button>
             </div>
-            <div class="social">
-                <ul>
-                    <li class="facebook" style="width:33%;">
-                        <a href="#facebook">
-                            <span class="fa fa-facebook"></span>
-                        </a>
-                    </li>
-                    <li class="twitter" style="width:34%;">
-                        <a href="#twitter">
-                            <span class="fa fa-twitter"></span>
-                        </a>
-                    </li>
-                    <li class="google-plus" style="width:33%;">
-                        <a href="#google-plus">
-                            <span class="fa fa-google-plus"></span>
-                        </a>
-                    </li>
-                </ul>
+            </div>
+            <div class="row comments">
+                <button class="btn btn-info comment-btn" id="comment">Comment</button>  
             </div>
         </li>
-
-
+    {{/each}}
     </script>
     <script src="jquery/dist/jquery.js"></script>
     <script src="bootstrap/dist/js/bootstrap.js"></script>

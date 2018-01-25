@@ -9,7 +9,6 @@ var event24App = function() {
             datatype: "json",
             success: function(data) {
                 events = data;
-
                 _renderEvents();
             },
             error: function(jqXHR, testStatus) {
@@ -23,13 +22,15 @@ var event24App = function() {
         $(".event-list").empty();
         var source = $("#event-template").html();
         var template = Handlebars.compile(source);
-        for (var i = 0; i < events.length; i++) {
-            var newHTML = template(events[i]);
+        // for (var i = 0; i < events.length; i++) {
+            var newHTML = template({event: events});
             $(".event-list").append(newHTML);
 
-        }
-
+        // }
     };
+
+
+
 
     var addEvent = function(newEvent) {
         $.ajax({
@@ -57,11 +58,10 @@ var event24App = function() {
                 return true
             }
         }
-    }
+    };
 
     var joinEvent = function(eventid, useremail) {
         var index = events.map(function(e) { return e._id; }).indexOf(eventid);
-
         if (_maxAttendees(index)) {
             $.ajax({
                 type: "POST",
@@ -94,20 +94,26 @@ var event24App = function() {
             },
             error: function() {
                 console.log('error');
-
             }
         });
     };
 
-    var venueDetailsFill = function(venueName) {
+
+
+    var venueDetailsFill = function(venueCity, venueName) {
         $.ajax({
             method: "GET",
-            url: `/venueDetails/${venueName}`,
+            url: `/venueDetails/${venueCity}/${venueName}`,
             success: function(data) {
-                console.log(data);
-                currVenueDetails = {data};
+                currVenueDetails = data;
                 console.log(currVenueDetails);
-                $('#event-address').val(data.address);
+                $('#event-address').val(currVenueDetails.address);
+                // $('.venueDetails').html(`${currVenueDetails.data.address}`);
+                var source = $("#placeDetails-template").html();
+                var template = Handlebars.compile(source);
+                var newHTML = template(currVenueDetails);
+                $(".venueDetails").html(newHTML);
+
             },
             error: function(jqXHR, testStatus) {
                 console.log(testStatus);
@@ -116,6 +122,9 @@ var event24App = function() {
         return false;
     };
 
+
+   
+    
     var returnCurrVenueDetails = function () {
         return currVenueDetails;
     };
@@ -163,22 +172,26 @@ $('.cancel-event').on('click', function() {
 });
 
 $('#event-form').submit(function(event) {
+
+    $('#myModal').modal('hide');    
     var currentPlace = app.returnCurrVenueDetails();
-    // alert("form sumbited ")
     event.preventDefault();
+  
     var userEmail = $('#event-creator').val();
     // var placeName = $('#event-venue').val();
     // var eventCity = $('.event-cities').val();
     // var address = $('#event-address').val();
-    var placeName = currentPlace.data.name;
-    var eventCity = currentPlace.data.city;
-    var address = currentPlace.data.address;
-    var phone = currentPlace.data.phone;
-    var picURL = currentPlace.data.picURL;
-    var rating = currentPlace.data.rating;
-    var price = currentPlace.data.price;
+    var placeName = currentPlace.name;
+    var eventCity = currentPlace.city;
+    var address = currentPlace.address;
+    var phone = currentPlace.phone;
+    var picURL = currentPlace.picURL;
+
+    
+    var rating = _renderStars(currentPlace.rating);
+    var price = currentPlace.price;
     var eventDate = $('#event-date').val();
-    var eventTime = $('#event-time').val();
+    // var eventTime = $('#event-time').val();
     var eventName = $('#event-name').val();
     var eventDesc = $('#event-desc').val();
     var maxParticipants = $('#max-num').val();
@@ -194,18 +207,19 @@ $('#event-form').submit(function(event) {
     formData.append('rating', rating);
     formData.append('price', price);
     formData.append('eventDate', eventDate);
-    formData.append('eventTime', eventTime);
+    // formData.append('eventTime', eventTime);
     formData.append('eventName', eventName);
     formData.append('eventDesc', eventDesc);
     formData.append('maxParticipants', maxParticipants);
     formData.append('placeImage', myFile);
 
-    app.addEvent(formData);
+    app.addEvent(formData);    
     // $(this).reset();
     // $('#myInput').trigger('show');
 });
 
 
+//Join event
 $('.event-list').on('click', '#join-event', function() {
     var eventID = $(this).parents('.event-div').data().id
     var userEmail = $(this).siblings('.user-field-email').val()
@@ -220,23 +234,87 @@ $('.event-list').on('click', '.delete-btn', function() {
     // console.log(index);
     app.removeEvent(index);
 });
-//Show form on create event button click
 
+//Show form on create event button click
 $('#myModal').on('shown.bs.modal', function() {
     $('#myInput').trigger('show')
 
 });
 
 
+
+//activate image carousel
 $('.carousel').carousel();
 
-$('#event-venue').on('keyup', function(event) {
-    var venueName = $(this).val();
-    var venueCity = $(this).siblings('.event-cities').val();
-    console.log(venueCity);
-    app.venueDetailsFill(venueName);
 
+//social media share link
+// add this rail gallery effect
+$(document).on('click', '#socialShare > .socialBox', function() {
+    
+      var self = $(this);
+      var element = $('#socialGallery a');
+      var c = 0;
+    
+      if (self.hasClass('animate')) {
+        return;
+      }
+    
+      if (!self.hasClass('open')) {
+    
+        self.addClass('open');
+    
+        TweenMax.staggerTo(element, 0.3, {
+            opacity: 1,
+            visibility: 'visible'
+          },
+          0.075);
+        TweenMax.staggerTo(element, 0.3, {
+            top: -12,
+            ease: Cubic.easeOut
+          },
+          0.075);
+    
+        TweenMax.staggerTo(element, 0.2, {
+            top: 0,
+            delay: 0.1,
+            ease: Cubic.easeOut,
+            onComplete: function() {
+              c++;
+              if (c >= element.length) {
+                self.removeClass('animate');
+              }
+            }
+          },
+          0.075);
+    
+        self.addClass('animate');
+    
+      } else {
+    
+        TweenMax.staggerTo(element, 0.3, {
+            opacity: 0,
+            onComplete: function() {
+              c++;
+              if (c >= element.length) {
+                self.removeClass('open animate');
+                element.css('visibility', 'hidden');
+              };
+            }
+          },
+          0.075);
+      }
+    });
+
+
+
+
+
+$('.search-venue').on('click', function() {
+    var venueName = $('#event-venue').val();
+    var venueCity = $('.event-cities option:selected').text();
+    app.venueDetailsFill(venueCity, venueName);
 });
+
 
 
 
@@ -266,4 +344,19 @@ var options = {
 
 $("#search").easyAutocomplete(options);
 
+
+$('.clear-venue').on('click', function () {
+    $('#event-venue').val('');
+    $('#event-address').val('');
+    $('.venueDetails').html('');
+});
+
+var _renderStars = function(starsNum){
+    let html = '';
+    for(let i=0;i<starsNum;i++){
+        html +='⭐';
+    }
+   
+  return html;
+};
 
