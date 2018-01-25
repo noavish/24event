@@ -22,10 +22,11 @@ var event24App = function() {
         $(".event-list").empty();
         var source = $("#event-template").html();
         var template = Handlebars.compile(source);
-        // for (var i = 0; i < events.length; i++) {
-            var newHTML = template({event: events});
+        for (event of events) {
+            var newHTML = template(event);
             $(".event-list").append(newHTML);
-        // }
+            _renderComments(event._id);
+         }
     };
 
     var addEvent = function(newEvent) {
@@ -53,13 +54,15 @@ var event24App = function() {
             url: `/events/${eventID}/comments`,
             data: comment,
             success: function(data) {
+                console.log(data);
                for(var i = 0 ; i < events.length ; i ++){
-                    if( data._id == events[i]._id){
-                      events[i].comments.push(data);
-                      _renderComments(eventID);
+                    if( data._id === events[i]._id){
+                      events[i] = (data);
+                      
                       break;
                  }
-               };
+               }
+                _renderComments(eventID);
 
                 // events[eventID].comments.push(newComment);
                 // _renderComments(eventID);
@@ -74,14 +77,17 @@ var event24App = function() {
         // console.log($(".event")[eventIndex]);
         // $commentsList = $(".event")[eventIndex].find('.comments-container');
         var index = events.map(function(e) { return e._id; }).indexOf(eventID);
-        var $commentsList = $('.even-list').find(`[data-id=${eventID}]`).closest('.event').find('.comments-container');
+        var $commentsList = $('.event-list').find(`[data-id=${eventID}]`).closest('.event').find('.comments-container');
         $commentsList.empty();
         var source = $('#comment-template').html();
         var template = Handlebars.compile(source);
         console.log(event);
-        let commm = { data : events[index].comments}
-        var newHTML = template(commm);
-        $commentsList.append(newHTML);
+        var comments =  events[index].comments;
+        for(comment of comments){
+            var newHTML = template(comment);
+            $commentsList.append(newHTML);
+        }
+       
 
     }
 

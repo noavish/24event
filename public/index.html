@@ -292,7 +292,6 @@
             <!--</div>-->
         <!--</li>-->
   /* xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx */
-        {{#each event}}
             <li class="event">
                 <img alt="place-image" src="{{place.picURL}}" />
                 <div class="info">
@@ -343,13 +342,10 @@
                     </ul>
                 </div>
             </li>
-        {{/each}}
   /* xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx */
     </script>
     <script id="comment-template" type="text/x-handlebars-template">
-        {{#each data}}
-            <li><>span>{{commentEmail}}</span>{{commentInput}}</li>
-        {{/each}}
+            <li><span>{{commentInput}}</li>
     </script>
     <script src="jquery/dist/jquery.js"></script>
     <script src="bootstrap/dist/js/bootstrap.js"></script>

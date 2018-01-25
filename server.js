@@ -189,7 +189,7 @@ app.post('/events/newEvent', function(req, res, next) {
 app.post('/events/:eventID/comments', function (req, res) {
     if (req.body && req.params.eventID) {
 
-        let comment = {
+        var comment = {
             commentEmail: req.body.commentEmail,
             commentInput: req.body.commentInput
         };
