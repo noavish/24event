@@ -16,7 +16,9 @@
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand logo" href="#">2-4 Events</a>
+
+        <a class="navbar-brand logo" href="#">EatUp</a>
+        <button type="button" class="btn btn-outline-primary btn-sm create-event" data-toggle="modal" data-target="#myModal">Create Event</button>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
             aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -24,17 +26,6 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto" style="list-style: none;">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
-                        aria-expanded="false">
-                        Explore Events
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Tel Aviv</a>
-                        <a class="dropdown-item" href="#">London</a>
-                        <a class="dropdown-item" href="#">New York</a>
-                    </div>
-                </li>
                 <li class="search-bar">
                     <form class="navbar-form" role="search">
                         <div class="input-group">
@@ -107,9 +98,14 @@
     </div>
     <div class="container">
         <div class="row">
-            <div class="[ col-xs-12 col-sm-offset-2 col-sm-12 ]">
-                <ul class="event-list" style="list-style: none;">
-                    <h1>Upcoming Events</h1>
+            <div class="upcoming col-12">
+            <h1>Upcoming Events</h1>
+            </div>
+        </div>
+        <div class="row">
+            <!-- <div class="[ col-xs-12 col-sm-offset-2 col-sm-12 ]"> -->
+                <ul class="event-list col-12" style="list-style: none;">
+    
                 </ul>
             </div>
         </div>
@@ -154,8 +150,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="event-desc">Event Description</label>
-                                <textarea class="form-control" id="event-desc" name="event-desc" placeholder="Describe your event so people will want to attend"
-                                    rows="3"></textarea>
+                                <textarea class="form-control" id="event-desc" name="event-desc" placeholder="Describe your event so people will want to attend" rows="3"></textarea>
                             </div>
                             <div class="form-group">
                                 <label for="event-venue">Venue Name</label>
@@ -222,14 +217,12 @@
             </a>
 
             <!-- linkedin -->
-            <a class="linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url={{url}}&title={{title}}&source={{source}}"
-                target="blank">
+            <a class="linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url={{url}}&title={{title}}&source={{source}}" target="blank">
                 <i class="fa fa-linkedin"></i>
             </a>
 
             <!-- pinterest -->
-            <a class="pinterest" href="https://pinterest.com/pin/create/bookmarklet/?media={{media}}&url={{url}}&is_video=false&description={{title}}"
-                target="blank">
+            <a class="pinterest" href="https://pinterest.com/pin/create/bookmarklet/?media={{media}}&url={{url}}&is_video=false&description={{title}}" target="blank">
                 <i class="fa fa-pinterest-p"></i>
             </a>
 
@@ -251,8 +244,8 @@
             </p>
         </div>
     </script>
-    <script id="event-template" type="text/x-handlebars-template">   
-    {{#each event}}
+    <script id="event-template" type="text/x-handlebars-template">
+        {{#each event}}
         <li class="event container">
             <div class="event-div" data-id="{{_id}}">
             <div class="row">
@@ -266,30 +259,41 @@
                 </div>
                 <h2 class="title" data-name="{{eventName}}">{{eventName}}  |  {{eventDate}}</h2>
                 <h4 data-name="{{place.placeName}}">{{place.placeName}}</h4>
-                <ul class="rating" style="list-style: none;">
-                    <li class="stars rating" >{{place.rating}}</li>
-                    <li class="dollar rating" >{{place.price}}</li>
-                </ul>
+                <div class="rating" style="list-style: none;">
+                    <span class="stars rating" >{{place.rating}} | </span>
+                    <span class="dollar rating" >{{place.price}}</span>
+                </div>
                 <p data-name="'{{place.address}}">{{place.address}}, {{place.eventCity}}</p>          
                 <h5 class="desc" data-name="{{eventDesc}}">{{eventDesc}}</h5>
+
                 <div class="profile profile-pic">
                     <img class="profile profile-img" alt="Image" src="{{userPic}}"/>                    
                     <p class="profile user-email" data-name="{{userEmail}}">Contact: {{userEmail}}</p>   
                 </div>
                 <!-- <p data-name="'{{place.address}}">Phone: {{place.phone}}  |  Address: {{place.address}} {{place.eventCity}}</p> -->
-                <div class="input-group col-sm-10">
+                <div class="input-group col-sm-8">
                     <input type="email" placeholder="Enter your email to join event" name="field" class="user-field-email form-control">
                     <div class="input-group-btn">
                         <button class="btn btn-info" id="join-event" type="submit">
                             Join Event
                         </button>
+                        </div>
                     </div>
+                    <ul class="attendee-count" style="list-style: none;">
+                        <li class="attendees" style="width:33%;">Attending: {{attendees.length}}
+                            <span class="fa fa-male"></span>
+                        </li>
+                        <li class="attendees" style="width:34%;">Space left: {{maxParticipants}}
+                            <span class="fa fa-child"></span>
+                        </li>
+                    </ul>
+                    <button class="btn btn-danger delete-btn" id="delete-event"><i class="fa fa-trash"></i></button>
                 </div>
                 <ul class="attendee-count" style="list-style: none;">
                     <li class="attendees" style="width:34%;">{{maxParticipants}} spots left 
                         <span class="fa fa-child"></span>
                     </li>
-                    <li class="attendees" style="width:33%;">{{attendees.length}} attending
+                    <li class="attendees" style="width:33%;"> | {{attendees.length}} attending
                             <span class="fa fa-male"></span>
                     </li>
                 </ul>
@@ -297,10 +301,21 @@
             </div>
             </div>
             <div class="row comments">
-                <button class="btn btn-info comment-btn" id="comment">Comment</button>  
+                <button class="btn btn-info comment-btn" id="comment">Comment</button>
+                <div class="input-group col-sm-5">
+                    <input type="text" placeholder="Comment here" name="field" class="form-control comment-text">
+                    <div class="input-group-btn">
+                        <button class="btn btn-info" id="comment-text-btn" type="submit">
+                            Submit
+                        </button>
+                    </div>
+                </div>
+                <div class="comments'list">
+
+                </div>
             </div>
         </li>
-    {{/each}}
+        {{/each}}
     </script>
     <script src="jquery/dist/jquery.js"></script>
     <script src="bootstrap/dist/js/bootstrap.js"></script>
