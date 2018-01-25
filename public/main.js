@@ -46,18 +46,23 @@ var event24App = function() {
         });
     };
     
-    var addComments = function (eventID, comment) {
+    var addComments = function (eventID, comment, eventIndex) {
+        console.log(comment);
         $.ajax({
             type: "POST",
-            url: '/events/:eventID',
+            url: `/events/${eventID}/comments`,
             data: comment,
-            processData: false,
-            contentType: false,
-            cache: false,
             success: function(data) {
-                newComment._id = data.newCommentId;
-                events[eventID].comments.push(newComment);
-                _renderComments(eventID);
+               for(var i = 0 ; i < events.length ; i ++){
+                    if( data._id == events[i]._id){
+                      events[i].comments.push(data);
+                      _renderComments(eventID);
+                      break;
+                 }
+               };
+
+                // events[eventID].comments.push(newComment);
+                // _renderComments(eventID);
             },
             error: function(xhr, text, err) {
                 console.log(err);
@@ -65,13 +70,17 @@ var event24App = function() {
         });
     };
 
-    function _renderComments(postIndex) {
-        var post = $(".post")[postIndex];
-        $commentsList = $(post).find('.comments-list');
+    function _renderComments(eventID) {
+        // console.log($(".event")[eventIndex]);
+        // $commentsList = $(".event")[eventIndex].find('.comments-container');
+        var index = events.map(function(e) { return e._id; }).indexOf(eventID);
+        var $commentsList = $('.even-list').find(`[data-id=${eventID}]`).closest('.event').find('.comments-container');
         $commentsList.empty();
         var source = $('#comment-template').html();
         var template = Handlebars.compile(source);
-        var newHTML = template(posts[postIndex].comments[i]);
+        console.log(event);
+        let commm = { data : events[index].comments}
+        var newHTML = template(commm);
         $commentsList.append(newHTML);
 
     }
@@ -340,7 +349,9 @@ $('.clear-venue').on('click', function () {
 $('.event-list').on('click', '#comment-event', function () {
    var comment = {commentEmail: $(this).siblings('.comment-email').val(),
        commentInput: $(this).siblings('.comment-input').val()};
-   var eventID = $(this).parents('.event-div').data().id;
-   app.addComments(eventID, comment);
+   var eventID = $(this).parents('.social').siblings('.info').children('.event-div').data().id;
+   var eventIndex = $(this).parents('.event').index();
+
+    app.addComments(eventID, comment, eventIndex);
 });
 

@@ -39,7 +39,7 @@ app.get('/venueDetails/:venueCity/:venueName', function(request, response) {
         term:`${request.params.venueName}`,
         location: `${request.params.venueCity}`
     }).then(result => {
-        console.log(result.jsonBody.businesses[0]);
+        // console.log(result.jsonBody.businesses[0]);
         var venueDetails = {name: result.jsonBody.businesses[0].name,
                             address: result.jsonBody.businesses[0].location.address1,
                             city: result.jsonBody.businesses[0].location.city,
@@ -48,7 +48,7 @@ app.get('/venueDetails/:venueCity/:venueName', function(request, response) {
                             rating: result.jsonBody.businesses[0].rating,
                             price: result.jsonBody.businesses[0].price};
         response.send(venueDetails);
-        console.log(venueDetails);
+        // console.log(venueDetails);
     }).catch(error => {
             console.log(err);
     });
@@ -162,7 +162,8 @@ app.post('/events/newEvent', function(req, res, next) {
                     eventName: req.body.eventName,
                     eventDesc: req.body.eventDesc,
                     maxParticipants: req.body.maxParticipants,
-                    attendees: []
+                    attendees: [],
+                    comments: []
                 });
                 event.save(function(err, event) {
                     if (err) throw err
@@ -184,6 +185,28 @@ app.post('/events/newEvent', function(req, res, next) {
 });
 //get - get event from DB
 
+//Add comments
+app.post('/events/:eventID/comments', function (req, res) {
+    if (req.body && req.params.eventID) {
+
+        let comment = {
+            commentEmail: req.body.commentEmail,
+            commentInput: req.body.commentInput
+        };
+        Event.findOne({_id: req.params.eventID}, function (err, event) {
+            if (err) throw err;
+            var commentsLength = event.comments.push(comment);
+            event.save(function(err , data){
+                if (err) {
+                    throw err;
+                }
+                res.send(data);
+            });
+        });
+    } else{
+        res.send({status: "nok", message: "Nothing received."});
+    }
+});
 
 //put - add participant to event
 app.post('/events/:eventid/users/:useremail', function(req, res) {
@@ -191,7 +214,7 @@ app.post('/events/:eventid/users/:useremail', function(req, res) {
     var email = req.body;
     Event.findByIdAndUpdate({ _id: eventid }, { $push: { attendees: email } }, { new: true }, function(err, specificEvent) {
         if (err) throw err;
-        console.log(specificEvent)
+
         res.send(specificEvent);
     })
 });
