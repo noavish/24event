@@ -36,26 +36,48 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // Search venue name in yelp
 app.get('/venueDetails/:venueCity/:venueName', function(request, response) {
     client.search({
-        term:`${request.params.venueName}`,
+        term: `${request.params.venueName}`,
         location: `${request.params.venueCity}`
     }).then(result => {
-        // console.log(result.jsonBody.businesses[0]);
-        var venueDetails = {name: result.jsonBody.businesses[0].name,
-                            address: result.jsonBody.businesses[0].location.address1,
-                            city: result.jsonBody.businesses[0].location.city,
-                            phone: result.jsonBody.businesses[0].phone,
-                            picURL: result.jsonBody.businesses[0].image_url,
-                            rating: result.jsonBody.businesses[0].rating,
-                            price: result.jsonBody.businesses[0].price};
+        console.log(result.jsonBody.businesses[0]);
+        var venueDetails = {
+            name: result.jsonBody.businesses[0].name,
+            address: result.jsonBody.businesses[0].location.address1,
+            city: result.jsonBody.businesses[0].location.city,
+            phone: result.jsonBody.businesses[0].phone,
+            picURL: result.jsonBody.businesses[0].image_url,
+            rating: result.jsonBody.businesses[0].rating,
+            price: result.jsonBody.businesses[0].price
+        };
         response.send(venueDetails);
         // console.log(venueDetails);
     }).catch(error => {
-            console.log(err);
+        console.log(err);
     });
 });
 
 
-//multer storage object 
+// app.get('/autocomplete/:venueName', function (request, response) {
+// client.autocomplete({
+//     text: request.params.venueName
+// }).then(result => {
+//     console.log(result.jsonBody.terms);
+//     response.send(result.jsonBody.terms);
+// }).catch(e => {
+//     console.log(e);
+// });
+// });
+
+
+app.get('/autocomplete', function (request, response) {
+    Event.find().populate('place').exec(function (err, events) {
+        if (err) throw err;
+        response.send(events)
+    });
+});
+
+
+//multer storage object
 var storage = multer.diskStorage({
     destination: function(request, file, callback) {
         callback(null, "./uploads");
@@ -140,7 +162,7 @@ app.post('/events/newEvent', function(req, res, next) {
                 return next(err);
             }
 
-          var place = new Place({
+            var place = new Place({
                 placeName: req.body.placeName,
                 eventCity: req.body.eventCity,
                 address: req.body.address,
@@ -148,26 +170,28 @@ app.post('/events/newEvent', function(req, res, next) {
                 picURL: req.body.picURL,
                 rating: req.body.rating,
                 price: req.body.price
-              // picURL: req.file.filename,
+                    // picURL: req.file.filename,
 
-          });
+            });
 
             place.save(function(err, place) {
                 if (err) throw err
+                console.log(req.body.eventTime)
                 var event = new Event({
                     userEmail: req.body.userEmail,
                     place: place,
                     eventDate: req.body.eventDate,
-                    // eventTime: req.body.eventTime,
+                    eventTime: req.body.eventTime,
                     eventName: req.body.eventName,
                     eventDesc: req.body.eventDesc,
+                    userPic  : req.file.filename,
                     maxParticipants: req.body.maxParticipants,
                     attendees: [],
                     comments: []
                 });
                 event.save(function(err, event) {
                     if (err) throw err
-                    // console.log(eventwithPlace);
+                    console.log(event);
                     // res.json(eventwithPlace);
 
                     Event.findOne({ _id: event._id }).populate('place').exec(function(err, eventwithPlace) {

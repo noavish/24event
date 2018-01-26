@@ -94,6 +94,7 @@ input {
     text-align: center;
 }
 
+
 /* Set uploaded image as thumbnail */
 
 .thumbnail {
@@ -115,7 +116,7 @@ input {
     transform: translate(-50%, -50%);
 }
 
-.thumbnail img.event-img {
+.thumbnail img.place-image {
     /* width: 100%; */
     height: 100%;
     /* height: auto; */
@@ -147,87 +148,88 @@ input {
 }
 
 .profile {
-    display: inline;    
+    display: inline;
 }
 
 
 /* social media footer */
 
+
 /* container */
 
 #share {
-	width: 100%;
-  	margin: 100px auto;
-  	text-align: center;
+    width: 100%;
+    margin: 100px auto;
+    text-align: center;
 }
+
 
 /* buttons */
 
 #share a {
-	width: 50px;
-  	height: 50px;
-  	display: inline-block;
-  	margin: 8px;
-  	border-radius: 50%;
-  	font-size: 24px;
-  	color: #fff;
-	opacity: 0.75;
-	transition: opacity 0.15s linear;
+    width: 50px;
+    height: 50px;
+    display: inline-block;
+    margin: 8px;
+    border-radius: 50%;
+    font-size: 24px;
+    color: #fff;
+    opacity: 0.75;
+    transition: opacity 0.15s linear;
 }
 
 #share a:hover {
-	opacity: 1;
+    opacity: 1;
 }
+
 
 /* icons */
 
 #share i {
-  	position: relative;
-  	top: 50%;
-  	transform: translateY(-50%);
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
 }
+
 
 /* colors */
 
 .facebook {
- 	background: #3b5998;
+    background: #3b5998;
 }
 
 .twitter {
-  	background: #55acee;
+    background: #55acee;
 }
 
 .googleplus {
-  	background: #dd4b39;
+    background: #dd4b39;
 }
 
 .linkedin {
-  	background: #0077b5;
+    background: #0077b5;
 }
 
 .pinterest {
-  	background: #cb2027;
+    background: #cb2027;
 }
-
-
 
 
 /* social media share link */
 
-*,
+
+/* *,
 *:before,
 *:after {
   -webkit-box-sizing: content-box;
   -moz-box-sizing: content-box;
   box-sizing: content-box;
 }
-
 #socialShare {
   width: 100%;
   margin-top: 15px;
   text-align: center;
 }
-
 #socialShare a,
 #socialShare > .socialBox {
   position: relative;
@@ -243,12 +245,9 @@ input {
   text-align: center;
   border-radius: 50%;
 }
-
 #socialShare  a {
   background-color: rgba(0, 0, 0, 0.2);
 }
-
-
 #socialShare > * > span {
   background-color: rgba(0, 0, 0, 0.6);
   box-shadow: 0 0 0 5px rgba(0, 0, 0, 0.15);
@@ -276,7 +275,8 @@ input {
   -webkit-transition: all .15s ease-in-out;
   -moz-transition: all .15s ease-in-out;
   transition: all .15s ease-in-out;
-}
+} */
+
 
 /* #socialGallery {
   left: 50%;
@@ -288,53 +288,53 @@ input {
 } */
 
 #socialGallery a {
-  visibility: hidden;
-  opacity: 0;
-  margin: 5px 2px;
-  background-color: rgba(0, 0, 0, 0.6);
-  position: relative;
-  top: 10px;
+    visibility: hidden;
+    opacity: 0;
+    margin: 5px 2px;
+    background-color: rgba(0, 0, 0, 0.6);
+    position: relative;
+    top: 10px;
 }
 
-#socialGallery a > span {
-  position: relative;
-  top: 4px;
-  left: 4px;
-  border-radius: 50%;
-  -moz-border-radius: 50%;
-  -webkit-border-radius: 50%;
+#socialGallery a>span {
+    position: relative;
+    top: 4px;
+    left: 4px;
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
 }
 
 .socialToolBox {
-  cursor: default;
+    cursor: default;
 }
 
 .pointer {
-  cursor: pointer
+    cursor: pointer
 }
 
 .facebook:hover {
-  background: #3b5998 !important
+    background: #3b5998 !important
 }
 
 .google:hover {
-  background: #dd4b39 !important
+    background: #dd4b39 !important
 }
 
 .instagram:hover {
-  background: #517fa4 !important
+    background: #517fa4 !important
 }
 
 .tumblr:hover {
-  background: #32506d !important
+    background: #32506d !important
 }
 
 .twitter:hover {
-  background: #00aced !important
+    background: #00aced !important
 }
 
 .youtube:hover {
-  background: #bb0000 !important
+    background: #bb0000 !important
 }
 
 @media only screen and (max-width: 480px) {
@@ -352,12 +352,25 @@ input {
         -webkit-perspective: 1000px;
         perspective: 1000px;
     }
+.gray-div {
+    -webkit-animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+    animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-perspective: 1000px;
+    perspective: 1000px;
+}
 
     #delete-event {
         top: 262px;
         position: absolute;
         right: 0px;
     }
+#delete-event {
+    float: right;
+}
 
     @media (min-width: 768px) {
         .event-list > li {
@@ -471,6 +484,145 @@ input {
             transform: translate3d(4px, 0, 0);
         }
     }
+@-webkit-keyframes shake {
+    10%,
+    90% {
+        -webkit-transform: translate3d(-1px, 0, 0);
+        transform: translate3d(-1px, 0, 0);
+    }
+    20%,
+    80% {
+        -webkit-transform: translate3d(2px, 0, 0);
+        transform: translate3d(2px, 0, 0);
+    }
+    30%,
+    50%,
+    70% {
+        -webkit-transform: translate3d(-4px, 0, 0);
+        transform: translate3d(-4px, 0, 0);
+    }
+    40%,
+    60% {
+        -webkit-transform: translate3d(4px, 0, 0);
+        transform: translate3d(4px, 0, 0);
+    }
+}
+
+@keyframes shake {
+    10%,
+    90% {
+        -webkit-transform: translate3d(-1px, 0, 0);
+        transform: translate3d(-1px, 0, 0);
+    }
+    20%,
+    80% {
+        -webkit-transform: translate3d(2px, 0, 0);
+        transform: translate3d(2px, 0, 0);
+    }
+    30%,
+    50%,
+    70% {
+        -webkit-transform: translate3d(-4px, 0, 0);
+        transform: translate3d(-4px, 0, 0);
+    }
+    40%,
+    60% {
+        -webkit-transform: translate3d(4px, 0, 0);
+        transform: translate3d(4px, 0, 0);
+    }
+}
+
+.navbar {
+    height: 50px;
+}
+
+.logo {
+    font-family: 'Gloria Hallelujah', cursive;
+}
+
+@media only screen and (max-width: 480px) {
+    #socialGallery {
+        width: 120px;
+    }
+    @media (min-width: 768px) {
+        .event-list>li {
+            position: relative;
+            display: block;
+            width: 100%;
+            height: 300px;
+            padding: 0px;
+            margin: 60px 0;
+        }
+        .event-list>li>time,
+        .event-list>li>img {
+            display: inline-block;
+        }
+        .event-list>li>time,
+        .event-list>li>img {
+            width: 200px;
+            float: left;
+        }
+        .event-list>li>.info {
+            background-color: rgb(245, 245, 245);
+            overflow: hidden;
+        }
+        .event-list>li>img {
+            width: 300px;
+            height: 300px;
+            padding: 0px;
+            margin: 0px;
+        }
+        .event-list>li>.info {
+            text-align: center;
+            position: relative;
+            height: 300px;
+            /* text-align: left; */
+            padding-right: 40px;
+        }
+        .event-list>li>.info>.title,
+        .event-list>li>.info>.desc {
+            padding: 0px 10px;
+        }
+        .event-list>li>.info>ul {
+            position: absolute;
+            left: 0px;
+            bottom: 0px;
+        }
+        .event-list>li>.social {
+            position: absolute;
+            top: 0px;
+            right: 0px;
+            display: block;
+            width: 40px;
+        }
+        .event-list>li>.social>ul {
+            border-left: 1px solid rgb(230, 230, 230);
+        }
+        .event-list>li>.social>ul>li {
+            display: block;
+            padding: 0px;
+        }
+        .event-list>li>.social>ul>li>a {
+            display: block;
+            width: 40px;
+            padding: 10px 0px 9px;
+        }
+        .event {
+            margin: 60px 0;
+        }
+    }
+    #event-venue {
+        width: 80%;
+    }
+    .venue-name-btn {
+        background-color: #e9e4f0;
+    }
+}
+
+.rating {
+    display: inline;
+    text-align: center;
+}
 
     @keyframes shake {
         10%,
@@ -499,4 +651,11 @@ input {
     #event-logo {
         width: 114px;
     }
+.dollar {
+    color: green;
+    font-weight: 900;
+    display: inline;
+    text-align: center;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: black;
 }
