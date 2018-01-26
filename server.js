@@ -57,16 +57,16 @@ app.get('/venueDetails/:venueCity/:venueName', function(request, response) {
 });
 
 
-// app.get('/autocomplete/:venueName', function (request, response) {
-// client.autocomplete({
-//     text: request.params.venueName
-// }).then(result => {
-//     console.log(result.jsonBody.terms);
-//     response.send(result.jsonBody.terms);
-// }).catch(e => {
-//     console.log(e);
-// });
-// });
+app.get('/autocomplete/:venueName', function (request, response) {
+client.autocomplete({
+    text: request.params.venueName
+}).then(result => {
+    console.log(result.jsonBody.terms);
+    response.send(result.jsonBody.terms);
+}).catch(e => {
+    console.log(e);
+});
+});
 
 
 app.get('/autocomplete', function (request, response) {
@@ -104,56 +104,6 @@ app.get('/events', function(req, res) {
 });
 
 
-//post - create new event - user section
-// app.post('/events/newEvent/newUser', function (req, res) {
-//     if (req.body) {
-//         console.log(req.body);
-//         if (!(User.findOne({userName : req.body.userName}))){
-//             var user = new User ({
-//                 userName = req.body.userName,
-//                 userRating = req.body.userRating,
-//                 userBio = req.body.userBio,
-//                 participatedEvents = []
-//             });
-//             user.save(function(err , user) {
-//                 if (err) {
-//                     throw err;
-//                 }
-//                 res.send(user._id);
-//             });
-//         } else {
-//         res.send(User._id);
-//         }
-//     } else{
-//         res.send({status: "nok", message: "Nothing received."});
-//     }
-// });
-
-//post - create new event - place section
-// app.post('/events/newEvent/newPlace', function (req, res) {
-//     if (req.body) {
-//         console.log(req.body);
-//
-//         var place = new Place({
-//             placeName: req.body.placeName,
-//             address: req.body.address,
-//             phone: req.body.phone,
-//             picURL: req.body.picURL,
-//             review: req.body.review
-//         });
-//
-//         place.save(function(err , place){
-//             if (err) {
-//                 throw err;
-//             }
-//             console.log(place);
-//             res.send(place);
-//         });
-//     } else{
-//         res.send({status: "nok", message: "Nothing received."});
-//     }
-// });
-
 //post - create new event - event section
 app.post('/events/newEvent', function(req, res, next) {
     if (req.body) {
@@ -170,8 +120,6 @@ app.post('/events/newEvent', function(req, res, next) {
                 picURL: req.body.picURL,
                 rating: req.body.rating,
                 price: req.body.price
-                    // picURL: req.file.filename,
-
             });
 
             place.save(function(err, place) {
@@ -242,12 +190,14 @@ app.post('/events/:eventid/users/:useremail', function(req, res) {
         res.send(specificEvent);
     })
 });
+
 //delete - remove event from DB
 app.delete('/events/:id', function(req, res) {
-    Event.findByIdAndRemove(req.params.id, function(err, post) {
+    Event.findByIdAndRemove(req.params.id, function(err, event) {
         if (!err) {
+            console.log (event);
             console.log('succeeded');
-            res.status(200).send();
+            res.status(200).send(req.params.id);
         } else
             console.log(err);
     });
@@ -259,32 +209,13 @@ app.use(function(err, req, res, next) {
     throw ("error");
     res.status(404).sendFile(__dirname + '/public/404.html') //we need to create 404 page
 
-})
+});
 
 //500
 app.use(function(err, req, res, next) {
     console.error(err.stack)
     res.status(500).send("500 Server Error");
-})
-
-//delete - remove event from DB
-
-//------tamplate route 
-
-
-// app.post('/createvent', (req, res) => {
-//     var event = new Event({
-//         eventCreator: ,
-//         attendees: ,
-//         eventDate: ,
-//         maxParticipants: ,
-//         eventPlace:
-//     })
-//     event.save(function(err, data) {
-//         if (err) throw error;
-//         else res.send(data);
-//     });
-// })
+});
 
 
 
