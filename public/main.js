@@ -17,20 +17,8 @@ var event24App = function() {
             }
         });
     };
+
     fetch();
-
-    var _renderEvents = function() {
-        $(".event-list").empty();
-        var source = $("#event-template").html();
-        var template = Handlebars.compile(source);
-        // for (var i = 0; i < events.length; i++) {
-        var newHTML = template({ event: events });
-        $(".event-list").append(newHTML);
-        // }
-    };
-
-
-
 
     var addEvent = function(newEvent) {
         $.ajax({
@@ -49,6 +37,54 @@ var event24App = function() {
             }
         });
     };
+
+    var _renderEvents = function() {
+        $(".event-list").empty();
+        var source = $("#event-template").html();
+        var template = Handlebars.compile(source);
+
+        for (event of events) {
+            var newHTML = template(event);
+            $(".event-list").append(newHTML);
+            _renderComments(event._id);
+        }
+    };
+
+    var addComments = function (eventID, comment, eventIndex) {
+        console.log(comment);
+        $.ajax({
+            type: "POST",
+            url: `/events/${eventID}/comments`,
+            data: comment,
+            success: function(data) {
+                console.log(data);
+               for(var i = 0 ; i < events.length ; i ++){
+                    if( data._id === events[i]._id){
+                      events[i] = (data);
+                      break;
+                 }
+               }
+                _renderComments(eventID);
+            },
+            error: function(xhr, text, err) {
+                console.log(err);
+            }
+        });
+    };
+
+    function _renderComments(eventID) {
+        var index = events.map(function(e) { return e._id; }).indexOf(eventID);
+        var $commentsList = $('.event-list').find(`[data-id=${eventID}]`).closest('.event').find('.comments-container');
+        $commentsList.empty();
+        var source = $('#comment-template').html();
+        var template = Handlebars.compile(source);
+        console.log(event);
+        var comments =  events[index].comments;
+        for(comment of comments){
+            var newHTML = template(comment);
+            $commentsList.append(newHTML);
+        }
+    }
 
     var _maxAttendees = function(index) {
         for (var i = 0; i < events.length; i++) {
@@ -70,7 +106,6 @@ var event24App = function() {
                 success: function(data) {
                     events = data;
                     fetch();
-
                 },
                 error: function(xhr, text, err) {
                     console.log(err);
@@ -89,16 +124,19 @@ var event24App = function() {
             type: 'DELETE',
             url: '/events/' + index,
             success: function(data) {
-                console.log('success');
-                fetch();
+                for (var i=0; i<events.length; i++) {
+                    if (data === events[i]._id) {
+                        events.splice(i, 1);
+                        break;
+                    }
+                }
+                _renderEvents();
             },
             error: function() {
                 console.log('error');
             }
         });
     };
-
-
 
     var venueDetailsFill = function(venueCity, venueName) {
         $.ajax({
@@ -121,7 +159,7 @@ var event24App = function() {
         });
         return false;
     };
-    
+
     var returnCurrVenueDetails = function () {
         return currVenueDetails;
     };
@@ -129,63 +167,68 @@ var event24App = function() {
     return {
         addEvent: addEvent,
         joinEvent: joinEvent,
-        _renderEvents: _renderEvents,
         venueDetailsFill: venueDetailsFill,
         removeEvent: removeEvent,
-        returnCurrVenueDetails: returnCurrVenueDetails
+        returnCurrVenueDetails: returnCurrVenueDetails,
+        addComments: addComments
     };
 };
 
 var app = event24App();
 
-// $('.save-event').on('click', function() {
-//     var userEmail = $('#event-creator').val();
-//     var eventCity = $('.event-cities').val();
-//     var eventDate = $('#event-date').val();
-//     var eventTime = $('#event-time').val();
-//     var eventName = $('#event-name').val();
-//     var eventDesc = $('#event-desc').val();
-//     var placeName = $('#event-venue').val();
-//     var address = $('#event-address').val();
-//     var maxParticipants = $('#max-num').val();
-//     var newEvent = {
-//         userEmail: userEmail,
-//         eventCity: eventCity,
-//         eventDate: eventDate,
-//         eventTime: eventTime,
-//         eventName: eventName,
-//         eventDesc: eventDesc,
-//         placeName: placeName,
-//         address: address,
-//         maxParticipants: maxParticipants
-//     };
-//     app.addEvent(newEvent);
-//     $(this).parents('form')[0].reset();
-// });
-
-
 $('.cancel-event').on('click', function() {
     $(this).parents('form')[0].reset();
 });
 
-$('#event-form').submit(function(event) {
+var _renderStars = function(starsNum){
+    let html = '';
+    for(let i=0;i<starsNum;i++){
+        html +='⭐';
+    }
+    return html;
+};
+Handlebars.registerHelper("ratingToStars", _renderStars);
 
+var options = {
+    url : "/autocomplete",
+    getValue: function (element) {
+        return element.place.placeName;
+    },
+    template: {
+        type: "description",
+        fields: {
+            description: "eventDesc",
+        }
+    },
+    list: {
+        match: {
+            enabled: true
+        }
+    },
+    theme: "plate-dark",
+     requestDelay: 400
+};
+
+$("#search").easyAutocomplete(options);
+
+$('.clear-venue').on('click', function () {
+    $('#event-venue').val('');
+    $('#event-address').val('');
+    $('.venueDetails').html('');
+});
+
+$('#event-form').submit(function(event) {
     $('#myModal').modal('hide');
     var currentPlace = app.returnCurrVenueDetails();
     event.preventDefault();
 
     var userEmail = $('#event-creator').val();
-    // var placeName = $('#event-venue').val();
-    // var eventCity = $('.event-cities').val();
-    // var address = $('#event-address').val();
     var placeName = currentPlace.name;
     var eventCity = currentPlace.city;
     var address = currentPlace.address;
     var phone = currentPlace.phone;
     var picURL = currentPlace.picURL;
-
-    
-    var rating = _renderStars(currentPlace.rating);
+    var rating = currentPlace.rating;
     var price = currentPlace.price;
     var eventDate = $('#event-date').val();
     var eventTime = $('#event-time').val();
@@ -211,11 +254,8 @@ $('#event-form').submit(function(event) {
     formData.append('placeImage', myFile);
 
     app.addEvent(formData);
-    // $(this).reset();
-    // $('#myInput').trigger('show');
     $(this)[0].reset();
 });
-
 
 //Join event
 $('.event-list').on('click', '#join-event', function() {
@@ -224,43 +264,31 @@ $('.event-list').on('click', '#join-event', function() {
     app.joinEvent(eventID, userEmail)
 });
 
-
-
 //remove event on click
 $('.event-list').on('click', '.delete-btn', function() {
     var index = $(this).parents('.event-div').data().id;
-    // console.log(index);
     app.removeEvent(index);
 });
 
 //Show form on create event button click
 $('#myModal').on('shown.bs.modal', function() {
     $('#myInput').trigger('show')
-
 });
-
-
 
 //activate image carousel
 $('.carousel').carousel();
 
-
 //social media share link
 // add this rail gallery effect
 $(document).on('click', '#socialShare > .socialBox', function() {
-
     var self = $(this);
     var element = $('#socialGallery a');
     var c = 0;
-
     if (self.hasClass('animate')) {
         return;
     }
-
     if (!self.hasClass('open')) {
-
         self.addClass('open');
-
         TweenMax.staggerTo(element, 0.3, {
                 opacity: 1,
                 visibility: 'visible'
@@ -271,7 +299,6 @@ $(document).on('click', '#socialShare > .socialBox', function() {
                 ease: Cubic.easeOut
             },
             0.075);
-
         TweenMax.staggerTo(element, 0.2, {
                 top: 0,
                 delay: 0.1,
@@ -284,11 +311,8 @@ $(document).on('click', '#socialShare > .socialBox', function() {
                 }
             },
             0.075);
-
         self.addClass('animate');
-
     } else {
-
         TweenMax.staggerTo(element, 0.3, {
                 opacity: 0,
                 onComplete: function() {
@@ -296,16 +320,12 @@ $(document).on('click', '#socialShare > .socialBox', function() {
                     if (c >= element.length) {
                         self.removeClass('open animate');
                         element.css('visibility', 'hidden');
-                    };
+                    }
                 }
             },
             0.075);
     }
 });
-
-
-
-
 
 $('.search-venue').on('click', function() {
     var venueName = $('#event-venue').val();
@@ -319,50 +339,14 @@ $('.clear-venue').on('click', function() {
     $('.venueDetails').html('');
 });
 
+$('.event-list').on('click', '#comment-event', function () {
+   var comment = {commentEmail: $(this).parents('.input-group-btn').siblings('.comment-email').val(),
+       commentInput: $(this).parents('.input-group-btn').siblings('.comment-input').val()};
+   var eventID = $(this).closest('.event-div').data().id;
+   var eventIndex = $(this).closest('.event').index();
 
-
-
-var options = {
-
-
-
-    url : "/autocomplete",
-    getValue: function (element) {
-        return element.place.placeName;
-    },
-    template: {
-        type: "description",
-
-        fields: {
-            description: "eventDesc",
-
-        }
-    },
-  
-    list: {
-        match: {
-            enabled: true
-        }
-    },
-    theme: "plate-dark",
-
-     requestDelay: 400
-};
-
-$("#search").easyAutocomplete(options);
-
-
-$('.clear-venue').on('click', function () {
-    $('#event-venue').val('');
-    $('#event-address').val('');
-    $('.venueDetails').html('');
+    app.addComments(eventID, comment, eventIndex);
 });
 
-var _renderStars = function(starsNum){
-    let html = '';
-    for(let i=0;i<starsNum;i++){
-        html +='⭐';
-    }
-   
-  return html;
-};
+
+
