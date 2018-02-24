@@ -189,6 +189,26 @@ var _renderStars = function(starsNum){
 };
 Handlebars.registerHelper("ratingToStars", _renderStars);
 
+var options = {
+    url : "/autocomplete",
+    getValue: function (element) {
+        return element.place.placeName;
+    },
+    template: {
+        type: "description",
+        fields: {
+            description: "eventDesc",
+        }
+    },
+    list: {
+        match: {
+            enabled: true
+        }
+    },
+    theme: "plate-dark",
+     requestDelay: 400
+};
+
 $("#search").easyAutocomplete(options);
 
 $('.clear-venue').on('click', function () {
@@ -327,27 +347,6 @@ $('.event-list').on('click', '#comment-event', function () {
 
     app.addComments(eventID, comment, eventIndex);
 });
-
-var options = {
-    url : "/autocomplete",
-    getValue: function (element) {
-        return element.place.placeName;
-    },
-    template: {
-        type: "description",
-        fields: {
-            description: "eventDesc",
-        }
-    },
-    list: {
-        match: {
-            enabled: true
-        }
-    },
-    theme: "plate-dark",
-     requestDelay: 400
-};
-
 
 
 
