@@ -1,6 +1,11 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
+var commentSchema = new mongoose.Schema({
+    commentEmail: String,
+    commentInput: String
+});
+
 var eventSchema = new mongoose.Schema({
     userEmail: String,
     place: { type: Schema.Types.ObjectId, ref: 'place' },
@@ -11,6 +16,7 @@ var eventSchema = new mongoose.Schema({
     userPic : String,
     maxParticipants: Number,
     attendees: [],
+    comments: [commentSchema]
 });
 // , { usePushEach: true });
 
